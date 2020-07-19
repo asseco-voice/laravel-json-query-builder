@@ -4,7 +4,6 @@ namespace Voice\JsonQueryBuilder;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Log;
 use Voice\JsonQueryBuilder\Config\ModelConfig;
 use Voice\JsonQueryBuilder\Config\RequestParametersConfig;
 use Voice\JsonQueryBuilder\Exceptions\SearchException;
@@ -12,10 +11,10 @@ use Voice\JsonQueryBuilder\RequestParameters\AbstractParameter;
 
 class JsonQuery
 {
-    protected Builder                 $builder;
-    protected array                   $input;
-    protected ModelConfig             $modelConfig;
-    protected RequestParametersConfig $requestParametersConfig;
+    protected Builder     $builder;
+    protected array       $input;
+    protected ModelConfig $modelConfig;
+    protected array       $registeredParameters;
 
     /*
      * TODO: datum od danas toliko dana
@@ -33,12 +32,20 @@ class JsonQuery
         $this->builder = $builder;
         $this->input = $input;
 
+        $this->forbidForExistingModels();
+
+        $this->modelConfig = new ModelConfig($this->builder->getModel());
+        $this->registeredParameters = (new RequestParametersConfig())->registered;
+    }
+
+    /**
+     * @throws SearchException
+     */
+    protected function forbidForExistingModels(): void
+    {
         if ($this->builder->getModel()->exists) {
             throw new SearchException("[Search] Searching is not allowed on already loaded models.");
         }
-
-        $this->modelConfig = new ModelConfig($builder->getModel());
-        $this->requestParametersConfig = new RequestParametersConfig();
     }
 
     /**
@@ -50,7 +57,6 @@ class JsonQuery
     {
         $this->appendParameterQueries();
         $this->appendConfigQueries();
-        Log::info('[Search] SQL: ' . $this->builder->toSql() . " Bindings: " . implode(', ', $this->builder->getBindings()));
     }
 
     /**
@@ -60,14 +66,15 @@ class JsonQuery
      */
     protected function appendParameterQueries(): void
     {
-        foreach ($this->requestParametersConfig->registered as $requestParameter) {
-            $requestParameter = $this->instantiateRequestParameter($requestParameter);
+        foreach ($this->registeredParameters as $requestParameter) {
 
-            if (!($this->parameterExists($requestParameter))) {
+            if (!$this->parameterExists($requestParameter)) {
+                // append config query?
                 continue;
             }
 
-            $requestParameter->run();
+            $this->instantiateRequestParameter($requestParameter)
+                ->run();
         }
     }
 
@@ -79,13 +86,41 @@ class JsonQuery
         // TODO: implement...or not
     }
 
-    protected function instantiateRequestParameter($requestParameter): AbstractParameter
+    /**
+     * @param string $requestParameter
+     * @return bool
+     */
+    protected function parameterExists(string $requestParameter): bool
     {
-        return new $requestParameter($this->input, $this->builder, $this->modelConfig);
+        /**
+         * @var AbstractParameter $requestParameter
+         */
+        return Arr::has($this->input, $requestParameter::getParameterName());
     }
 
-    protected function parameterExists(AbstractParameter $requestParameter): bool
+    /**
+     * @param $requestParameter
+     * @return AbstractParameter
+     */
+    protected function instantiateRequestParameter($requestParameter): AbstractParameter
     {
-        return Arr::has($this->input, $requestParameter->getParameterName());
+        /**
+         * @var AbstractParameter $requestParameter
+         */
+        $input = $this->wrapInput($requestParameter::getParameterName());
+        return new $requestParameter($input, $this->builder, $this->modelConfig);
+    }
+
+    /**
+     * Get input for given parameter name and wrap it as an array if it's not already an array.
+     *
+     * @param string $parameterName
+     * @return array
+     */
+    protected function wrapInput(string $parameterName): array
+    {
+        return Arr::wrap(
+            Arr::get($this->input, $parameterName)
+        );
     }
 }

@@ -9,7 +9,7 @@ use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class SearchParameter extends AbstractParameter
 {
-    public function getParameterName(): string
+    public static function getParameterName(): string
     {
         return 'search';
     }
@@ -22,6 +22,7 @@ class SearchParameter extends AbstractParameter
         $this->builder->where(function () use ($arguments, $operatorsConfig) {
             foreach ($arguments as $column => $argument) {
                 $searchModel = new Search($this->modelConfig, $operatorsConfig, $column, $argument);
+                // TODO: register to prevent multiple init?
                 $this->appendSingle($operatorsConfig, $searchModel);
             }
         });

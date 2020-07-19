@@ -6,7 +6,7 @@ use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class LimitParameter extends AbstractParameter
 {
-    public function getParameterName(): string
+    public static function getParameterName(): string
     {
         return 'limit';
     }
@@ -20,7 +20,7 @@ class LimitParameter extends AbstractParameter
 
     public function appendQuery(): void
     {
-        $this->builder->limit($this->getArguments()[0]);
+        $this->builder->limit($this->arguments[0]);
     }
 
 

@@ -3,12 +3,16 @@
 namespace Voice\JsonQueryBuilder\Config;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class ModelConfig
 {
+    const CACHE_PREFIX = 'table_def_';
+    const CACHE_TTL = 86400;
+
     private Model $model;
     private array $config;
 
@@ -98,7 +102,6 @@ class ModelConfig
         return $forbiddenKeys;
     }
 
-
     /**
      * Will return column and column type array for a calling model.
      * Column types will equal Eloquent column types
@@ -108,13 +111,19 @@ class ModelConfig
     public function getModelColumns(): array
     {
         $table = $this->model->getTable();
-        $columns = Schema::getColumnListing($table);
 
+        if (Cache::has(self::CACHE_PREFIX . $table)) {
+            return Cache::get(self::CACHE_PREFIX . $table);
+        }
+
+        $columns = Schema::getColumnListing($table);
         $modelColumns = [];
 
         foreach ($columns as $column) {
             $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
         }
+
+        Cache::put(self::CACHE_PREFIX . $table, $modelColumns, self::CACHE_TTL);
 
         return $modelColumns;
     }

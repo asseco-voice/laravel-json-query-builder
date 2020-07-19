@@ -6,7 +6,7 @@ use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class OffsetParameter extends AbstractParameter
 {
-    public function getParameterName(): string
+    public static function getParameterName(): string
     {
         return 'offset';
     }

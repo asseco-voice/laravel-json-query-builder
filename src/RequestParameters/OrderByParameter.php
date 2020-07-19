@@ -4,16 +4,14 @@ namespace Voice\JsonQueryBuilder\RequestParameters;
 
 class OrderByParameter extends AbstractParameter
 {
-    public function getParameterName(): string
+    public static function getParameterName(): string
     {
         return 'order-by';
     }
 
     public function appendQuery(): void
     {
-        $arguments = $this->getArguments();
-
-        foreach ($arguments as $column => $direction) {
+        foreach ($this->arguments as $column => $direction) {
             $this->appendSingle($column, $direction);
         }
     }

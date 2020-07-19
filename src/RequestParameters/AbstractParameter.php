@@ -3,27 +3,25 @@
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Voice\JsonQueryBuilder\Config\ModelConfig;
 use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 abstract class AbstractParameter
 {
-    public array       $input;
     public Builder     $builder;
     public ModelConfig $modelConfig;
     protected array    $arguments;
 
     /**
      * AbstractParameter constructor.
-     * @param array $input
+     * @param array $arguments
      * @param Builder $builder
      * @param ModelConfig $modelConfig
      * @throws SearchException
      */
-    public function __construct(array $input, Builder $builder, ModelConfig $modelConfig)
+    public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
     {
-        $this->input = $input;
+        $this->arguments = $arguments;
         $this->builder = $builder;
         $this->modelConfig = $modelConfig;
     }
@@ -32,7 +30,7 @@ abstract class AbstractParameter
      * JSON key by which the parameter will be recognized.
      * @return string
      */
-    abstract public function getParameterName(): string;
+    abstract public static function getParameterName(): string;
 
     /**
      * Append the query to Eloquent builder
@@ -45,23 +43,8 @@ abstract class AbstractParameter
      */
     public function run()
     {
-        $this->arguments = $this->getArguments();
         $this->areArgumentsValid();
-
         $this->appendQuery();
-    }
-
-    /**
-     * Return values for given JSON key (parameter name)
-     *
-     * @return array
-     * @throws SearchException
-     */
-    protected function getArguments(): array
-    {
-        $rawInput = Arr::get($this->input, $this->getParameterName());
-
-        return Arr::wrap($rawInput);
     }
 
     /**
