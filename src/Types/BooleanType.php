@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\Types;
 
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class BooleanType extends AbstractType
 {

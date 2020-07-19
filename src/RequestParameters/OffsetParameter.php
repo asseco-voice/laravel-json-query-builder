@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class OffsetParameter extends AbstractParameter
 {

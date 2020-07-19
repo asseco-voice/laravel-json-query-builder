@@ -4,8 +4,8 @@ namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Voice\SearchQueryBuilder\Config\ModelConfig;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Config\ModelConfig;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 abstract class AbstractParameter
 {

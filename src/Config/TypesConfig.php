@@ -2,9 +2,9 @@
 
 namespace Voice\JsonQueryBuilder\Config;
 
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\Types\AbstractType;
-use Voice\SearchQueryBuilder\Types\GenericType;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Types\AbstractType;
+use Voice\JsonQueryBuilder\Types\GenericType;
 
 class TypesConfig extends SearchConfig
 {

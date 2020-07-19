@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\SearchQueryBuilder\CategorizedValues;
+use Voice\JsonQueryBuilder\CategorizedValues;
 
 class GreaterThanOrEqual extends AbstractCallback
 {

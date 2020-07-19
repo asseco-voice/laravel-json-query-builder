@@ -1,22 +1,22 @@
 <?php
 
-use Voice\SearchQueryBuilder\RequestParameters\CountParameter;
-use Voice\SearchQueryBuilder\RequestParameters\LimitParameter;
-use Voice\SearchQueryBuilder\RequestParameters\OffsetParameter;
-use Voice\SearchQueryBuilder\RequestParameters\OrderByParameter;
-use Voice\SearchQueryBuilder\RequestParameters\RelationsParameter;
-use Voice\SearchQueryBuilder\RequestParameters\ReturnsParameter;
-use Voice\SearchQueryBuilder\RequestParameters\SearchParameter;
-use Voice\SearchQueryBuilder\SearchCallbacks\Between;
-use Voice\SearchQueryBuilder\SearchCallbacks\Equals;
-use Voice\SearchQueryBuilder\SearchCallbacks\GreaterThan;
-use Voice\SearchQueryBuilder\SearchCallbacks\GreaterThanOrEqual;
-use Voice\SearchQueryBuilder\SearchCallbacks\LessThan;
-use Voice\SearchQueryBuilder\SearchCallbacks\LessThanOrEqual;
-use Voice\SearchQueryBuilder\SearchCallbacks\NotBetween;
-use Voice\SearchQueryBuilder\SearchCallbacks\NotEquals;
-use Voice\SearchQueryBuilder\Types\BooleanType;
-use Voice\SearchQueryBuilder\Types\GenericType;
+use Voice\JsonQueryBuilder\RequestParameters\CountParameter;
+use Voice\JsonQueryBuilder\RequestParameters\LimitParameter;
+use Voice\JsonQueryBuilder\RequestParameters\OffsetParameter;
+use Voice\JsonQueryBuilder\RequestParameters\OrderByParameter;
+use Voice\JsonQueryBuilder\RequestParameters\RelationsParameter;
+use Voice\JsonQueryBuilder\RequestParameters\ReturnsParameter;
+use Voice\JsonQueryBuilder\RequestParameters\SearchParameter;
+use Voice\JsonQueryBuilder\SearchCallbacks\Between;
+use Voice\JsonQueryBuilder\SearchCallbacks\Equals;
+use Voice\JsonQueryBuilder\SearchCallbacks\GreaterThan;
+use Voice\JsonQueryBuilder\SearchCallbacks\GreaterThanOrEqual;
+use Voice\JsonQueryBuilder\SearchCallbacks\LessThan;
+use Voice\JsonQueryBuilder\SearchCallbacks\LessThanOrEqual;
+use Voice\JsonQueryBuilder\SearchCallbacks\NotBetween;
+use Voice\JsonQueryBuilder\SearchCallbacks\NotEquals;
+use Voice\JsonQueryBuilder\Types\BooleanType;
+use Voice\JsonQueryBuilder\Types\GenericType;
 
 return [
     'search' => [

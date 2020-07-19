@@ -2,10 +2,10 @@
 
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
-use Voice\SearchQueryBuilder\Config\OperatorsConfig;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\RequestParameters\Models\Search;
-use Voice\SearchQueryBuilder\SearchCallbacks\AbstractCallback;
+use Voice\JsonQueryBuilder\Config\OperatorsConfig;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
+use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class SearchParameter extends AbstractParameter
 {

@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Support\Facades\DB;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class CountParameter extends AbstractParameter
 {

@@ -3,8 +3,8 @@
 namespace Voice\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\SearchQueryBuilder\CategorizedValues;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\CategorizedValues;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 class GreaterThan extends AbstractCallback
 {

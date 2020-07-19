@@ -5,10 +5,10 @@ namespace Voice\JsonQueryBuilder;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
-use Voice\SearchQueryBuilder\Config\ModelConfig;
-use Voice\SearchQueryBuilder\Config\RequestParametersConfig;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\RequestParameters\AbstractParameter;
+use Voice\JsonQueryBuilder\Config\ModelConfig;
+use Voice\JsonQueryBuilder\Config\RequestParametersConfig;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\RequestParameters\AbstractParameter;
 
 class JsonQuery
 {

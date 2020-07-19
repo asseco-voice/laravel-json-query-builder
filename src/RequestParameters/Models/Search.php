@@ -3,10 +3,10 @@
 namespace Voice\JsonQueryBuilder\RequestParameters\Models;
 
 use Illuminate\Support\Facades\Config;
-use Voice\SearchQueryBuilder\Config\ModelConfig;
-use Voice\SearchQueryBuilder\Config\OperatorsConfig;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\Traits\RemovesEmptyValues;
+use Voice\JsonQueryBuilder\Config\ModelConfig;
+use Voice\JsonQueryBuilder\Config\OperatorsConfig;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Traits\RemovesEmptyValues;
 
 class Search
 {

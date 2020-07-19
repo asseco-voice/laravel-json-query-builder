@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\Config;
 
 use Illuminate\Support\Facades\Config;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
 
 abstract class SearchConfig
 {

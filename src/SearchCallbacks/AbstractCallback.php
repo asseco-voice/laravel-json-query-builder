@@ -3,10 +3,10 @@
 namespace Voice\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\SearchQueryBuilder\CategorizedValues;
-use Voice\SearchQueryBuilder\Config\OperatorsConfig;
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\RequestParameters\Models\Search;
+use Voice\JsonQueryBuilder\CategorizedValues;
+use Voice\JsonQueryBuilder\Config\OperatorsConfig;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 
 abstract class AbstractCallback
 {

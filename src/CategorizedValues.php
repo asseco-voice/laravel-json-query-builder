@@ -4,9 +4,9 @@
 namespace Voice\JsonQueryBuilder;
 
 
-use Voice\SearchQueryBuilder\Config\OperatorsConfig;
-use Voice\SearchQueryBuilder\Config\TypesConfig;
-use Voice\SearchQueryBuilder\RequestParameters\Models\Search;
+use Voice\JsonQueryBuilder\Config\OperatorsConfig;
+use Voice\JsonQueryBuilder\Config\TypesConfig;
+use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 
 class CategorizedValues
 {

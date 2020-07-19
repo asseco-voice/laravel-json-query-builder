@@ -2,8 +2,8 @@
 
 namespace Voice\JsonQueryBuilder\Config;
 
-use Voice\SearchQueryBuilder\Exceptions\SearchException;
-use Voice\SearchQueryBuilder\SearchCallbacks\AbstractCallback;
+use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class OperatorsConfig extends SearchConfig
 {
