@@ -47,14 +47,13 @@ Parameters follow a special logic to query the DB. It is possible to use the fol
 JSON parameters (keys):
 
 - ``search`` - will perform the querying logic (explained in detail [below](#search))
-- ``returns`` - will return only the columns provided as values (underlying logic is that 
-it actually does `SELECT /keys/ FROM` instead of `SELECT * FROM`)
-- ``order-by`` - will order the results based on values provided
+- ``returns`` - will return only the columns provided as values.
+- ``order-by`` - will order the results based on values provided.
 - ``relations`` - will load the relations for the given model.
-- `limit` - will limit the results returned
-- `offset` - will return a subset of results starting from a point given. This parameter MUST
+- `limit` - will limit the results returned.
+- `offset` - will return a subset of results starting from a point given. This parameter **MUST**
 be used together with ``limit`` parameter. 
-- `count` - will return record count
+- `count` - will return record count.
 
 ### Search
 
@@ -68,7 +67,7 @@ JSON key-value pair.
 - ``operator`` is one of the available main operators for querying (listed [below](#main-operators))
 - ``values`` is a semicolon (`;`) separated list of values 
 (i.e. `"column": "=value;value2;value3"`) which
-can have micro-operators on them as well (i.e. `"column": "=value;!value2;*value3*"`). 
+can have micro-operators on them as well (i.e. `"column": "=value;!value2;%value3%"`). 
 
 #### Main operators
 
@@ -190,7 +189,7 @@ to assume:
 name is thus 'addresses')
 - M:1 - relation name is in singular (i.e. Comment belongs to a **Post**, relation
 name is thus 'post')
-- **important** loading relations with more than 1 word should be fetched using **camelCase** which 
+- **important**: loading relations with more than 1 word should be fetched using **camelCase** which 
 will in turn get the relation back as a snake_case equivalent in the JSON response 
 
 It is possible to recursively load relations using dot notation:
