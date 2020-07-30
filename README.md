@@ -13,7 +13,7 @@ as a Laravel service provider.
 ## Usage
 
 In order to use the package, you need to instantiate ``JsonQuery()`` providing 
-two dependencies to it. One is ``Illuminate\Database\Eloquent\Builder`` instance
+two dependencies to it. One is ``Illuminate\Database\Eloquent\Builder`` instance,
 and the other is a JSON/array input.
 
 Once instantiated, you need to run the ``search()`` method, and query will be
