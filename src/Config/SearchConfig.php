@@ -16,7 +16,7 @@ abstract class SearchConfig
      */
     public function __construct()
     {
-        $this->config = Config::get('asseco-voice.search');
+        $this->config = Config::get('asseco-json-query-builder');
         $this->register();
     }
 

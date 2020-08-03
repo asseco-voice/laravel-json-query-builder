@@ -24,12 +24,12 @@ class ModelConfig
 
     public function hasConfig(): bool
     {
-        return array_key_exists(get_class($this->model), Config::get('asseco-voice.search.modelOptions'));
+        return array_key_exists(get_class($this->model), Config::get('asseco-json-query-builder.modelOptions'));
     }
 
     protected function getConfig(): array
     {
-        return Config::get('asseco-voice.search.modelOptions.' . get_class($this->model));
+        return Config::get('asseco-json-query-builder.modelOptions.' . get_class($this->model));
     }
 
     public function getReturns()
