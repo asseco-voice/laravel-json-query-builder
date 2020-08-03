@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\Config;
 
 use Illuminate\Support\Facades\Config;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 abstract class SearchConfig
 {
@@ -12,7 +12,7 @@ abstract class SearchConfig
 
     /**
      * SearchConfig constructor.
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function __construct()
     {
@@ -23,13 +23,13 @@ abstract class SearchConfig
     /**
      * Get registered classes from configuration file
      *
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function register(): void
     {
         $key = static::CONFIG_KEY;
         if (!array_key_exists($key, $this->config)) {
-            throw new SearchException("[Search] Config file is missing '$key'");
+            throw new JsonQueryBuilderException("[Search] Config file is missing '$key'");
         }
 
         $this->registered = $this->config[$key];

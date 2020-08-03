@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Support\Facades\DB;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class CountParameter extends AbstractParameter
 {
@@ -15,11 +15,11 @@ class CountParameter extends AbstractParameter
     public function areArgumentsValid(): void
     {
         if (count($this->arguments) != 1) {
-            throw new SearchException("[Search] Parameter '{$this->getParameterName()}' expects only one argument.");
+            throw new JsonQueryBuilderException("[Search] Parameter '{$this->getParameterName()}' expects only one argument.");
         }
 
         if (!in_array($this->arguments[0], [1, '1', true, 'true'])) {
-            throw new SearchException("[Search] Parameter '{$this->getParameterName()}' expects to be 'true' if it is to be used.");
+            throw new JsonQueryBuilderException("[Search] Parameter '{$this->getParameterName()}' expects to be 'true' if it is to be used.");
         }
     }
 

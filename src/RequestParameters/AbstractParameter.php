@@ -4,7 +4,7 @@ namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Voice\JsonQueryBuilder\Config\ModelConfig;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 abstract class AbstractParameter
 {
@@ -17,7 +17,7 @@ abstract class AbstractParameter
      * @param array $arguments
      * @param Builder $builder
      * @param ModelConfig $modelConfig
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
     {
@@ -34,12 +34,12 @@ abstract class AbstractParameter
 
     /**
      * Append the query to Eloquent builder
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     abstract public function appendQuery(): void;
 
     /**
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function run()
     {
@@ -49,12 +49,12 @@ abstract class AbstractParameter
 
     /**
      * Check validity of fetched arguments and throw exception if it fails
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function areArgumentsValid(): void
     {
         if (count($this->arguments) < 1) {
-            throw new SearchException("[Search] Couldn't get values for '{$this->getParameterName()}'.");
+            throw new JsonQueryBuilderException("[Search] Couldn't get values for '{$this->getParameterName()}'.");
         }
 
         // Override or extend on child objects if needed

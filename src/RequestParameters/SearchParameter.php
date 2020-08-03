@@ -3,7 +3,7 @@
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Voice\JsonQueryBuilder\Config\OperatorsConfig;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
@@ -33,7 +33,7 @@ class SearchParameter extends AbstractParameter
      *
      * @param OperatorsConfig $operatorsConfig
      * @param Search $searchModel
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function appendSingle(OperatorsConfig $operatorsConfig, Search $searchModel): void
     {

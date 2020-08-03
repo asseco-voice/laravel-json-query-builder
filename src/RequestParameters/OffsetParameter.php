@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class OffsetParameter extends AbstractParameter
 {
@@ -14,7 +14,7 @@ class OffsetParameter extends AbstractParameter
     public function areArgumentsValid(): void
     {
         if (count($this->arguments) != 1) {
-            throw new SearchException("[Search] Parameter '{$this->getParameterName()}' expects only one argument.");
+            throw new JsonQueryBuilderException("[Search] Parameter '{$this->getParameterName()}' expects only one argument.");
         }
     }
 

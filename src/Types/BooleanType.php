@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\Types;
 
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class BooleanType extends AbstractType
 {
@@ -13,7 +13,7 @@ class BooleanType extends AbstractType
      *
      * @param array $values
      * @return array
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     function prepare(array $values): array
     {
@@ -27,7 +27,7 @@ class BooleanType extends AbstractType
             }
 
             if (!is_numeric($value) || !in_array($value, [0, 1])) {
-                throw new SearchException("[Search] wrong argument type provided");
+                throw new JsonQueryBuilderException("[Search] wrong argument type provided");
             }
         }
 

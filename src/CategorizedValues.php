@@ -33,7 +33,7 @@ class CategorizedValues
      * CategorizedValues constructor.
      * @param OperatorsConfig $operatorsConfig
      * @param Search $searchModel
-     * @throws Exceptions\SearchException
+     * @throws Exceptions\JsonQueryBuilderException
      */
     public function __construct(OperatorsConfig $operatorsConfig, Search $searchModel)
     {
@@ -45,7 +45,7 @@ class CategorizedValues
     }
 
     /**
-     * @throws Exceptions\SearchException
+     * @throws Exceptions\JsonQueryBuilderException
      */
     public function prepare()
     {

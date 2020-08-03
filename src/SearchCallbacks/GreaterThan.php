@@ -4,7 +4,7 @@ namespace Voice\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
 use Voice\JsonQueryBuilder\CategorizedValues;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class GreaterThan extends AbstractCallback
 {
@@ -16,7 +16,7 @@ class GreaterThan extends AbstractCallback
      * @param Builder $builder
      * @param string $column
      * @param CategorizedValues $values
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {

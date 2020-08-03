@@ -5,7 +5,7 @@ namespace Voice\JsonQueryBuilder\RequestParameters\Models;
 use Illuminate\Support\Facades\Config;
 use Voice\JsonQueryBuilder\Config\ModelConfig;
 use Voice\JsonQueryBuilder\Config\OperatorsConfig;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Voice\JsonQueryBuilder\Traits\RemovesEmptyValues;
 
 class Search
@@ -31,7 +31,7 @@ class Search
      * @param OperatorsConfig $operatorsConfig
      * @param string $column
      * @param string $argument
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, string $column, string $argument)
     {
@@ -51,7 +51,7 @@ class Search
      * @param $operators
      * @param string $argument
      * @return string
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function parseOperator($operators, string $argument): string
     {
@@ -65,7 +65,7 @@ class Search
             return $operator;
         }
 
-        throw new SearchException("[Search] No valid callback registered for $argument. Are you missing an operator?");
+        throw new JsonQueryBuilderException("[Search] No valid callback registered for $argument. Are you missing an operator?");
     }
 
     /**
@@ -78,7 +78,7 @@ class Search
      *
      * @param $values
      * @return array
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function splitValues(string $values): array
     {
@@ -86,7 +86,7 @@ class Search
         $cleanedUpValues = $this->removeEmptyValues($valueArray);
 
         if (count($cleanedUpValues) < 1) {
-            throw new SearchException("[Search] Column '$this->column' is missing a value.");
+            throw new JsonQueryBuilderException("[Search] Column '$this->column' is missing a value.");
         }
 
         return $cleanedUpValues;
@@ -94,7 +94,7 @@ class Search
 
     /**
      * @return string
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function getColumnType(): string
     {
@@ -111,7 +111,7 @@ class Search
     /**
      * Check if global forbidden key is used
      *
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function checkForForbiddenColumns()
     {
@@ -119,7 +119,7 @@ class Search
         $forbiddenKeys = $this->modelConfig->getForbidden($forbiddenKeys);
 
         if (in_array($this->column, $forbiddenKeys)) {
-            throw new SearchException("[Search] Searching by '$this->column' field is forbidden. Check the configuration if this is not a desirable behavior.");
+            throw new JsonQueryBuilderException("[Search] Searching by '$this->column' field is forbidden. Check the configuration if this is not a desirable behavior.");
         }
     }
 }

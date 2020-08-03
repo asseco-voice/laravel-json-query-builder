@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\Config;
 
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Voice\JsonQueryBuilder\Types\AbstractType;
 use Voice\JsonQueryBuilder\Types\GenericType;
 
@@ -38,7 +38,7 @@ class TypesConfig extends SearchConfig
     /**
      * @param string $typeName
      * @return mixed
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function getCallbackByTypeName(string $typeName): AbstractType
     {
@@ -46,7 +46,7 @@ class TypesConfig extends SearchConfig
 
         if(!array_key_exists($typeName, $mapping)){
             if(!array_key_exists('generic', $mapping)){
-                throw new SearchException("[Search] No valid callback for '$typeName' type.");
+                throw new JsonQueryBuilderException("[Search] No valid callback for '$typeName' type.");
             }
 
             return new $mapping['generic'];

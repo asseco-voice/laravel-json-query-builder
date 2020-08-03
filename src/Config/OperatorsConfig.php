@@ -2,7 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\Config;
 
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class OperatorsConfig extends SearchConfig
@@ -28,12 +28,12 @@ class OperatorsConfig extends SearchConfig
     /**
      * @param string $operator
      * @return string
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function getCallbackClassFromOperator(string $operator): string
     {
         if (!array_key_exists($operator, $this->operatorCallbackMapping())) {
-            throw new SearchException("[Search] No valid callback registered for '$operator' operator.");
+            throw new JsonQueryBuilderException("[Search] No valid callback registered for '$operator' operator.");
         }
 
         return $this->operatorCallbackMapping()[$operator];

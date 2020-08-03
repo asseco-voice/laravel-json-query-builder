@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 use Voice\JsonQueryBuilder\Config\ModelConfig;
 use Voice\JsonQueryBuilder\Config\RequestParametersConfig;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Voice\JsonQueryBuilder\RequestParameters\AbstractParameter;
 
 class JsonQuery
@@ -25,7 +25,7 @@ class JsonQuery
      * JsonQuery constructor.
      * @param Builder $builder
      * @param array $input
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     public function __construct(Builder $builder, array $input)
     {
@@ -39,19 +39,19 @@ class JsonQuery
     }
 
     /**
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function forbidForExistingModels(): void
     {
         if ($this->builder->getModel()->exists) {
-            throw new SearchException("[Search] Searching is not allowed on already loaded models.");
+            throw new JsonQueryBuilderException("[Search] Searching is not allowed on already loaded models.");
         }
     }
 
     /**
      * Perform the search
      *
-     * @throws Exceptions\SearchException
+     * @throws Exceptions\JsonQueryBuilderException
      */
     public function search(): void
     {
@@ -62,7 +62,7 @@ class JsonQuery
     /**
      * Append all queries from registered parameters
      *
-     * @throws Exceptions\SearchException
+     * @throws Exceptions\JsonQueryBuilderException
      */
     protected function appendParameterQueries(): void
     {
