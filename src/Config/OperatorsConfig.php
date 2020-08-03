@@ -33,7 +33,7 @@ class OperatorsConfig extends SearchConfig
     public function getCallbackClassFromOperator(string $operator): string
     {
         if (!array_key_exists($operator, $this->operatorCallbackMapping())) {
-            throw new JsonQueryBuilderException("[Search] No valid callback registered for '$operator' operator.");
+            throw new JsonQueryBuilderException("No valid callback registered for '$operator' operator.");
         }
 
         return $this->operatorCallbackMapping()[$operator];

@@ -81,11 +81,11 @@ abstract class AbstractCallback
         $this->checkAllowedValues($values, $operator);
 
         if (count($values->and) > 1) {
-            throw new JsonQueryBuilderException("[Search] Using $operator operator assumes one parameter only. Remove excess parameters.");
+            throw new JsonQueryBuilderException("Using $operator operator assumes one parameter only. Remove excess parameters.");
         }
 
         if (!$values->and) {
-            throw new JsonQueryBuilderException("[Search] No valid arguments for '$operator' operator.");
+            throw new JsonQueryBuilderException("No valid arguments for '$operator' operator.");
         }
 
         $builder->where($column, $operator, $values->and[0]);
@@ -103,11 +103,11 @@ abstract class AbstractCallback
         $this->checkAllowedValues($values, $operator);
 
         if (count($values->and) != 2) {
-            throw new JsonQueryBuilderException("[Search] Using $operator operator assumes exactly 2 parameters. Wrong number of parameters provided.");
+            throw new JsonQueryBuilderException("Using $operator operator assumes exactly 2 parameters. Wrong number of parameters provided.");
         }
 
         if (!count($values->and)) {
-            throw new JsonQueryBuilderException("[Search] No valid arguments for '$operator' operator.");
+            throw new JsonQueryBuilderException("No valid arguments for '$operator' operator.");
         }
 
         $callback = $operator == '<>' ? 'whereBetween' : 'whereNotBetween';
@@ -125,7 +125,7 @@ abstract class AbstractCallback
     protected function checkAllowedValues(CategorizedValues $values, string $operator): void
     {
         if ($values->null || $values->notNull || $values->not || $values->notLike || $values->andLike) {
-            throw new JsonQueryBuilderException("[Search] Wrong parameter type(s) for '$operator' operator.");
+            throw new JsonQueryBuilderException("Wrong parameter type(s) for '$operator' operator.");
         }
     }
 }

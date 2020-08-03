@@ -14,7 +14,7 @@ class OffsetParameter extends AbstractParameter
     public function areArgumentsValid(): void
     {
         if (count($this->arguments) != 1) {
-            throw new JsonQueryBuilderException("[Search] Parameter '{$this->getParameterName()}' expects only one argument.");
+            throw new JsonQueryBuilderException("Parameter '{$this->getParameterName()}' expects only one argument.");
         }
     }
 

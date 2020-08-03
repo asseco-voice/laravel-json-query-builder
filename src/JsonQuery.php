@@ -44,7 +44,7 @@ class JsonQuery
     protected function forbidForExistingModels(): void
     {
         if ($this->builder->getModel()->exists) {
-            throw new JsonQueryBuilderException("[Search] Searching is not allowed on already loaded models.");
+            throw new JsonQueryBuilderException("Searching is not allowed on already loaded models.");
         }
     }
 

@@ -29,7 +29,7 @@ abstract class SearchConfig
     {
         $key = static::CONFIG_KEY;
         if (!array_key_exists($key, $this->config)) {
-            throw new JsonQueryBuilderException("[Search] Config file is missing '$key'");
+            throw new JsonQueryBuilderException("Config file is missing '$key'");
         }
 
         $this->registered = $this->config[$key];

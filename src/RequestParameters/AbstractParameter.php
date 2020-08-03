@@ -54,7 +54,7 @@ abstract class AbstractParameter
     protected function areArgumentsValid(): void
     {
         if (count($this->arguments) < 1) {
-            throw new JsonQueryBuilderException("[Search] Couldn't get values for '{$this->getParameterName()}'.");
+            throw new JsonQueryBuilderException("Couldn't get values for '{$this->getParameterName()}'.");
         }
 
         // Override or extend on child objects if needed

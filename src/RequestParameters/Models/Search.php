@@ -65,7 +65,7 @@ class Search
             return $operator;
         }
 
-        throw new JsonQueryBuilderException("[Search] No valid callback registered for $argument. Are you missing an operator?");
+        throw new JsonQueryBuilderException("No valid callback registered for $argument. Are you missing an operator?");
     }
 
     /**
@@ -86,7 +86,7 @@ class Search
         $cleanedUpValues = $this->removeEmptyValues($valueArray);
 
         if (count($cleanedUpValues) < 1) {
-            throw new JsonQueryBuilderException("[Search] Column '$this->column' is missing a value.");
+            throw new JsonQueryBuilderException("Column '$this->column' is missing a value.");
         }
 
         return $cleanedUpValues;
@@ -119,7 +119,7 @@ class Search
         $forbiddenKeys = $this->modelConfig->getForbidden($forbiddenKeys);
 
         if (in_array($this->column, $forbiddenKeys)) {
-            throw new JsonQueryBuilderException("[Search] Searching by '$this->column' field is forbidden. Check the configuration if this is not a desirable behavior.");
+            throw new JsonQueryBuilderException("Searching by '$this->column' field is forbidden. Check the configuration if this is not a desirable behavior.");
         }
     }
 }

@@ -46,7 +46,7 @@ class TypesConfig extends SearchConfig
 
         if(!array_key_exists($typeName, $mapping)){
             if(!array_key_exists('generic', $mapping)){
-                throw new JsonQueryBuilderException("[Search] No valid callback for '$typeName' type.");
+                throw new JsonQueryBuilderException("No valid callback for '$typeName' type.");
             }
 
             return new $mapping['generic'];

@@ -27,7 +27,7 @@ class BooleanType extends AbstractType
             }
 
             if (!is_numeric($value) || !in_array($value, [0, 1])) {
-                throw new JsonQueryBuilderException("[Search] wrong argument type provided");
+                throw new JsonQueryBuilderException("wrong argument type provided");
             }
         }
 
