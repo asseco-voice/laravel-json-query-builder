@@ -99,6 +99,11 @@ Will perform a ``SELECT * FROM some_table WHERE first_name IN
 - `!` - negates the value. Works only on the beginning of the value (i.e. `!value`).
 - `%` - performs a `LIKE` query. Works only on a beginning, end or both ends of the 
 value (i.e. `%value`, `value%` or `%value%`).
+- logical operators are used to use multiple operators for a 
+single column (order matters!):
+   - `&&` enables you to connect values using AND
+   - `||` enables you to connect values using OR
+
 
 ```
 {
@@ -116,6 +121,22 @@ Notice that here ``!value`` behaved the same as ``!=`` main operator. The differ
 is that ``!=`` main operator negates the complete list of values, whereas the 
 ``!value`` only negates that specific value. I.e. `!=value1;value2` is semantically
 the same as ``=!value1;!value2``.
+
+Logical operator example: 
+
+```
+{
+    "search": {
+        "first_name": "=foo||=bar",
+    }
+}
+```
+
+Will perform ``SELECT * FROM some_table WHERE first_name IN 
+ ('foo') OR first_name IN ('bar')``.
+
+Note that logical operators are using standard bool logic precedence,
+therefore ``x AND y OR z AND q`` is the same as `(x AND y) OR (z AND q)`.
 
 ### Returns
 

@@ -57,6 +57,7 @@ abstract class AbstractCallback
      * @param Builder $builder
      * @param string $column
      * @param CategorizedValues $values
+     * @throws \Voice\SearchQueryBuilder\Exceptions\SearchException|\Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
 

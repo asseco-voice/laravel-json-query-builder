@@ -69,7 +69,7 @@ class JsonQuery
         foreach ($this->registeredParameters as $requestParameter) {
 
             if (!$this->parameterExists($requestParameter)) {
-                // append config query?
+                // TODO: append config query?
                 continue;
             }
 
