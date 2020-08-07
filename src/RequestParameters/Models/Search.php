@@ -115,7 +115,7 @@ class Search
      */
     protected function checkForForbiddenColumns()
     {
-        $forbiddenKeys = Config::get('asseco-json-query-builder.globalForbiddenColumns');
+        $forbiddenKeys = Config::get('asseco-json-query-builder.global_forbidden_columns');
         $forbiddenKeys = $this->modelConfig->getForbidden($forbiddenKeys);
 
         if (in_array($this->column, $forbiddenKeys)) {

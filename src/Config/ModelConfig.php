@@ -24,12 +24,12 @@ class ModelConfig
 
     public function hasConfig(): bool
     {
-        return array_key_exists(get_class($this->model), Config::get('asseco-json-query-builder.modelOptions'));
+        return array_key_exists(get_class($this->model), Config::get('asseco-json-query-builder.model_options'));
     }
 
     protected function getConfig(): array
     {
-        return Config::get('asseco-json-query-builder.modelOptions.' . get_class($this->model));
+        return Config::get('asseco-json-query-builder.model_options.' . get_class($this->model));
     }
 
     public function getReturns()
@@ -54,8 +54,8 @@ class ModelConfig
     {
         $parameters = [];
 
-        if (array_key_exists('orderBy', $this->config) && $this->config['orderBy']) {
-            foreach ($this->config['orderBy'] as $key => $value) {
+        if (array_key_exists('order_by', $this->config) && $this->config['order_by']) {
+            foreach ($this->config['order_by'] as $key => $value) {
                 $parameters[] = "$key=$value";
             }
         }
@@ -79,7 +79,7 @@ class ModelConfig
 
     protected function getEloquentExclusion($forbiddenKeys): array
     {
-        if (array_key_exists('eloquentExclusion', $this->config) && $this->config['eloquentExclusion']) {
+        if (array_key_exists('eloquent_exclusion', $this->config) && $this->config['eloquent_exclusion']) {
             $guarded = $this->model->getGuarded();
             $fillable = $this->model->getFillable();
 
@@ -95,8 +95,8 @@ class ModelConfig
 
     protected function getForbiddenColumns(array $forbiddenKeys): array
     {
-        if (array_key_exists('forbiddenColumns', $this->config) && $this->config['forbiddenColumns']) {
-            $forbiddenKeys = array_merge($forbiddenKeys, $this->config['forbiddenColumns']);
+        if (array_key_exists('forbidden_columns', $this->config) && $this->config['forbidden_columns']) {
+            $forbiddenKeys = array_merge($forbiddenKeys, $this->config['forbidden_columns']);
         }
 
         return $forbiddenKeys;

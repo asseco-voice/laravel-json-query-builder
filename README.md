@@ -288,3 +288,17 @@ Publish the configuration by running
 `php artisan vendor:publish --provider="Voice\JsonQueryBuilder\JsonQueryServiceProvider"`.
 
 All the keys within the configuration file have a detailed explanation above each key.
+
+### Package extensions
+
+Once configuration is published you will see several keys which you can extend with your
+custom code. 
+
+- request parameters are registered under ``request_parameters`` config key. 
+You can extend this functionality by adding your own custom parameter. It 
+needs to extend ``Voice\JsonQueryBuilder\RequestParameters\AbstractParameter``
+in order to work.  
+- operators are registered under ``operators`` config key. Those can be 
+extended by adding a class which extends ``Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback``
+- types are registered under ``types`` config key. Those can be extended
+by adding a class which extends ``Voice\JsonQueryBuilder\Types\AbstractType``

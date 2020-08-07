@@ -22,7 +22,7 @@ return [
     /**
      * Registered request parameters.
      */
-    'requestParameters'      => [
+    'request_parameters'      => [
         SearchParameter::class,
         ReturnsParameter::class,
         OrderByParameter::class,
@@ -61,7 +61,7 @@ return [
      * Searching by forbidden columns will throw an exception
      * This takes precedence before other exclusions.
      */
-    'globalForbiddenColumns' => [
+    'global_forbidden_columns' => [
         // 'id', 'created_at' ...
     ],
 
@@ -69,7 +69,7 @@ return [
      * Refined options for a single model.
      * Use if you want to enforce rules on a specific model without affecting globally all models
      */
-    'modelOptions'           => [
+    'model_options'           => [
 
         /**
          * For real usage, use real models without quotes. This is only meant to show the available options.
@@ -84,16 +84,16 @@ return [
              * will behave like union of columns to be excluded.
              * Searching on forbidden columns will throw an exception.
              */
-            'eloquentExclusion' => false,
+            'eloquent_exclusion' => false,
             /**
              * Disable search on specific columns. Searching on forbidden columns will throw an exception
              */
-            'forbiddenColumns'  => ['column', 'column2'],
+            'forbidden_columns'  => ['column', 'column2'],
             /**
              * Array of columns to order by in 'column => direction' format.
              * 'order-by' from query string takes precedence before these values.
              */
-            'orderBy'           => [
+            'order_by'           => [
                 'id'         => 'asc',
                 'created_at' => 'desc'
             ],
@@ -114,8 +114,8 @@ return [
              * It is possible to map such columns so that the true ORM
              * property stays hidden.
              */
-            'columnMapping'     => [
-                'frontendColumn' => 'backendColumn',
+            'column_mapping'     => [
+                'frontend_column' => 'backend_column',
             ],
         ],
     ]
