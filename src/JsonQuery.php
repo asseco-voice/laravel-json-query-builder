@@ -17,8 +17,7 @@ class JsonQuery
     protected array       $registeredParameters;
 
     /*
-     * TODO: datum od danas toliko dana
-     * TODO: or/and?
+     * TODO: implement date from-to etc.
      */
 
     /**
