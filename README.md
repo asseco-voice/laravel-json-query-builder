@@ -99,7 +99,7 @@ Will perform a ``SELECT * FROM some_table WHERE first_name IN
 - `!` - negates the value. Works only on the beginning of the value (i.e. `!value`).
 - `%` - performs a `LIKE` query. Works only on a beginning, end or both ends of the 
 value (i.e. `%value`, `value%` or `%value%`).
-- logical operators are used to use multiple operators for a 
+- logical operators are used to use **multiple operators** (you can't do `=1||2`, but `=1||=2`) for a 
 single column (order matters!):
    - `&&` enables you to connect values using AND
    - `||` enables you to connect values using OR
@@ -278,6 +278,176 @@ You can fetch count of records instead of concrete records by adding the count k
 ```
 
 This will do a ``SELECT count(*) FROM table``.
+
+## Top level logical operators
+
+Additionally, it is possible to group search clauses by top-level logical operator.
+
+Available operators:
+- ``&&`` AND
+- ``||`` OR
+
+**Using no top-level operator will assume AND operator.**
+
+### Examples 
+
+These operators take in a single object, or an array of objects, with few differences worth mentioning.
+Single object will apply the operator on given attributes:
+
+```
+{
+    "search": {
+        "&&": {
+            "id": "=1",
+            "name": "=foo"
+        }
+    }
+}
+```
+
+Resulting in ```id=1 AND name=foo```. 
+Whereas an array of objects will apply the operator between array objects, **not** within the objects themselves:
+
+```
+{
+    "search": {
+        "||": [
+            {
+                "id": "=1",
+                "name": "=foo"
+            },
+            {
+                "id": "=2",
+                "name": "=bar"
+            }
+        ]
+    }
+}
+```
+
+Resulting in ``(id=1 AND name=foo) OR (id=2 AND name=bar)``. This is done intentionally, default operator is
+AND, thus it will be applied within objects.
+
+If you'd like inner attributes changed to OR instead, you can go recursive:
+
+```
+{
+    "search": {
+        "||": [
+            {
+                "||": {
+                    "id": "=1",
+                    "name": "=foo"
+                }
+            },
+            {
+                "id": "=2",
+                "name": "=bar"
+            }
+        ]
+    }
+}
+```
+
+Resulting in ``(id=1 OR name=foo) OR (id=2 AND name=bar)``.
+
+### Absurd examples
+
+Since logic is made recursive, you can go as absurd and deep as you'd like, but at this point
+it may be smarter to revise what do you actually want from your life and universe:
+
+```
+{
+    "search": {
+        "||": {
+            "&&": [
+                {
+                    "||": [
+                        {
+                            "id": "=2||=3",
+                            "name": "=foo"
+                        },
+                        {
+                            "id": "=1",
+                            "name": "=foo%&&=%bar"
+                        }
+                    ]
+                },
+                {
+                    "we": "=cool"
+                }
+            ],
+            "love": "<3",
+            "recursion": "=rrr"
+        }
+    }
+}
+```
+
+Breakdown:
+
+- Step 1
+```
+{
+    "id": "=2||=3",
+    "name": "=foo"
+},
+```
+Result: ``(id=2 OR id=3) AND name=foo``
+
+- Step 2
+```
+{
+    "id": "=1",
+    "name": "=foo%&&=%bar"
+}
+```
+Result: ``id=1 AND (name LIKE foo% AND name LIKE %bar)``
+
+- Step 3 (merge)
+
+```
+"||": [
+    {...},
+    {...}
+]
+```
+Result: ``(step1) OR (step2)``
+
+- Step 4 ``we=cool``
+```
+{
+    "we": "=cool"
+}
+```
+
+- Step 5 (merge) 
+```
+"&&": [
+    {
+        "||": [...]
+    },
+    {
+        "we": "=cool"
+    }
+],
+```
+Result: ``(step3) AND (step4)``
+
+- Step 6 (ultimate merge)
+
+```
+"||": {
+    "&&": [...],
+    "love": "<3",
+    "recursion": "=rrr"
+}
+```
+Result: ``(step5) OR love<3 OR recursion=rrr``
+
+The final query (kill it with fire):
+
+``((((id=2 OR id=3) AND name=foo) OR (id=1 AND (name LIKE foo% AND name LIKE %bar))) AND we=cool) OR love<3 OR recursion=rrr``
 
 ## Config 
 

@@ -5,7 +5,6 @@ namespace Voice\JsonQueryBuilder\RequestParameters;
 use Illuminate\Database\Eloquent\Builder;
 use Voice\JsonQueryBuilder\Config\OperatorsConfig;
 use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
 use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
@@ -19,13 +18,60 @@ class SearchParameter extends AbstractParameter
         return 'search';
     }
 
+    /**
+     * @throws JsonQueryBuilderException
+     */
     public function appendQuery(): void
     {
         $arguments = $this->arguments;
         $operatorsConfig = new OperatorsConfig();
 
-        foreach ($arguments as $column => $argument) {
-            $this->applyArguments($operatorsConfig, $column, $argument);
+        $this->makeQuery($this->builder, $operatorsConfig, $arguments);
+    }
+
+    /**
+     * Let's hope this doesn't need to be debugged...ever...
+     * @param Builder $builder
+     * @param OperatorsConfig $operatorsConfig
+     * @param array $arguments
+     * @param string $logicalOperator
+     * @throws JsonQueryBuilderException
+     */
+    protected function makeQuery(Builder $builder, OperatorsConfig $operatorsConfig, array $arguments, string $logicalOperator = self:: AND): void
+    {
+        foreach ($arguments as $key => $value) {
+
+            // Recursive call for cases when key is &&/||
+            if (in_array($key, [self:: OR, self:: AND], true)) {
+                $this->makeQuery($builder, $operatorsConfig, $value, $key);
+                continue;
+            }
+
+            $functionName = $this->getQueryFunctionName($logicalOperator);
+
+
+            if (is_array($value)) {
+                // Wrap inner queries to where/orWhere
+                $builder->{$functionName}(function ($queryBuilder) use ($operatorsConfig, $value, $key, $logicalOperator) {
+                    foreach ($value as $column => $arguments) {
+                        if (is_array($arguments)) {
+                            // Additional recursion for inner keys which are &&/||
+                            $this->makeQuery($queryBuilder, $operatorsConfig, [$column => $arguments]);
+                        } else {
+                            // Wrap inner arguments
+                            $queryBuilder->where(function ($innerQueryBuilder) use ($operatorsConfig, $column, $arguments) {
+                                $this->applyArguments($innerQueryBuilder, $operatorsConfig, $column, $arguments);
+                            });
+                        }
+                    }
+                });
+
+                continue;
+            }
+
+            $builder->{$functionName}(function ($queryBuilder) use ($operatorsConfig, $key, $value) {
+                $this->applyArguments($queryBuilder, $operatorsConfig, $key, $value);
+            });
         }
     }
 
@@ -33,13 +79,14 @@ class SearchParameter extends AbstractParameter
      * @param OperatorsConfig $operatorsConfig
      * @param string $column
      * @param string $argument
+     * @throws JsonQueryBuilderException
      */
-    protected function applyArguments(OperatorsConfig $operatorsConfig, string $column, string $argument): void
+    protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument): void
     {
         $splitArguments = $this->splitByLogicalOperators($argument);
 
         foreach ($splitArguments as $splitArgument) {
-            $this->builder->orWhere(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
+            $builder->orWhere(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
                 foreach ($splitArgument as $argument) {
                     $searchModel = new Search($this->modelConfig, $operatorsConfig, $column, $argument);
                     $this->appendSingle($builder, $operatorsConfig, $searchModel);
@@ -49,16 +96,34 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
+     * @param string $logicalOperator
+     * @return string
+     * @throws JsonQueryBuilderException
+     */
+    protected function getQueryFunctionName(string $logicalOperator): string
+    {
+        if ($logicalOperator === self:: AND) {
+            $queryFunction = 'where';
+        } elseif ($logicalOperator === self:: OR) {
+            $queryFunction = 'orWhere';
+        } else {
+            throw new JsonQueryBuilderException("Invalid logical operator provided");
+        }
+
+        return $queryFunction;
+    }
+
+    /**
      * @param $argument
      * @return array
-     * @throws SearchException
+     * @throws JsonQueryBuilderException
      */
     protected function splitByLogicalOperators($argument): array
     {
         $splitByOr = explode(self:: OR, $argument);
 
         if (empty($splitByOr)) {
-            throw new SearchException("Something went wrong. Did you forget to add arguments?");
+            throw new JsonQueryBuilderException("Something went wrong. Did you forget to add arguments?");
         }
 
         $splitByAnd = [];
