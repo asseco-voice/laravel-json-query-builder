@@ -210,8 +210,10 @@ to assume:
 name is thus 'addresses')
 - M:1 - relation name is in singular (i.e. Comment belongs to a **Post**, relation
 name is thus 'post')
-- **important**: loading relations with more than 1 word should be fetched using **camelCase** which 
-will in turn get the relation back as a snake_case equivalent in the JSON response 
+- **important**: since Laravel returns API responses as **snake_case**, it is enabled to
+provide a **snake_case'd** relation (even though **camelCase** works as well) for multi-word
+relations. I.e. doing ``"relations": "workspace_items"`` is the equivalent of calling 
+``"relations": "workspaceItems"``, but it is recommended to use **snake_case** approach.
 
 It is possible to recursively load relations using dot notation:
 
