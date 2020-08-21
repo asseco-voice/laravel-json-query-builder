@@ -25,6 +25,7 @@ class CountParameter extends AbstractParameter
 
     public function appendQuery(): void
     {
+        // TODO: check this for other DB drivers
         $this->builder->select(DB::raw('count(*) as count'));
     }
 }

@@ -13,6 +13,11 @@ class SearchParameter extends AbstractParameter
     const OR = '||';
     const AND = '&&';
 
+    const LARAVEL_WHERE = 'where';
+    const LARAVEL_OR_WHERE = 'orWhere';
+
+    protected OperatorsConfig $operatorsConfig;
+
     public static function getParameterName(): string
     {
         return 'search';
@@ -24,55 +29,83 @@ class SearchParameter extends AbstractParameter
     public function appendQuery(): void
     {
         $arguments = $this->arguments;
-        $operatorsConfig = new OperatorsConfig();
+        $this->operatorsConfig = new OperatorsConfig();
 
-        $this->makeQuery($this->builder, $operatorsConfig, $arguments);
+        // Wrapped within a where clause to protect from orWhere "exploits".
+        $this->builder->where(function (Builder $builder) use ($arguments){
+            $this->makeQuery($builder, $arguments);
+        });
     }
 
     /**
-     * Let's hope this doesn't need to be debugged...ever...
+     * Making query from input parameters with recursive calls if needed for top level logical operators (check readme)
+     *
      * @param Builder $builder
-     * @param OperatorsConfig $operatorsConfig
      * @param array $arguments
-     * @param string $logicalOperator
+     * @param string $boolOperator
      * @throws JsonQueryBuilderException
      */
-    protected function makeQuery(Builder $builder, OperatorsConfig $operatorsConfig, array $arguments, string $logicalOperator = self:: AND): void
+    protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
 
-            // Recursive call for cases when key is &&/||
-            if (in_array($key, [self:: OR, self:: AND], true)) {
-                $this->makeQuery($builder, $operatorsConfig, $value, $key);
+            if ($this->isBoolOperator($key)) {
+                // Recursion for keys which are &&/||
+                $this->makeQuery($builder, $value, $key);
                 continue;
             }
 
-            $functionName = $this->getQueryFunctionName($logicalOperator);
+            $functionName = $this->getQueryFunctionName($boolOperator);
 
-
-            if (is_array($value)) {
-                // Wrap inner queries to where/orWhere
-                $builder->{$functionName}(function ($queryBuilder) use ($operatorsConfig, $value, $key, $logicalOperator) {
-                    foreach ($value as $column => $arguments) {
-                        if (is_array($arguments)) {
-                            // Additional recursion for inner keys which are &&/||
-                            $this->makeQuery($queryBuilder, $operatorsConfig, [$column => $arguments]);
-                        } else {
-                            // Wrap inner arguments
-                            $queryBuilder->where(function ($innerQueryBuilder) use ($operatorsConfig, $column, $arguments) {
-                                $this->applyArguments($innerQueryBuilder, $operatorsConfig, $column, $arguments);
-                            });
-                        }
-                    }
-                });
-
+            if (!$this->shouldSplitQueries($value)) {
+                $this->makeSingleQuery($functionName, $builder, $key, $value);
                 continue;
             }
 
-            $builder->{$functionName}(function ($queryBuilder) use ($operatorsConfig, $key, $value) {
-                $this->applyArguments($queryBuilder, $operatorsConfig, $key, $value);
+            $builder->{$functionName}(function ($queryBuilder) use ($value) {
+                // Recursion for inner keys which are &&/||
+                $this->makeQuery($queryBuilder, $value);
             });
         }
+    }
+
+    protected function isBoolOperator(string $key): bool
+    {
+        return in_array($key, [self:: OR, self:: AND], true);
+    }
+
+    /**
+     * @param string $boolOperator
+     * @return string
+     * @throws JsonQueryBuilderException
+     */
+    protected function getQueryFunctionName(string $boolOperator): string
+    {
+        if ($boolOperator === self:: AND) {
+            return self::LARAVEL_WHERE;
+        } elseif ($boolOperator === self:: OR) {
+            return self::LARAVEL_OR_WHERE;
+        }
+
+        throw new JsonQueryBuilderException("Invalid bool operator provided");
+    }
+
+    protected function shouldSplitQueries($value): bool
+    {
+        return is_array($value);
+    }
+
+    /**
+     * @param string $functionName
+     * @param Builder $builder
+     * @param $key
+     * @param $value
+     */
+    protected function makeSingleQuery(string $functionName, Builder $builder, $key, $value): void
+    {
+        $builder->{$functionName}(function ($queryBuilder) use ($key, $value) {
+            $this->applyArguments($queryBuilder, $this->operatorsConfig, $key, $value);
+        });
     }
 
     /**
@@ -83,7 +116,7 @@ class SearchParameter extends AbstractParameter
      */
     protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument): void
     {
-        $splitArguments = $this->splitByLogicalOperators($argument);
+        $splitArguments = $this->splitByBoolOperators($argument);
 
         foreach ($splitArguments as $splitArgument) {
             $builder->orWhere(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
@@ -96,29 +129,11 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param string $logicalOperator
-     * @return string
-     * @throws JsonQueryBuilderException
-     */
-    protected function getQueryFunctionName(string $logicalOperator): string
-    {
-        if ($logicalOperator === self:: AND) {
-            $queryFunction = 'where';
-        } elseif ($logicalOperator === self:: OR) {
-            $queryFunction = 'orWhere';
-        } else {
-            throw new JsonQueryBuilderException("Invalid logical operator provided");
-        }
-
-        return $queryFunction;
-    }
-
-    /**
      * @param $argument
      * @return array
      * @throws JsonQueryBuilderException
      */
-    protected function splitByLogicalOperators($argument): array
+    protected function splitByBoolOperators($argument): array
     {
         $splitByOr = explode(self:: OR, $argument);
 
