@@ -6,7 +6,7 @@ class OrderByParameter extends AbstractParameter
 {
     public static function getParameterName(): string
     {
-        return 'order-by';
+        return 'order_by';
     }
 
     public function appendQuery(): void

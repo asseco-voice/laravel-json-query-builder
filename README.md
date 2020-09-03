@@ -48,7 +48,7 @@ JSON parameters (keys):
 
 - ``search`` - will perform the querying logic (explained in detail [below](#search))
 - ``returns`` - will return only the columns provided as values.
-- ``order-by`` - will order the results based on values provided.
+- ``order_by`` - will order the results based on values provided.
 - ``relations`` - will load the relations for the given model.
 - `limit` - will limit the results returned.
 - `offset` - will return a subset of results starting from a point given. This parameter **MUST**
@@ -163,7 +163,7 @@ Will perform a ``SELECT first_name, last_name FROM ...``
 
 ### Order by
 
-Using ``order-by`` key does an 'order by' based on the given key(s). Order of the keys
+Using ``order_by`` key does an 'order by' based on the given key(s). Order of the keys
 matters!
 
 Arguments are presumed to be in a ``"column": "direction"`` fashion, where `direction`
@@ -173,7 +173,7 @@ exception.
 Example:
 ```
 {
-    "order-by": {
+    "order_by": {
         "first_name": "asc",
         "last_name": "desc" 
     }
