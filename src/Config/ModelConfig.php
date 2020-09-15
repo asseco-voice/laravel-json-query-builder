@@ -2,6 +2,7 @@
 
 namespace Voice\JsonQueryBuilder\Config;
 
+use Doctrine\DBAL\DBALException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
@@ -119,8 +120,12 @@ class ModelConfig
         $columns = Schema::getColumnListing($table);
         $modelColumns = [];
 
-        foreach ($columns as $column) {
-            $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
+        try { // having 'enum' in table definition will throw Doctrine error because it is not defined in their types.
+            foreach ($columns as $column) {
+                $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
+            }
+        } catch (DBALException $e) {
+            // leave model columns as an empty array and cache it.
         }
 
         Cache::put(self::CACHE_PREFIX . $table, $modelColumns, self::CACHE_TTL);
