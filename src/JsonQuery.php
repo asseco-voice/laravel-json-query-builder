@@ -22,8 +22,10 @@ class JsonQuery
 
     /**
      * JsonQuery constructor.
+     *
      * @param Builder $builder
-     * @param array $input
+     * @param array   $input
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(Builder $builder, array $input)
@@ -43,12 +45,12 @@ class JsonQuery
     protected function forbidForExistingModels(): void
     {
         if ($this->builder->getModel()->exists) {
-            throw new JsonQueryBuilderException("Searching is not allowed on already loaded models.");
+            throw new JsonQueryBuilderException('Searching is not allowed on already loaded models.');
         }
     }
 
     /**
-     * Perform the search
+     * Perform the search.
      *
      * @throws Exceptions\JsonQueryBuilderException
      */
@@ -59,14 +61,13 @@ class JsonQuery
     }
 
     /**
-     * Append all queries from registered parameters
+     * Append all queries from registered parameters.
      *
      * @throws Exceptions\JsonQueryBuilderException
      */
     protected function appendParameterQueries(): void
     {
         foreach ($this->registeredParameters as $requestParameter) {
-
             if (!$this->parameterExists($requestParameter)) {
                 // TODO: append config query?
                 continue;
@@ -78,7 +79,7 @@ class JsonQuery
     }
 
     /**
-     * Append all queries from config
+     * Append all queries from config.
      */
     protected function appendConfigQueries(): void
     {
@@ -87,6 +88,7 @@ class JsonQuery
 
     /**
      * @param string $requestParameter
+     *
      * @return bool
      */
     protected function parameterExists(string $requestParameter): bool
@@ -99,6 +101,7 @@ class JsonQuery
 
     /**
      * @param $requestParameter
+     *
      * @return AbstractParameter
      */
     protected function instantiateRequestParameter($requestParameter): AbstractParameter
@@ -107,6 +110,7 @@ class JsonQuery
          * @var AbstractParameter $requestParameter
          */
         $input = $this->wrapInput($requestParameter::getParameterName());
+
         return new $requestParameter($input, $this->builder, $this->modelConfig);
     }
 
@@ -114,6 +118,7 @@ class JsonQuery
      * Get input for given parameter name and wrap it as an array if it's not already an array.
      *
      * @param string $parameterName
+     *
      * @return array
      */
     protected function wrapInput(string $parameterName): array

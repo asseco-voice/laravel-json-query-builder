@@ -30,7 +30,7 @@ class ModelConfig
 
     protected function getConfig(): array
     {
-        return Config::get('asseco-json-query-builder.model_options.' . get_class($this->model));
+        return Config::get('asseco-json-query-builder.model_options.'.get_class($this->model));
     }
 
     public function getReturns()
@@ -65,9 +65,10 @@ class ModelConfig
     }
 
     /**
-     * Union of Eloquent exclusion (guarded/fillable) and forbidden columns
+     * Union of Eloquent exclusion (guarded/fillable) and forbidden columns.
      *
      * @param array $forbiddenKeys
+     *
      * @return array
      */
     public function getForbidden(array $forbiddenKeys)
@@ -86,7 +87,7 @@ class ModelConfig
 
             if ($guarded[0] != '*') { // Guarded property is never empty. It is '*' by default.
                 $forbiddenKeys = array_merge($forbiddenKeys, $guarded);
-            } else if (count($fillable) > 0) {
+            } elseif (count($fillable) > 0) {
                 $forbiddenKeys = array_diff(array_keys($this->getModelColumns()), $fillable);
             }
         }
@@ -105,7 +106,7 @@ class ModelConfig
 
     /**
      * Will return column and column type array for a calling model.
-     * Column types will equal Eloquent column types
+     * Column types will equal Eloquent column types.
      *
      * @return array
      */
@@ -113,8 +114,8 @@ class ModelConfig
     {
         $table = $this->model->getTable();
 
-        if (Cache::has(self::CACHE_PREFIX . $table)) {
-            return Cache::get(self::CACHE_PREFIX . $table);
+        if (Cache::has(self::CACHE_PREFIX.$table)) {
+            return Cache::get(self::CACHE_PREFIX.$table);
         }
 
         $columns = Schema::getColumnListing($table);
@@ -123,6 +124,7 @@ class ModelConfig
         // having 'enum' in table definition will throw Doctrine error because it is not defined in their types.
         // Registering it manually.
         DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+
         try {
             foreach ($columns as $column) {
                 $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
@@ -131,7 +133,7 @@ class ModelConfig
             // leave model columns as an empty array and cache it.
         }
 
-        Cache::put(self::CACHE_PREFIX . $table, $modelColumns, self::CACHE_TTL);
+        Cache::put(self::CACHE_PREFIX.$table, $modelColumns, self::CACHE_TTL);
 
         return $modelColumns;
     }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Voice\JsonQueryBuilder;
-
 
 use Voice\JsonQueryBuilder\Config\OperatorsConfig;
 use Voice\JsonQueryBuilder\Config\TypesConfig;
@@ -11,7 +9,7 @@ use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 class CategorizedValues
 {
     /**
-     * Constants for micro-operator declaration
+     * Constants for micro-operator declaration.
      */
     const NOT = '!';
     const LIKE = '%';
@@ -21,18 +19,19 @@ class CategorizedValues
     protected OperatorsConfig $operatorsConfig;
     protected Search          $searchModel;
 
-    public array $and     = [];
+    public array $and = [];
     public array $andLike = [];
-    public array $not     = [];
+    public array $not = [];
     public array $notLike = [];
-    public bool  $null    = false;
+    public bool  $null = false;
     public bool  $notNull = false;
-
 
     /**
      * CategorizedValues constructor.
+     *
      * @param OperatorsConfig $operatorsConfig
-     * @param Search $searchModel
+     * @param Search          $searchModel
+     *
      * @throws Exceptions\JsonQueryBuilderException
      */
     public function __construct(OperatorsConfig $operatorsConfig, Search $searchModel)
@@ -56,7 +55,6 @@ class CategorizedValues
     public function categorize()
     {
         foreach ($this->searchModel->values as $value) {
-
             if ($value === self::IS_NULL) {
                 $this->null = true;
                 continue;
@@ -99,7 +97,7 @@ class CategorizedValues
     {
         if (!$value) {
             return false;
-        };
+        }
 
         return $value[0] === self::LIKE || $value[strlen($value) - 1] === self::LIKE;
     }
@@ -111,6 +109,6 @@ class CategorizedValues
 
     protected function replaceNegation($value)
     {
-        return preg_replace("~" . self::NOT . "~", '', $value, 1);
+        return preg_replace('~'.self::NOT.'~', '', $value, 1);
     }
 }

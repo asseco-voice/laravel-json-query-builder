@@ -16,7 +16,7 @@ class TypesConfig extends SearchConfig
             return new GenericType();
         }
 
-        return new $this->registered[$type];
+        return new $this->registered[$type]();
     }
 
     public function nameClassMapping()
@@ -32,26 +32,28 @@ class TypesConfig extends SearchConfig
         /**
          * @var AbstractType $type
          */
-        return array_map(fn($type) => $type::getTypeName(), $this->registered);
+        return array_map(fn ($type) => $type::getTypeName(), $this->registered);
     }
 
     /**
      * @param string $typeName
-     * @return mixed
+     *
      * @throws JsonQueryBuilderException
+     *
+     * @return mixed
      */
     public function getCallbackByTypeName(string $typeName): AbstractType
     {
         $mapping = $this->nameClassMapping();
 
-        if(!array_key_exists($typeName, $mapping)){
-            if(!array_key_exists('generic', $mapping)){
+        if (!array_key_exists($typeName, $mapping)) {
+            if (!array_key_exists('generic', $mapping)) {
                 throw new JsonQueryBuilderException("No valid callback for '$typeName' type.");
             }
 
-            return new $mapping['generic'];
+            return new $mapping['generic']();
         }
 
-        return new $mapping[$typeName];
+        return new $mapping[$typeName]();
     }
 }

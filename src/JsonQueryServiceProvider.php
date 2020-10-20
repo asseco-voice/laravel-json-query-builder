@@ -11,7 +11,7 @@ class JsonQueryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__ . '/Config/asseco-json-query-builder.php', 'asseco-json-query-builder');
+        $this->mergeConfigFrom(__DIR__.'/Config/asseco-json-query-builder.php', 'asseco-json-query-builder');
     }
 
     /**
@@ -19,6 +19,6 @@ class JsonQueryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/Config/asseco-json-query-builder.php' => config_path('asseco-json-query-builder.php'),]);
+        $this->publishes([__DIR__.'/Config/asseco-json-query-builder.php' => config_path('asseco-json-query-builder.php')]);
     }
 }

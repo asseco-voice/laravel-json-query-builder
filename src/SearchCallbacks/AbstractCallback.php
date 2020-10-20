@@ -18,9 +18,11 @@ abstract class AbstractCallback
 
     /**
      * AbstractCallback constructor.
-     * @param Builder $builder
-     * @param Search $searchModel
+     *
+     * @param Builder         $builder
+     * @param Search          $searchModel
      * @param OperatorsConfig $operatorsConfig
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(Builder $builder, Search $searchModel, OperatorsConfig $operatorsConfig)
@@ -44,7 +46,7 @@ abstract class AbstractCallback
 
     /**
      * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types
+     * This is a Laravel friendly name for columns based on Laravel migration column types.
      *
      * @return string
      */
@@ -54,10 +56,12 @@ abstract class AbstractCallback
     }
 
     /**
-     * Execute a callback on a given column, providing the array of values
-     * @param Builder $builder
-     * @param string $column
+     * Execute a callback on a given column, providing the array of values.
+     *
+     * @param Builder           $builder
+     * @param string            $column
      * @param CategorizedValues $values
+     *
      * @throws SearchException|JsonQueryBuilderException
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
@@ -72,10 +76,11 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
+     * @param Builder           $builder
+     * @param string            $column
      * @param CategorizedValues $values
-     * @param string $operator
+     * @param string            $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function lessOrMoreCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
@@ -94,10 +99,11 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
+     * @param Builder           $builder
+     * @param string            $column
      * @param CategorizedValues $values
-     * @param string $operator
+     * @param string            $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function betweenCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
@@ -121,7 +127,8 @@ abstract class AbstractCallback
      * Should throw exception if anything except '$values->and' is filled out.
      *
      * @param CategorizedValues $values
-     * @param string $operator
+     * @param string            $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function checkAllowedValues(CategorizedValues $values, string $operator): void

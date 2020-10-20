@@ -13,7 +13,7 @@ class Search
     use RemovesEmptyValues;
 
     /**
-     * Constant by which values will be split within a single parameter. E.g. parameter=value1;value2
+     * Constant by which values will be split within a single parameter. E.g. parameter=value1;value2.
      */
     const VALUE_SEPARATOR = ';';
 
@@ -27,10 +27,12 @@ class Search
 
     /**
      * Search constructor.
-     * @param ModelConfig $modelConfig
+     *
+     * @param ModelConfig     $modelConfig
      * @param OperatorsConfig $operatorsConfig
-     * @param string $column
-     * @param string $argument
+     * @param string          $column
+     * @param string          $argument
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, string $column, string $argument)
@@ -50,8 +52,10 @@ class Search
     /**
      * @param $operators
      * @param string $argument
-     * @return string
+     *
      * @throws JsonQueryBuilderException
+     *
+     * @return string
      */
     protected function parseOperator($operators, string $argument): string
     {
@@ -69,7 +73,7 @@ class Search
     }
 
     /**
-     * Split values by a given separator
+     * Split values by a given separator.
      *
      * Input: val1;val2
      *
@@ -77,8 +81,10 @@ class Search
      *         val2
      *
      * @param $values
-     * @return array
+     *
      * @throws JsonQueryBuilderException
+     *
+     * @return array
      */
     protected function splitValues(string $values): array
     {
@@ -93,8 +99,9 @@ class Search
     }
 
     /**
-     * @return string
      * @throws JsonQueryBuilderException
+     *
+     * @return string
      */
     public function getColumnType(): string
     {
@@ -109,7 +116,7 @@ class Search
     }
 
     /**
-     * Check if global forbidden key is used
+     * Check if global forbidden key is used.
      *
      * @throws JsonQueryBuilderException
      */

@@ -32,23 +32,23 @@ class SearchParameter extends AbstractParameter
         $this->operatorsConfig = new OperatorsConfig();
 
         // Wrapped within a where clause to protect from orWhere "exploits".
-        $this->builder->where(function (Builder $builder) use ($arguments){
+        $this->builder->where(function (Builder $builder) use ($arguments) {
             $this->makeQuery($builder, $arguments);
         });
     }
 
     /**
-     * Making query from input parameters with recursive calls if needed for top level logical operators (check readme)
+     * Making query from input parameters with recursive calls if needed for top level logical operators (check readme).
      *
      * @param Builder $builder
-     * @param array $arguments
-     * @param string $boolOperator
+     * @param array   $arguments
+     * @param string  $boolOperator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
-
             if ($this->isBoolOperator($key)) {
                 // Recursion for keys which are &&/||
                 $this->makeQuery($builder, $value, $key);
@@ -76,8 +76,10 @@ class SearchParameter extends AbstractParameter
 
     /**
      * @param string $boolOperator
-     * @return string
+     *
      * @throws JsonQueryBuilderException
+     *
+     * @return string
      */
     protected function getQueryFunctionName(string $boolOperator): string
     {
@@ -87,7 +89,7 @@ class SearchParameter extends AbstractParameter
             return self::LARAVEL_OR_WHERE;
         }
 
-        throw new JsonQueryBuilderException("Invalid bool operator provided");
+        throw new JsonQueryBuilderException('Invalid bool operator provided');
     }
 
     protected function shouldSplitQueries($value): bool
@@ -96,7 +98,7 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param string $functionName
+     * @param string  $functionName
      * @param Builder $builder
      * @param $key
      * @param $value
@@ -110,8 +112,9 @@ class SearchParameter extends AbstractParameter
 
     /**
      * @param OperatorsConfig $operatorsConfig
-     * @param string $column
-     * @param string $argument
+     * @param string          $column
+     * @param string          $argument
+     *
      * @throws JsonQueryBuilderException
      */
     protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument): void
@@ -130,15 +133,17 @@ class SearchParameter extends AbstractParameter
 
     /**
      * @param $argument
-     * @return array
+     *
      * @throws JsonQueryBuilderException
+     *
+     * @return array
      */
     protected function splitByBoolOperators($argument): array
     {
         $splitByOr = explode(self:: OR, $argument);
 
         if (empty($splitByOr)) {
-            throw new JsonQueryBuilderException("Something went wrong. Did you forget to add arguments?");
+            throw new JsonQueryBuilderException('Something went wrong. Did you forget to add arguments?');
         }
 
         $splitByAnd = [];
@@ -151,11 +156,12 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * Append the query based on the given argument
+     * Append the query based on the given argument.
      *
-     * @param Builder $builder
+     * @param Builder         $builder
      * @param OperatorsConfig $operatorsConfig
-     * @param Search $searchModel
+     * @param Search          $searchModel
+     *
      * @throws JsonQueryBuilderException
      */
     protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, Search $searchModel): void
