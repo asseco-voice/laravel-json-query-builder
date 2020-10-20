@@ -21,7 +21,7 @@ abstract class SearchConfig
     }
 
     /**
-     * Get registered classes from configuration file
+     * Get registered classes from configuration file.
      *
      * @throws JsonQueryBuilderException
      */

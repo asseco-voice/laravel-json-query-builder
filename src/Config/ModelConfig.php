@@ -65,7 +65,7 @@ class ModelConfig
     }
 
     /**
-     * Union of Eloquent exclusion (guarded/fillable) and forbidden columns
+     * Union of Eloquent exclusion (guarded/fillable) and forbidden columns.
      *
      * @param array $forbiddenKeys
      * @return array
@@ -86,7 +86,7 @@ class ModelConfig
 
             if ($guarded[0] != '*') { // Guarded property is never empty. It is '*' by default.
                 $forbiddenKeys = array_merge($forbiddenKeys, $guarded);
-            } else if (count($fillable) > 0) {
+            } elseif (count($fillable) > 0) {
                 $forbiddenKeys = array_diff(array_keys($this->getModelColumns()), $fillable);
             }
         }
@@ -105,7 +105,7 @@ class ModelConfig
 
     /**
      * Will return column and column type array for a calling model.
-     * Column types will equal Eloquent column types
+     * Column types will equal Eloquent column types.
      *
      * @return array
      */

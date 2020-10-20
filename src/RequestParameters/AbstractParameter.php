@@ -33,7 +33,7 @@ abstract class AbstractParameter
     abstract public static function getParameterName(): string;
 
     /**
-     * Append the query to Eloquent builder
+     * Append the query to Eloquent builder.
      * @throws JsonQueryBuilderException
      */
     abstract public function appendQuery(): void;
@@ -48,7 +48,7 @@ abstract class AbstractParameter
     }
 
     /**
-     * Check validity of fetched arguments and throw exception if it fails
+     * Check validity of fetched arguments and throw exception if it fails.
      * @throws JsonQueryBuilderException
      */
     protected function areArgumentsValid(): void

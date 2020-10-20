@@ -6,7 +6,7 @@ abstract class AbstractType
 {
     /**
      * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types
+     * This is a Laravel friendly name for columns based on Laravel migration column types.
      *
      * @return string
      */
@@ -16,7 +16,7 @@ abstract class AbstractType
     }
 
     /**
-     * Prepare/transform values for query if needed
+     * Prepare/transform values for query if needed.
      *
      * @param array $values
      * @return array

@@ -19,6 +19,6 @@ class JsonQueryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/Config/asseco-json-query-builder.php' => config_path('asseco-json-query-builder.php'),]);
+        $this->publishes([__DIR__ . '/Config/asseco-json-query-builder.php' => config_path('asseco-json-query-builder.php')]);
     }
 }

@@ -13,7 +13,7 @@ class Search
     use RemovesEmptyValues;
 
     /**
-     * Constant by which values will be split within a single parameter. E.g. parameter=value1;value2
+     * Constant by which values will be split within a single parameter. E.g. parameter=value1;value2.
      */
     const VALUE_SEPARATOR = ';';
 
@@ -69,7 +69,7 @@ class Search
     }
 
     /**
-     * Split values by a given separator
+     * Split values by a given separator.
      *
      * Input: val1;val2
      *
@@ -109,7 +109,7 @@ class Search
     }
 
     /**
-     * Check if global forbidden key is used
+     * Check if global forbidden key is used.
      *
      * @throws JsonQueryBuilderException
      */
