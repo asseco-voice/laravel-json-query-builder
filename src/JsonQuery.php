@@ -43,12 +43,12 @@ class JsonQuery
     protected function forbidForExistingModels(): void
     {
         if ($this->builder->getModel()->exists) {
-            throw new JsonQueryBuilderException("Searching is not allowed on already loaded models.");
+            throw new JsonQueryBuilderException('Searching is not allowed on already loaded models.');
         }
     }
 
     /**
-     * Perform the search
+     * Perform the search.
      *
      * @throws Exceptions\JsonQueryBuilderException
      */
@@ -59,14 +59,13 @@ class JsonQuery
     }
 
     /**
-     * Append all queries from registered parameters
+     * Append all queries from registered parameters.
      *
      * @throws Exceptions\JsonQueryBuilderException
      */
     protected function appendParameterQueries(): void
     {
         foreach ($this->registeredParameters as $requestParameter) {
-
             if (!$this->parameterExists($requestParameter)) {
                 // TODO: append config query?
                 continue;
@@ -78,7 +77,7 @@ class JsonQuery
     }
 
     /**
-     * Append all queries from config
+     * Append all queries from config.
      */
     protected function appendConfigQueries(): void
     {
@@ -107,6 +106,7 @@ class JsonQuery
          * @var AbstractParameter $requestParameter
          */
         $input = $this->wrapInput($requestParameter::getParameterName());
+
         return new $requestParameter($input, $this->builder, $this->modelConfig);
     }
 

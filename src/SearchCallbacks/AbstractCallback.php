@@ -44,7 +44,7 @@ abstract class AbstractCallback
 
     /**
      * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types
+     * This is a Laravel friendly name for columns based on Laravel migration column types.
      *
      * @return string
      */
@@ -54,7 +54,7 @@ abstract class AbstractCallback
     }
 
     /**
-     * Execute a callback on a given column, providing the array of values
+     * Execute a callback on a given column, providing the array of values.
      * @param Builder $builder
      * @param string $column
      * @param CategorizedValues $values

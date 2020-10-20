@@ -22,6 +22,4 @@ class LimitParameter extends AbstractParameter
     {
         $this->builder->limit($this->arguments[0]);
     }
-
-
 }

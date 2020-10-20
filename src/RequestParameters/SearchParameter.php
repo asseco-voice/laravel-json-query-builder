@@ -32,13 +32,13 @@ class SearchParameter extends AbstractParameter
         $this->operatorsConfig = new OperatorsConfig();
 
         // Wrapped within a where clause to protect from orWhere "exploits".
-        $this->builder->where(function (Builder $builder) use ($arguments){
+        $this->builder->where(function (Builder $builder) use ($arguments) {
             $this->makeQuery($builder, $arguments);
         });
     }
 
     /**
-     * Making query from input parameters with recursive calls if needed for top level logical operators (check readme)
+     * Making query from input parameters with recursive calls if needed for top level logical operators (check readme).
      *
      * @param Builder $builder
      * @param array $arguments
@@ -48,7 +48,6 @@ class SearchParameter extends AbstractParameter
     protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
-
             if ($this->isBoolOperator($key)) {
                 // Recursion for keys which are &&/||
                 $this->makeQuery($builder, $value, $key);
@@ -87,7 +86,7 @@ class SearchParameter extends AbstractParameter
             return self::LARAVEL_OR_WHERE;
         }
 
-        throw new JsonQueryBuilderException("Invalid bool operator provided");
+        throw new JsonQueryBuilderException('Invalid bool operator provided');
     }
 
     protected function shouldSplitQueries($value): bool
@@ -138,7 +137,7 @@ class SearchParameter extends AbstractParameter
         $splitByOr = explode(self:: OR, $argument);
 
         if (empty($splitByOr)) {
-            throw new JsonQueryBuilderException("Something went wrong. Did you forget to add arguments?");
+            throw new JsonQueryBuilderException('Something went wrong. Did you forget to add arguments?');
         }
 
         $splitByAnd = [];
@@ -151,7 +150,7 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * Append the query based on the given argument
+     * Append the query based on the given argument.
      *
      * @param Builder $builder
      * @param OperatorsConfig $operatorsConfig

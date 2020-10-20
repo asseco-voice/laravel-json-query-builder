@@ -67,7 +67,7 @@ return [
 
     /**
      * Refined options for a single model.
-     * Use if you want to enforce rules on a specific model without affecting globally all models
+     * Use if you want to enforce rules on a specific model without affecting globally all models.
      */
     'model_options'           => [
 
@@ -86,7 +86,7 @@ return [
              */
             'eloquent_exclusion' => false,
             /**
-             * Disable search on specific columns. Searching on forbidden columns will throw an exception
+             * Disable search on specific columns. Searching on forbidden columns will throw an exception.
              */
             'forbidden_columns'  => ['column', 'column2'],
             /**
@@ -95,7 +95,7 @@ return [
              */
             'order_by'           => [
                 'id'         => 'asc',
-                'created_at' => 'desc'
+                'created_at' => 'desc',
             ],
             /**
              * List of columns to return. Return values forwarded within the request will
@@ -118,5 +118,5 @@ return [
                 'frontend_column' => 'backend_column',
             ],
         ],
-    ]
+    ],
 ];

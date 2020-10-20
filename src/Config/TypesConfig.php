@@ -32,7 +32,7 @@ class TypesConfig extends SearchConfig
         /**
          * @var AbstractType $type
          */
-        return array_map(fn($type) => $type::getTypeName(), $this->registered);
+        return array_map(fn ($type) => $type::getTypeName(), $this->registered);
     }
 
     /**
@@ -44,8 +44,8 @@ class TypesConfig extends SearchConfig
     {
         $mapping = $this->nameClassMapping();
 
-        if(!array_key_exists($typeName, $mapping)){
-            if(!array_key_exists('generic', $mapping)){
+        if (!array_key_exists($typeName, $mapping)) {
+            if (!array_key_exists('generic', $mapping)) {
                 throw new JsonQueryBuilderException("No valid callback for '$typeName' type.");
             }
 
