@@ -65,7 +65,8 @@ following:
 - `column` represents a column in the database. Multiple keys can be separated as a new
 JSON key-value pair. 
 - It is possible to search by related models using ``.`` as a divider i.e. 
-`"relation.column": "operator value")`.
+`"relation.column": "operator value")`. **Note** this will execute a `WHERE EXISTS`, it will 
+not filter resulting relations if included within relations.
 - ``operator`` is one of the available main operators for querying (listed [below](#main-operators))
 - ``values`` is a semicolon (`;`) separated list of values 
 (i.e. `"column": "=value;value2;value3"`) which
@@ -189,6 +190,9 @@ Will perform a ``SELECT ... ORDER BY first_name asc, last_name desc``
 It is possible to load object relations as well by using ``relations`` parameter.
 This operator accepts an array of values or a single value. 
 
+
+#### Simple 
+
 Example:
 
 Resolve single relation:
@@ -244,6 +248,28 @@ into account though that this can **seriously hurt performance**!
     "relations": "media.type.contact.title"
 }
 ```
+
+#### Complex
+
+Relation can also be an object with nested search attributes to additionally filter out
+the given result set.
+
+Example:
+
+```
+"relations": [
+    {
+        "media": {
+            "search": {
+                "media_type_id": "=1"
+            }
+        }
+    }
+]
+```
+
+will load a ``media`` relationship on the object, but only returning objects whose 
+``media_type_id`` equals to `1`.
 
 ### Limit
 

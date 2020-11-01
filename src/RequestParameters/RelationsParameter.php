@@ -3,6 +3,8 @@
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Support\Str;
+use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Voice\JsonQueryBuilder\JsonQuery;
 
 class RelationsParameter extends AbstractParameter
 {
@@ -13,10 +15,38 @@ class RelationsParameter extends AbstractParameter
 
     public function appendQuery(): void
     {
-        foreach ($this->arguments as &$argument) {
-            $argument = Str::camel($argument);
+        foreach ($this->arguments as $argument) {
+
+            if (is_string($argument)) {
+                $this->appendSimpleRelation($argument);
+                return;
+            }
+
+            if (is_array($argument) && count($argument) > 0) {
+                $this->appendComplexRelation($argument);
+                return;
+            }
+
+            throw new JsonQueryBuilderException("Wrong relation parameters provided.");
         }
 
-        $this->builder->with($this->arguments);
+    }
+
+    protected function appendSimpleRelation(string $argument): void
+    {
+        $this->builder->with(Str::camel($argument));
+    }
+
+    protected function appendComplexRelation(array $argument): void
+    {
+        $relation = key($argument);
+        $input = $argument[$relation];
+
+        $this->builder->with([$relation => function ($query) use ($input) {
+
+            $jsonQuery = new JsonQuery($query->getQuery(), $input);
+            $jsonQuery->search();
+
+        }]);
     }
 }
