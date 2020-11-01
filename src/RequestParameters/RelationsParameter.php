@@ -19,12 +19,12 @@ class RelationsParameter extends AbstractParameter
 
             if (is_string($argument)) {
                 $this->appendSimpleRelation($argument);
-                return;
+                continue;
             }
 
             if (is_array($argument) && count($argument) > 0) {
                 $this->appendComplexRelation($argument);
-                return;
+                continue;
             }
 
             throw new JsonQueryBuilderException("Wrong relation parameters provided.");
