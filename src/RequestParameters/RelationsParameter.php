@@ -27,9 +27,8 @@ class RelationsParameter extends AbstractParameter
                 continue;
             }
 
-            throw new JsonQueryBuilderException("Wrong relation parameters provided.");
+            throw new JsonQueryBuilderException('Wrong relation parameters provided.');
         }
-
     }
 
     protected function appendSimpleRelation(string $argument): void
@@ -43,10 +42,8 @@ class RelationsParameter extends AbstractParameter
         $input = $argument[$relation];
 
         $this->builder->with([$relation => function ($query) use ($input) {
-
             $jsonQuery = new JsonQuery($query->getQuery(), $input);
             $jsonQuery->search();
-
         }]);
     }
 }
