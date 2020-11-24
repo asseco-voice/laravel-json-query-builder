@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Support\Facades\DB;
@@ -25,7 +27,6 @@ class CountParameter extends AbstractParameter
 
     public function appendQuery(): void
     {
-        // TODO: check this for other DB drivers
         $this->builder->select(DB::raw('count(*) as count'));
     }
 }

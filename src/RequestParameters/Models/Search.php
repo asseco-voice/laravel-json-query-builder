@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\RequestParameters\Models;
 
 use Illuminate\Support\Facades\Config;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\Types;
 
 abstract class AbstractType

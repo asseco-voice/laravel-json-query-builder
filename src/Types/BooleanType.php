@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\Types;
 
 use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;

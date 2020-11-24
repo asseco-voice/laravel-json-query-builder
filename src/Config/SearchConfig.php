@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\Config;
 
 use Illuminate\Support\Facades\Config;
@@ -16,7 +18,7 @@ abstract class SearchConfig
      */
     public function __construct()
     {
-        $this->config = Config::get('asseco-json-query-builder');
+        $this->config = config('asseco-json-query-builder');
         $this->register();
     }
 

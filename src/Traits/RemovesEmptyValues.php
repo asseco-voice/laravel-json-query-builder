@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\Traits;
 
 trait RemovesEmptyValues
@@ -15,7 +17,7 @@ trait RemovesEmptyValues
         $trimmedInput = array_map('trim', $input);
 
         $deleteKeys = array_keys(
-            array_filter($trimmedInput, fn ($item) => $item == '')
+            array_filter($trimmedInput, fn($item) => $item == '')
         );
 
         foreach ($deleteKeys as $deleteKey) {

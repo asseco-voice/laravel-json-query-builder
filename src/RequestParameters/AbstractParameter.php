@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Database\Eloquent\Builder;
