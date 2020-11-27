@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
 use Voice\JsonQueryBuilder\CategorizedValues;
 use Voice\JsonQueryBuilder\Config\OperatorsConfig;
 use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\Exceptions\SearchException;
 use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
 
 abstract class AbstractCallback
@@ -58,7 +59,7 @@ abstract class AbstractCallback
      * @param Builder $builder
      * @param string $column
      * @param CategorizedValues $values
-     * @throws SearchException|JsonQueryBuilderException
+     * @throws JsonQueryBuilderException
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
 

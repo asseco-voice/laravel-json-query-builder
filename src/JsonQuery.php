@@ -16,10 +16,6 @@ class JsonQuery
     protected ModelConfig $modelConfig;
     protected array       $registeredParameters;
 
-    /*
-     * TODO: implement date from-to etc.
-     */
-
     /**
      * JsonQuery constructor.
      * @param Builder $builder

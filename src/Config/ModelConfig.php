@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Voice\JsonQueryBuilder\Config;
 
 use Doctrine\DBAL\DBALException;
@@ -25,12 +27,12 @@ class ModelConfig
 
     public function hasConfig(): bool
     {
-        return array_key_exists(get_class($this->model), Config::get('asseco-json-query-builder.model_options'));
+        return array_key_exists(get_class($this->model), config('asseco-json-query-builder.model_options'));
     }
 
     protected function getConfig(): array
     {
-        return Config::get('asseco-json-query-builder.model_options.' . get_class($this->model));
+        return config('asseco-json-query-builder.model_options.' . get_class($this->model));
     }
 
     public function getReturns()
