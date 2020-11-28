@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
+use Illuminate\Database\Eloquent\Builder;
 
 class SearchParameter extends AbstractParameter
 {

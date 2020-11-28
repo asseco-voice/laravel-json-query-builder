@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters\Models;
 
-use Illuminate\Support\Facades\Config;
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\Traits\RemovesEmptyValues;
+use Illuminate\Support\Facades\Config;
 
 class Search
 {

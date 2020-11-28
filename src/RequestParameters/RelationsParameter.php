@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
-use Illuminate\Support\Str;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\JsonQuery;
+use Illuminate\Support\Str;
 
 class RelationsParameter extends AbstractParameter
 {
