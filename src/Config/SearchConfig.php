@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Config;
 
-use Illuminate\Support\Facades\Config;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Illuminate\Support\Facades\Config;
 
 abstract class SearchConfig
 {

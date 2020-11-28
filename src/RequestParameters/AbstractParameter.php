@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
-use Illuminate\Database\Eloquent\Builder;
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractParameter
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
-use Illuminate\Database\Eloquent\Builder;
 use Asseco\JsonQueryBuilder\CategorizedValues;
+use Illuminate\Database\Eloquent\Builder;
 
 class GreaterThan extends AbstractCallback
 {

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
-use Illuminate\Support\Facades\DB;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Illuminate\Support\Facades\DB;
 
 class CountParameter extends AbstractParameter
 {
