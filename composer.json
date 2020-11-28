@@ -16,13 +16,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Voice\\JsonQueryBuilder\\": "src/"
+            "Asseco\\JsonQueryBuilder\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Voice\\JsonQueryBuilder\\JsonQueryServiceProvider"
+                "Asseco\\JsonQueryBuilder\\JsonQueryServiceProvider"
             ]
         }
     }

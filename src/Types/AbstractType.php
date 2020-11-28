@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Types;
+namespace Asseco\JsonQueryBuilder\Types;
 
 abstract class AbstractType
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Voice\JsonQueryBuilder;
+namespace Asseco\JsonQueryBuilder;
 
-use Voice\JsonQueryBuilder\Config\OperatorsConfig;
-use Voice\JsonQueryBuilder\Config\TypesConfig;
-use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
+use Asseco\JsonQueryBuilder\Config\TypesConfig;
+use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
 
 class CategorizedValues
 {

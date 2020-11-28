@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters\Models;
+namespace Asseco\JsonQueryBuilder\RequestParameters\Models;
 
 use Illuminate\Support\Facades\Config;
-use Voice\JsonQueryBuilder\Config\ModelConfig;
-use Voice\JsonQueryBuilder\Config\OperatorsConfig;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\Traits\RemovesEmptyValues;
+use Asseco\JsonQueryBuilder\Config\ModelConfig;
+use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\Traits\RemovesEmptyValues;
 
 class Search
 {

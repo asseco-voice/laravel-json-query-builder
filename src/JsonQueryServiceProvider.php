@@ -1,6 +1,6 @@
 <?php
 
-namespace Voice\JsonQueryBuilder;
+namespace Asseco\JsonQueryBuilder;
 
 use Illuminate\Support\ServiceProvider;
 

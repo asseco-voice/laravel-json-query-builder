@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Support\Facades\DB;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class CountParameter extends AbstractParameter
 {

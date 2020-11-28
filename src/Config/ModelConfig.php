@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Config;
+namespace Asseco\JsonQueryBuilder\Config;
 
 use Doctrine\DBAL\DBALException;
 use Illuminate\Database\Eloquent\Model;

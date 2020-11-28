@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\JsonQueryBuilder\Config\OperatorsConfig;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\RequestParameters\Models\Search;
-use Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
+use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class SearchParameter extends AbstractParameter
 {

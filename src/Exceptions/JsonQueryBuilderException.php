@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Exceptions;
+namespace Asseco\JsonQueryBuilder\Exceptions;
 
 use Exception;
 use Throwable;

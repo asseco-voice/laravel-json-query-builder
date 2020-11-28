@@ -1,13 +1,13 @@
 <?php
 
-namespace Voice\JsonQueryBuilder;
+namespace Asseco\JsonQueryBuilder;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
-use Voice\JsonQueryBuilder\Config\ModelConfig;
-use Voice\JsonQueryBuilder\Config\RequestParametersConfig;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\RequestParameters\AbstractParameter;
+use Asseco\JsonQueryBuilder\Config\ModelConfig;
+use Asseco\JsonQueryBuilder\Config\RequestParametersConfig;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\RequestParameters\AbstractParameter;
 
 class JsonQuery
 {

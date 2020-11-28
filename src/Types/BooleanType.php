@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Types;
+namespace Asseco\JsonQueryBuilder\Types;
 
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class BooleanType extends AbstractType
 {

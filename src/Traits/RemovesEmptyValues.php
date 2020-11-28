@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Traits;
+namespace Asseco\JsonQueryBuilder\Traits;
 
 trait RemovesEmptyValues
 {

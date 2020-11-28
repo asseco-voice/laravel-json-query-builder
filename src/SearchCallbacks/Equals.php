@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\SearchCallbacks;
+namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
 use Illuminate\Database\Eloquent\Builder;
-use Voice\JsonQueryBuilder\CategorizedValues;
+use Asseco\JsonQueryBuilder\CategorizedValues;
 
 class Equals extends AbstractCallback
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 class ReturnsParameter extends AbstractParameter
 {

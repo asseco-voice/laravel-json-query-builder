@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Config;
+namespace Asseco\JsonQueryBuilder\Config;
 
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\Types\AbstractType;
-use Voice\JsonQueryBuilder\Types\GenericType;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\Types\AbstractType;
+use Asseco\JsonQueryBuilder\Types\GenericType;
 
 class TypesConfig extends SearchConfig
 {
