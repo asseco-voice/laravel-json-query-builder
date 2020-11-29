@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\Config;
+namespace Asseco\JsonQueryBuilder\Config;
 
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Illuminate\Support\Facades\Config;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 abstract class SearchConfig
 {

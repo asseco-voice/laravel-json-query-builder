@@ -485,7 +485,7 @@ Aside from standard query string search, it is possible to provide additional
 package configuration.
 
 Publish the configuration by running 
-`php artisan vendor:publish --provider="Voice\JsonQueryBuilder\JsonQueryServiceProvider"`.
+`php artisan vendor:publish --provider="Asseco\JsonQueryBuilder\JsonQueryServiceProvider"`.
 
 All the keys within the configuration file have a detailed explanation above each key.
 
@@ -496,9 +496,9 @@ custom code.
 
 - request parameters are registered under ``request_parameters`` config key. 
 You can extend this functionality by adding your own custom parameter. It 
-needs to extend ``Voice\JsonQueryBuilder\RequestParameters\AbstractParameter``
+needs to extend ``Asseco\JsonQueryBuilder\RequestParameters\AbstractParameter``
 in order to work.  
 - operators are registered under ``operators`` config key. Those can be 
-extended by adding a class which extends ``Voice\JsonQueryBuilder\SearchCallbacks\AbstractCallback``
+extended by adding a class which extends ``Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback``
 - types are registered under ``types`` config key. Those can be extended
-by adding a class which extends ``Voice\JsonQueryBuilder\Types\AbstractType``
+by adding a class which extends ``Asseco\JsonQueryBuilder\Types\AbstractType``

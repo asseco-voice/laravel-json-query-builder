@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
+use Asseco\JsonQueryBuilder\Config\ModelConfig;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Illuminate\Database\Eloquent\Builder;
-use Voice\JsonQueryBuilder\Config\ModelConfig;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 abstract class AbstractParameter
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\JsonQuery;
 use Illuminate\Support\Str;
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Voice\JsonQueryBuilder\JsonQuery;
 
 class RelationsParameter extends AbstractParameter
 {

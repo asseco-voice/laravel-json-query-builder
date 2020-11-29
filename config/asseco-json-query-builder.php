@@ -1,22 +1,22 @@
 <?php
 
-use Voice\JsonQueryBuilder\RequestParameters\CountParameter;
-use Voice\JsonQueryBuilder\RequestParameters\LimitParameter;
-use Voice\JsonQueryBuilder\RequestParameters\OffsetParameter;
-use Voice\JsonQueryBuilder\RequestParameters\OrderByParameter;
-use Voice\JsonQueryBuilder\RequestParameters\RelationsParameter;
-use Voice\JsonQueryBuilder\RequestParameters\ReturnsParameter;
-use Voice\JsonQueryBuilder\RequestParameters\SearchParameter;
-use Voice\JsonQueryBuilder\SearchCallbacks\Between;
-use Voice\JsonQueryBuilder\SearchCallbacks\Equals;
-use Voice\JsonQueryBuilder\SearchCallbacks\GreaterThan;
-use Voice\JsonQueryBuilder\SearchCallbacks\GreaterThanOrEqual;
-use Voice\JsonQueryBuilder\SearchCallbacks\LessThan;
-use Voice\JsonQueryBuilder\SearchCallbacks\LessThanOrEqual;
-use Voice\JsonQueryBuilder\SearchCallbacks\NotBetween;
-use Voice\JsonQueryBuilder\SearchCallbacks\NotEquals;
-use Voice\JsonQueryBuilder\Types\BooleanType;
-use Voice\JsonQueryBuilder\Types\GenericType;
+use Asseco\JsonQueryBuilder\RequestParameters\CountParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\LimitParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\OffsetParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\OrderByParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\RelationsParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\ReturnsParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\SearchParameter;
+use Asseco\JsonQueryBuilder\SearchCallbacks\Between;
+use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
+use Asseco\JsonQueryBuilder\SearchCallbacks\GreaterThan;
+use Asseco\JsonQueryBuilder\SearchCallbacks\GreaterThanOrEqual;
+use Asseco\JsonQueryBuilder\SearchCallbacks\LessThan;
+use Asseco\JsonQueryBuilder\SearchCallbacks\LessThanOrEqual;
+use Asseco\JsonQueryBuilder\SearchCallbacks\NotBetween;
+use Asseco\JsonQueryBuilder\SearchCallbacks\NotEquals;
+use Asseco\JsonQueryBuilder\Types\BooleanType;
+use Asseco\JsonQueryBuilder\Types\GenericType;
 
 return [
     /**

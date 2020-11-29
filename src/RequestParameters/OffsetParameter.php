@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Voice\JsonQueryBuilder\RequestParameters;
+namespace Asseco\JsonQueryBuilder\RequestParameters;
 
-use Voice\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class OffsetParameter extends AbstractParameter
 {
