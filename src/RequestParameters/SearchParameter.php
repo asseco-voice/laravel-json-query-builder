@@ -70,7 +70,7 @@ class SearchParameter extends AbstractParameter
         }
     }
 
-    protected function isBoolOperator(string $key): bool
+    protected function isBoolOperator($key): bool
     {
         return in_array($key, [self:: OR, self:: AND], true);
     }
