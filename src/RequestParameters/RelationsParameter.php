@@ -42,7 +42,7 @@ class RelationsParameter extends AbstractParameter
         $relation = key($argument);
         $input = $argument[$relation];
 
-        $this->builder->with([$relation => function ($query) use ($input) {
+        $this->builder->with([Str::camel($relation) => function ($query) use ($input) {
             $jsonQuery = new JsonQuery($query->getQuery(), $input);
             $jsonQuery->search();
         }]);

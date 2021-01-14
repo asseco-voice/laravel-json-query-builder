@@ -51,6 +51,7 @@ JSON parameters (keys):
 - ``search`` - will perform the querying logic (explained in detail [below](#search))
 - ``returns`` - will return only the columns provided as values.
 - ``order_by`` - will order the results based on values provided.
+- ``group_by`` - will group the results based on values provided.
 - ``relations`` - will load the relations for the given model.
 - `limit` - will limit the results returned.
 - `offset` - will return a subset of results starting from a point given. This parameter **MUST**
@@ -184,6 +185,25 @@ Example:
 ```
 
 Will perform a ``SELECT ... ORDER BY first_name asc, last_name desc``
+
+### Group by
+
+Using ``group_by`` key does an 'group by' based on the given key(s). Order of the keys
+matters!
+
+Arguments are presumed to be a single attribute or array of attributes.
+
+Since group by behaves like it would in a plain SQL query, be sure to select
+the right fields and aggregate functions. 
+
+Example:
+```
+{
+    "group_by": ["last_name", "first_name"]
+}
+```
+
+Will perform a ``SELECT ... GROUP BY last_name, first_name``
 
 ### Relations
 
