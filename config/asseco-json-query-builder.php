@@ -1,6 +1,7 @@
 <?php
 
 use Asseco\JsonQueryBuilder\RequestParameters\CountParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\GroupByParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\LimitParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\OffsetParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\OrderByParameter;
@@ -30,6 +31,7 @@ return [
         LimitParameter::class,
         OffsetParameter::class,
         CountParameter::class,
+        GroupByParameter::class
     ],
 
     /**
