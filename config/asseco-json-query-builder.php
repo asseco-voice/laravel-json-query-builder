@@ -31,7 +31,7 @@ return [
         LimitParameter::class,
         OffsetParameter::class,
         CountParameter::class,
-        GroupByParameter::class
+        GroupByParameter::class,
     ],
 
     /**
