@@ -51,7 +51,6 @@ class SearchParameter extends AbstractParameter
     protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
-
             $key = $this->forceCamelCaseOnRelationKeys($key);
 
             if ($this->isBoolOperator($key)) {
