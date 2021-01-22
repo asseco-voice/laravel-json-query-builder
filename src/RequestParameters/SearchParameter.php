@@ -9,6 +9,7 @@ use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 class SearchParameter extends AbstractParameter
 {
@@ -50,6 +51,8 @@ class SearchParameter extends AbstractParameter
     protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
+            $key = $this->forceCamelCaseOnRelationKeys($key);
+
             if ($this->isBoolOperator($key)) {
                 // Recursion for keys which are &&/||
                 $this->makeQuery($builder, $value, $key);
@@ -68,6 +71,17 @@ class SearchParameter extends AbstractParameter
                 $this->makeQuery($queryBuilder, $value);
             });
         }
+    }
+
+    protected function forceCamelCaseOnRelationKeys($key)
+    {
+        $exploded = explode('.', $key);
+
+        if (count($exploded) < 2) {
+            return $key;
+        }
+
+        return implode('.', [Str::camel($exploded[0]), $exploded[1]]);
     }
 
     protected function isBoolOperator($key): bool
