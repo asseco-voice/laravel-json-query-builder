@@ -75,6 +75,10 @@ class SearchParameter extends AbstractParameter
 
     protected function forceCamelCaseOnRelationKeys($key)
     {
+        if (!is_string($key)) {
+            return $key;
+        }
+
         $exploded = explode('.', $key);
 
         if (count($exploded) < 2) {

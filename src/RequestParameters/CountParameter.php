@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
+use Illuminate\Support\Facades\DB;
 
 class CountParameter extends AbstractParameter
 {
@@ -26,6 +27,6 @@ class CountParameter extends AbstractParameter
 
     public function appendQuery(): void
     {
-        $this->builder->selectRaw('count(*) as count');
+        $this->builder->select(DB::raw('count(*) as count'));
     }
 }
