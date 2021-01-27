@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Tests\Unit\Config;
 
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Config\RequestParametersConfig;
-use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
 use Asseco\JsonQueryBuilder\Tests\TestCase;
 use Exception;
 
