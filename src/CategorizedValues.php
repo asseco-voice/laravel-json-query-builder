@@ -46,7 +46,7 @@ class CategorizedValues
      */
     public function prepare()
     {
-        $type = (new TypesConfig())->getCallbackByTypeName($this->searchModel->type);
+        $type = (new TypesConfig())->getTypeClassFromTypeName($this->searchModel->type);
         $this->searchModel->values = $type->prepare($this->searchModel->values);
     }
 

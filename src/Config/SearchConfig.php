@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\Config;
 
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Illuminate\Support\Facades\Config;
 
 abstract class SearchConfig
 {
@@ -27,7 +26,7 @@ abstract class SearchConfig
      *
      * @throws JsonQueryBuilderException
      */
-    public function register(): void
+    protected function register(): void
     {
         $key = static::CONFIG_KEY;
         if (!array_key_exists($key, $this->config)) {

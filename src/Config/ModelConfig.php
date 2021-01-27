@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Config;
 
-use Doctrine\DBAL\DBALException;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -35,19 +35,19 @@ class ModelConfig
         return config('asseco-json-query-builder.model_options.' . get_class($this->model));
     }
 
-    public function getReturns()
+    public function getReturns(): array
     {
         if (array_key_exists('returns', $this->config) && $this->config['returns']) {
-            return $this->config['returns'];
+            return Arr::wrap($this->config['returns']);
         }
 
         return ['*'];
     }
 
-    public function getRelations()
+    public function getRelations(): array
     {
         if (array_key_exists('relations', $this->config) && $this->config['relations']) {
-            return $this->config['relations'];
+            return Arr::wrap($this->config['relations']);
         }
 
         return [];
@@ -82,15 +82,17 @@ class ModelConfig
 
     protected function getEloquentExclusion($forbiddenKeys): array
     {
-        if (array_key_exists('eloquent_exclusion', $this->config) && $this->config['eloquent_exclusion']) {
-            $guarded = $this->model->getGuarded();
-            $fillable = $this->model->getFillable();
+        if (!array_key_exists('eloquent_exclusion', $this->config) || !($this->config['eloquent_exclusion'])) {
+            return $forbiddenKeys;
+        }
 
-            if ($guarded[0] != '*') { // Guarded property is never empty. It is '*' by default.
-                $forbiddenKeys = array_merge($forbiddenKeys, $guarded);
-            } elseif (count($fillable) > 0) {
-                $forbiddenKeys = array_diff(array_keys($this->getModelColumns()), $fillable);
-            }
+        $guarded = $this->model->getGuarded();
+        $fillable = $this->model->getFillable();
+
+        if ($guarded[0] != '*') { // Guarded property is never empty. It is '*' by default.
+            $forbiddenKeys = array_merge($forbiddenKeys, $guarded);
+        } elseif (count($fillable) > 0) {
+            $forbiddenKeys = array_diff(array_keys($this->getModelColumns()), $fillable);
         }
 
         return $forbiddenKeys;
@@ -98,11 +100,11 @@ class ModelConfig
 
     protected function getForbiddenColumns(array $forbiddenKeys): array
     {
-        if (array_key_exists('forbidden_columns', $this->config) && $this->config['forbidden_columns']) {
-            $forbiddenKeys = array_merge($forbiddenKeys, $this->config['forbidden_columns']);
+        if (!array_key_exists('forbidden_columns', $this->config) || !($this->config['forbidden_columns'])) {
+            return $forbiddenKeys;
         }
 
-        return $forbiddenKeys;
+        return array_merge($forbiddenKeys, $this->config['forbidden_columns']);
     }
 
     /**
@@ -129,7 +131,7 @@ class ModelConfig
             foreach ($columns as $column) {
                 $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
             }
-        } catch (DBALException $e) {
+        } catch (Exception $e) {
             // leave model columns as an empty array and cache it.
         }
 

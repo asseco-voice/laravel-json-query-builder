@@ -19,7 +19,11 @@ class OperatorsConfig extends SearchConfig
         return array_combine($operators, $callbacks);
     }
 
-    public function getOperators()
+    /**
+     * Extract operators from registered 'operator' classes
+     * @return array
+     */
+    public function getOperators(): array
     {
         /**
          * @var AbstractCallback $callback
