@@ -24,7 +24,7 @@ class ModelConfigTest extends TestCase
     public function model_has_config()
     {
         config(['asseco-json-query-builder.model_options' => [
-            get_class($this->model) => ['random_config' => '123']
+            get_class($this->model) => ['random_config' => '123'],
         ]]);
 
         $modelConfig = new ModelConfig($this->model);
@@ -36,7 +36,7 @@ class ModelConfigTest extends TestCase
     public function has_returns_config_set()
     {
         config(['asseco-json-query-builder.model_options' => [
-            get_class($this->model) => ['returns' => '123']
+            get_class($this->model) => ['returns' => '123'],
         ]]);
 
         $modelConfig = new ModelConfig($this->model);
@@ -59,8 +59,8 @@ class ModelConfigTest extends TestCase
             get_class($this->model) => [
                 'order_by' => [
                     'attribute' => 'asc',
-                ]
-            ]
+                ],
+            ],
         ]]);
 
         $modelConfig = new ModelConfig($this->model);
@@ -75,6 +75,4 @@ class ModelConfigTest extends TestCase
 
         $this->assertEquals([], $modelConfig->getOrderBy());
     }
-
-
 }

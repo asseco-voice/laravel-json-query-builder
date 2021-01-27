@@ -44,7 +44,6 @@ class TypesConfig extends SearchConfig
         /**
          * @var AbstractType $type
          */
-        return array_map(fn($type) => $type::getTypeName(), $this->registered);
+        return array_map(fn ($type) => $type::getTypeName(), $this->registered);
     }
-
 }

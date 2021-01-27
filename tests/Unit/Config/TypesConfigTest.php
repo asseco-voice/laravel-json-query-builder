@@ -48,7 +48,6 @@ class TypesConfigTest extends TestCase
             $typesConfig->getTypeClassFromTypeName('test'));
     }
 
-
     /** @test */
     public function it_throws_exception_if_neither_generic_type_nor_given_type_exist()
     {

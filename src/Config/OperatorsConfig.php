@@ -20,7 +20,7 @@ class OperatorsConfig extends SearchConfig
     }
 
     /**
-     * Extract operators from registered 'operator' classes
+     * Extract operators from registered 'operator' classes.
      * @return array
      */
     public function getOperators(): array
