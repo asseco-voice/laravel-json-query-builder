@@ -34,7 +34,7 @@ class OperatorsConfigTest extends TestCase
     {
         $operatorsConfig = new OperatorsConfig();
 
-        $expected = ['!<>', '<=', '>=', '<>', '!=', '=', '<', '>',];
+        $expected = ['!<>', '<=', '>=', '<>', '!=', '=', '<', '>'];
 
         $this->assertEquals($expected, $operatorsConfig->getOperators());
     }
