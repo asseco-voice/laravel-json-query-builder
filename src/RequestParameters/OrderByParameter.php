@@ -14,7 +14,6 @@ class OrderByParameter extends AbstractParameter
     protected function appendQuery(): void
     {
         foreach ($this->arguments as $column => $direction) {
-
             [$column, $direction] = $this->fallBackToDefaultDirection($column, $direction);
 
             $this->appendSingle($column, $direction);
@@ -23,7 +22,7 @@ class OrderByParameter extends AbstractParameter
 
     /**
      * If argument is provided as a simple string without direction, we will
-     * assume that direction is 'asc'
+     * assume that direction is 'asc'.
      *
      * @param string|int $column
      * @param string $direction

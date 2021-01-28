@@ -62,5 +62,4 @@ class GroupByParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
-
 }

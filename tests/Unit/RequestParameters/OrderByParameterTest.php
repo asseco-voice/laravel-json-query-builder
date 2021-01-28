@@ -75,5 +75,4 @@ class OrderByParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
-
 }
