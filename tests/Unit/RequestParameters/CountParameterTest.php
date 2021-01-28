@@ -72,5 +72,4 @@ class CountParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
-
 }

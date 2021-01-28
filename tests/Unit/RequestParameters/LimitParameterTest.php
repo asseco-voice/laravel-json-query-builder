@@ -70,5 +70,4 @@ class LimitParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
-
 }

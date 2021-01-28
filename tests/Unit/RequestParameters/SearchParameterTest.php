@@ -47,7 +47,7 @@ class SearchParameterTest extends TestCase
     {
         $arguments = [
             'attribute1' => '=123',
-            'attribute2' => '=456'
+            'attribute2' => '=456',
         ];
 
         $searchParameter = $this->createSearchParameter($arguments);
@@ -70,7 +70,7 @@ class SearchParameterTest extends TestCase
     {
         $arguments = [
             'attribute1' => '=123',
-            'attribute2' => '=456'
+            'attribute2' => '=456',
         ];
 
         $searchParameter = $this->createSearchParameter($arguments);
