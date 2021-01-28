@@ -11,7 +11,7 @@ class ReturnsParameter extends AbstractParameter
         return 'returns';
     }
 
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         $this->builder->select($this->arguments);
     }

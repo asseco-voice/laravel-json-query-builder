@@ -13,14 +13,18 @@ class LimitParameter extends AbstractParameter
         return 'limit';
     }
 
-    public function areArgumentsValid(): void
+    protected function areArgumentsValid(): void
     {
         if (count($this->arguments) != 1) {
             throw new JsonQueryBuilderException("Parameter '{$this->getParameterName()}' expects only one argument.");
         }
+
+        if (!is_numeric($this->arguments[0])) {
+            throw new JsonQueryBuilderException("Parameter '{$this->getParameterName()}' must be numeric.");
+        }
     }
 
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         $this->builder->limit($this->arguments[0]);
     }

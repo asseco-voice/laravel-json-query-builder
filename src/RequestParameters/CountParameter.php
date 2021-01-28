@@ -14,18 +14,18 @@ class CountParameter extends AbstractParameter
         return 'count';
     }
 
-    public function areArgumentsValid(): void
+    protected function areArgumentsValid(): void
     {
         if (count($this->arguments) != 1) {
             throw new JsonQueryBuilderException("Parameter '{$this->getParameterName()}' expects only one argument.");
         }
 
-        if (!in_array($this->arguments[0], [1, '1', true, 'true'])) {
+        if (!in_array($this->arguments[0], [1, '1', true, 'true'], true)) {
             throw new JsonQueryBuilderException("Parameter '{$this->getParameterName()}' expects to be 'true' if it is to be used.");
         }
     }
 
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         $this->builder->select(DB::raw('count(*) as count'));
     }

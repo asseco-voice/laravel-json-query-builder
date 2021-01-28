@@ -171,8 +171,8 @@ Using ``order_by`` key does an 'order by' based on the given key(s). Order of th
 matters!
 
 Arguments are presumed to be in a ``"column": "direction"`` fashion, where `direction`
-MUST be ``asc`` (ascending) or `desc` (descending); everything else will throw an
-exception.
+MUST be ``asc`` (ascending) or `desc` (descending). In case that only column is provided,
+direction will be assumed to be an ascending order. 
 
 Example:
 ```

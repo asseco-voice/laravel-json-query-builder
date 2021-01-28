@@ -29,7 +29,7 @@ class SearchParameter extends AbstractParameter
     /**
      * @throws JsonQueryBuilderException
      */
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         $arguments = $this->arguments;
         $this->operatorsConfig = new OperatorsConfig();

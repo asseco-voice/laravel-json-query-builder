@@ -38,7 +38,7 @@ abstract class AbstractParameter
      * Append the query to Eloquent builder.
      * @throws JsonQueryBuilderException
      */
-    abstract public function appendQuery(): void;
+    abstract protected function appendQuery(): void;
 
     /**
      * @throws JsonQueryBuilderException
