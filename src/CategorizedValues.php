@@ -4,7 +4,6 @@ namespace Asseco\JsonQueryBuilder;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Config\TypesConfig;
-use Asseco\JsonQueryBuilder\Parsers\SearchParser;
 
 class CategorizedValues
 {

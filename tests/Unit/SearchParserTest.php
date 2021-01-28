@@ -6,7 +6,7 @@ namespace Asseco\JsonQueryBuilder\Tests\Unit\Parsers;
 
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
-use Asseco\JsonQueryBuilder\Parsers\SearchParser;
+use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\Tests\TestCase;
 use Mockery;
 

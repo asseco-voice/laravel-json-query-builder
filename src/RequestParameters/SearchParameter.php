@@ -6,7 +6,7 @@ namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\Parsers\SearchParser;
+use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;

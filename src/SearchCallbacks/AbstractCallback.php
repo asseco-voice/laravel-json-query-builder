@@ -7,7 +7,7 @@ namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\Parsers\SearchParser;
+use Asseco\JsonQueryBuilder\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractCallback
@@ -63,7 +63,7 @@ abstract class AbstractCallback
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
 
-    public function appendRelations(Builder $builder, string $column, CategorizedValues $values): void
+    protected function appendRelations(Builder $builder, string $column, CategorizedValues $values): void
     {
         [$relationName, $relatedColumn] = explode('.', $column);
 

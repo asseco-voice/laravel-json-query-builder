@@ -32,6 +32,7 @@ class Equals extends AbstractCallback
         if ($values->and) {
             $builder->whereIn($column, $values->and);
         }
+
         if ($values->not) {
             $builder->whereNotIn($column, $values->not);
         }

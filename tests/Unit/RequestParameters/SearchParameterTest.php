@@ -201,7 +201,6 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-
     /** @test */
     public function produces_not_between_query()
     {
