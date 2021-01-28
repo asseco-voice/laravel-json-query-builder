@@ -40,5 +40,4 @@ class EqualsTest extends TestCase
 
         $this->assertEquals($sql, $this->builder->toSql());
     }
-
 }
