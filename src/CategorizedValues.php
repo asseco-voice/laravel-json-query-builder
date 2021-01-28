@@ -4,7 +4,7 @@ namespace Asseco\JsonQueryBuilder;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Config\TypesConfig;
-use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\Parsers\SearchParser;
 
 class CategorizedValues
 {
@@ -17,7 +17,7 @@ class CategorizedValues
     const IS_NOT_NULL = '!null';
 
     protected OperatorsConfig $operatorsConfig;
-    protected Search          $searchModel;
+    protected SearchParser    $searchParser;
 
     public array $and = [];
     public array $andLike = [];
@@ -29,13 +29,13 @@ class CategorizedValues
     /**
      * CategorizedValues constructor.
      * @param OperatorsConfig $operatorsConfig
-     * @param Search $searchModel
+     * @param SearchParser $searchParser
      * @throws Exceptions\JsonQueryBuilderException
      */
-    public function __construct(OperatorsConfig $operatorsConfig, Search $searchModel)
+    public function __construct(OperatorsConfig $operatorsConfig, SearchParser $searchParser)
     {
         $this->operatorsConfig = $operatorsConfig;
-        $this->searchModel = $searchModel;
+        $this->searchParser = $searchParser;
 
         $this->prepare();
         $this->categorize();
@@ -46,13 +46,13 @@ class CategorizedValues
      */
     public function prepare()
     {
-        $type = (new TypesConfig())->getTypeClassFromTypeName($this->searchModel->type);
-        $this->searchModel->values = $type->prepare($this->searchModel->values);
+        $type = (new TypesConfig())->getTypeClassFromTypeName($this->searchParser->type);
+        $this->searchParser->values = $type->prepare($this->searchParser->values);
     }
 
     public function categorize()
     {
-        foreach ($this->searchModel->values as $value) {
+        foreach ($this->searchParser->values as $value) {
             if ($value === self::IS_NULL) {
                 $this->null = true;
                 continue;

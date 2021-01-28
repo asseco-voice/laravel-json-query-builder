@@ -7,38 +7,38 @@ namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\Parsers\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractCallback
 {
     protected Builder           $builder;
-    protected Search            $searchModel;
+    protected SearchParser      $searchParser;
     protected CategorizedValues $categorizedValues;
     protected OperatorsConfig   $operatorsConfig;
 
     /**
      * AbstractCallback constructor.
      * @param Builder $builder
-     * @param Search $searchModel
+     * @param SearchParser $searchParser
      * @param OperatorsConfig $operatorsConfig
      * @throws JsonQueryBuilderException
      */
-    public function __construct(Builder $builder, Search $searchModel, OperatorsConfig $operatorsConfig)
+    public function __construct(Builder $builder, SearchParser $searchParser, OperatorsConfig $operatorsConfig)
     {
         $this->builder = $builder;
-        $this->searchModel = $searchModel;
+        $this->searchParser = $searchParser;
         $this->operatorsConfig = $operatorsConfig;
 
-        $this->categorizedValues = new CategorizedValues($operatorsConfig, $this->searchModel);
+        $this->categorizedValues = new CategorizedValues($operatorsConfig, $this->searchParser);
 
         $this->builder->when(
-            str_contains($this->searchModel->column, '.'),
+            str_contains($this->searchParser->column, '.'),
             function (Builder $builder) {
-                $this->appendRelations($builder, $this->searchModel->column, $this->categorizedValues);
+                $this->appendRelations($builder, $this->searchParser->column, $this->categorizedValues);
             },
             function (Builder $builder) {
-                $this->execute($builder, $this->searchModel->column, $this->categorizedValues);
+                $this->execute($builder, $this->searchParser->column, $this->categorizedValues);
             }
         );
     }

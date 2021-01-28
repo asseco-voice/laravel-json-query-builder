@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Asseco\JsonQueryBuilder\RequestParameters\Models;
+namespace Asseco\JsonQueryBuilder\Parsers;
 
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
@@ -10,7 +10,7 @@ use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\Traits\RemovesEmptyValues;
 use Illuminate\Support\Facades\Config;
 
-class Search
+class SearchParser
 {
     use RemovesEmptyValues;
 
@@ -98,7 +98,7 @@ class Search
      * @return string
      * @throws JsonQueryBuilderException
      */
-    public function getColumnType(): string
+    protected function getColumnType(): string
     {
         $columns = $this->modelConfig->getModelColumns();
 

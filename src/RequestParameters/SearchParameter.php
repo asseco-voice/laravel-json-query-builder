@@ -6,7 +6,7 @@ namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\Parsers\SearchParser;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -119,6 +119,7 @@ class SearchParameter extends AbstractParameter
      * @param Builder $builder
      * @param $key
      * @param $value
+     * @throws JsonQueryBuilderException
      */
     protected function makeSingleQuery(string $functionName, Builder $builder, $key, $value): void
     {
@@ -128,6 +129,7 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
+     * @param Builder $builder
      * @param OperatorsConfig $operatorsConfig
      * @param string $column
      * @param string $argument
@@ -140,7 +142,7 @@ class SearchParameter extends AbstractParameter
         foreach ($splitArguments as $splitArgument) {
             $builder->orWhere(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
                 foreach ($splitArgument as $argument) {
-                    $searchModel = new Search($this->modelConfig, $operatorsConfig, $column, $argument);
+                    $searchModel = new SearchParser($this->modelConfig, $operatorsConfig, $column, $argument);
                     $this->appendSingle($builder, $operatorsConfig, $searchModel);
                 }
             });
@@ -174,16 +176,16 @@ class SearchParameter extends AbstractParameter
      *
      * @param Builder $builder
      * @param OperatorsConfig $operatorsConfig
-     * @param Search $searchModel
+     * @param SearchParser $searchParser
      * @throws JsonQueryBuilderException
      */
-    protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, Search $searchModel): void
+    protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, SearchParser $searchParser): void
     {
-        $callbackClassName = $operatorsConfig->getCallbackClassFromOperator($searchModel->operator);
+        $callbackClassName = $operatorsConfig->getCallbackClassFromOperator($searchParser->operator);
 
         /**
          * @var AbstractCallback $callback
          */
-        new $callbackClassName($builder, $searchModel, $operatorsConfig);
+        new $callbackClassName($builder, $searchParser, $operatorsConfig);
     }
 }
