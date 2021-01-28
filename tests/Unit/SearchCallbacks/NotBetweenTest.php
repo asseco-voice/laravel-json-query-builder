@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Tests\Unit\SearchCallbacks;
 
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\SearchCallbacks\NotBetween;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\Tests\TestCase;
@@ -16,7 +15,6 @@ class NotBetweenTest extends TestCase
 {
     protected Builder $builder;
     protected SearchParser $searchParser;
-    protected OperatorsConfig $operatorsConfig;
 
     public function setUp(): void
     {
@@ -30,8 +28,6 @@ class NotBetweenTest extends TestCase
         $this->searchParser = Mockery::mock(SearchParser::class);
         $this->searchParser->type = 'test';
         $this->searchParser->column = 'test';
-
-        $this->operatorsConfig = Mockery::mock(OperatorsConfig::class);
     }
 
     /** @test */
@@ -39,7 +35,7 @@ class NotBetweenTest extends TestCase
     {
         $this->searchParser->values = ['123', '456'];
 
-        new NotBetween($this->builder, $this->searchParser, $this->operatorsConfig);
+        new NotBetween($this->builder, $this->searchParser);
 
         $sql = 'select * where "test" not between ? and ?';
 
@@ -53,6 +49,6 @@ class NotBetweenTest extends TestCase
 
         $this->searchParser->values = ['invalid'];
 
-        new NotBetween($this->builder, $this->searchParser, $this->operatorsConfig);
+        new NotBetween($this->builder, $this->searchParser);
     }
 }

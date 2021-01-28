@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
 use Asseco\JsonQueryBuilder\CategorizedValues;
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,22 +14,19 @@ abstract class AbstractCallback
     protected Builder           $builder;
     protected SearchParser      $searchParser;
     protected CategorizedValues $categorizedValues;
-    protected OperatorsConfig   $operatorsConfig;
 
     /**
      * AbstractCallback constructor.
      * @param Builder $builder
      * @param SearchParser $searchParser
-     * @param OperatorsConfig $operatorsConfig
      * @throws JsonQueryBuilderException
      */
-    public function __construct(Builder $builder, SearchParser $searchParser, OperatorsConfig $operatorsConfig)
+    public function __construct(Builder $builder, SearchParser $searchParser)
     {
         $this->builder = $builder;
         $this->searchParser = $searchParser;
-        $this->operatorsConfig = $operatorsConfig;
 
-        $this->categorizedValues = new CategorizedValues($operatorsConfig, $this->searchParser);
+        $this->categorizedValues = new CategorizedValues($this->searchParser);
 
         $this->builder->when(
             str_contains($this->searchParser->column, '.'),

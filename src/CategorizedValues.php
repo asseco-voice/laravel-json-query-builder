@@ -2,7 +2,6 @@
 
 namespace Asseco\JsonQueryBuilder;
 
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Config\TypesConfig;
 
 class CategorizedValues
@@ -15,8 +14,7 @@ class CategorizedValues
     const IS_NULL = 'null';
     const IS_NOT_NULL = '!null';
 
-    protected OperatorsConfig $operatorsConfig;
-    protected SearchParser    $searchParser;
+    protected SearchParser $searchParser;
 
     public array $and = [];
     public array $andLike = [];
@@ -27,13 +25,11 @@ class CategorizedValues
 
     /**
      * CategorizedValues constructor.
-     * @param OperatorsConfig $operatorsConfig
      * @param SearchParser $searchParser
      * @throws Exceptions\JsonQueryBuilderException
      */
-    public function __construct(OperatorsConfig $operatorsConfig, SearchParser $searchParser)
+    public function __construct(SearchParser $searchParser)
     {
-        $this->operatorsConfig = $operatorsConfig;
         $this->searchParser = $searchParser;
 
         $this->prepare();

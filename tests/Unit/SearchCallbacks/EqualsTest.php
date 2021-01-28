@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Tests\Unit\SearchCallbacks;
 
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\Tests\TestCase;
@@ -15,7 +14,6 @@ class EqualsTest extends TestCase
 {
     protected Builder $builder;
     protected SearchParser $searchParser;
-    protected OperatorsConfig $operatorsConfig;
 
     public function setUp(): void
     {
@@ -29,8 +27,6 @@ class EqualsTest extends TestCase
         $this->searchParser = Mockery::mock(SearchParser::class);
         $this->searchParser->type = 'test';
         $this->searchParser->column = 'test';
-
-        $this->operatorsConfig = Mockery::mock(OperatorsConfig::class);
     }
 
     /** @test */
@@ -38,7 +34,7 @@ class EqualsTest extends TestCase
     {
         $this->searchParser->values = ['123'];
 
-        new Equals($this->builder, $this->searchParser, $this->operatorsConfig);
+        new Equals($this->builder, $this->searchParser);
 
         $sql = 'select * where "test" in (?)';
 
