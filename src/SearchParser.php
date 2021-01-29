@@ -7,12 +7,12 @@ namespace Asseco\JsonQueryBuilder;
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\Traits\RemovesEmptyValues;
+use Asseco\JsonQueryBuilder\Traits\CleansValues;
 use Illuminate\Support\Facades\Config;
 
 class SearchParser
 {
-    use RemovesEmptyValues;
+    use CleansValues;
 
     /**
      * Constant by which values will be split within a single parameter. E.g. parameter=value1;value2.
@@ -85,7 +85,7 @@ class SearchParser
     protected function splitValues(string $values): array
     {
         $valueArray = explode(self::VALUE_SEPARATOR, $values);
-        $cleanedUpValues = $this->removeEmptyValues($valueArray);
+        $cleanedUpValues = $this->cleanValues($valueArray);
 
         if (count($cleanedUpValues) < 1) {
             throw new JsonQueryBuilderException("Column '$this->column' is missing a value.");
