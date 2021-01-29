@@ -519,6 +519,6 @@ You can extend this functionality by adding your own custom parameter. It
 needs to extend ``Asseco\JsonQueryBuilder\RequestParameters\AbstractParameter``
 in order to work.  
 - operators are registered under ``operators`` config key. Those can be 
-extended by adding a class which extends ``Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback``
+extended by adding a class which extends ``Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback``.
 - types are registered under ``types`` config key. Those can be extended
-by adding a class which extends ``Asseco\JsonQueryBuilder\Types\AbstractType``
+by adding a class which extends ``Asseco\JsonQueryBuilder\Types\AbstractType``.
