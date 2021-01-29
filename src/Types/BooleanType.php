@@ -8,7 +8,10 @@ use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 
 class BooleanType extends AbstractType
 {
-    const NAME = 'boolean';
+    public static function name(): string
+    {
+        return 'boolean';
+    }
 
     /**
      * Prepare/transform values for query if needed.

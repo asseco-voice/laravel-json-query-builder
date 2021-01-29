@@ -28,7 +28,7 @@ class OperatorsConfig extends SearchConfig
         /**
          * @var AbstractCallback $callback
          */
-        return array_map(fn ($callback) => $callback::getCallbackOperator(), $this->registered);
+        return array_map(fn ($callback) => $callback::operator(), $this->registered);
     }
 
     /**

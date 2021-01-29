@@ -40,15 +40,13 @@ abstract class AbstractCallback
     }
 
     /**
-     * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types.
+     * Shorthand operator sign.
+     *
+     * I.e. '=', '<', '>'...
      *
      * @return string
      */
-    public static function getCallbackOperator(): string
-    {
-        return static::OPERATOR;
-    }
+    abstract public static function operator(): string;
 
     /**
      * Execute a callback on a given column, providing the array of values.

@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class LessThanOrEqual extends AbstractCallback
 {
-    const OPERATOR = '<=';
+    public static function operator(): string
+    {
+        return '<=';
+    }
 
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {

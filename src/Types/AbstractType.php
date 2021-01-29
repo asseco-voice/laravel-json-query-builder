@@ -7,15 +7,11 @@ namespace Asseco\JsonQueryBuilder\Types;
 abstract class AbstractType
 {
     /**
-     * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types.
+     * Name of the type as it is used within Laravel migrations.
      *
      * @return string
      */
-    public static function getTypeName(): string
-    {
-        return static::NAME;
-    }
+    abstract public static function name(): string;
 
     /**
      * Prepare/transform values for query if needed.
