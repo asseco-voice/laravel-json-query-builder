@@ -21,7 +21,6 @@ class BooleanType extends AbstractType
     public function prepare(array $values): array
     {
         foreach ($values as &$value) {
-
             $value = filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE);
 
             if ($value === null) {
