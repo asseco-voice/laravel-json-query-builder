@@ -13,7 +13,7 @@ class OperatorsConfig extends SearchConfig
     {
         return 'operators';
     }
-    
+
     protected function operatorCallbackMapping(): array
     {
         $operators = $this->getOperators();
