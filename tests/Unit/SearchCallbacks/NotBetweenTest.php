@@ -43,11 +43,21 @@ class NotBetweenTest extends TestCase
     }
 
     /** @test */
-    public function fails_on_invalid_parameters()
+    public function fails_on_one_parameter()
     {
         $this->expectException(Exception::class);
 
-        $this->searchParser->values = ['invalid'];
+        $this->searchParser->values = ['1 parameter only'];
+
+        new NotBetween($this->builder, $this->searchParser);
+    }
+
+    /** @test */
+    public function fails_on_more_than_two_parameters()
+    {
+        $this->expectException(Exception::class);
+
+        $this->searchParser->values = ['1', '2', '3'];
 
         new NotBetween($this->builder, $this->searchParser);
     }
