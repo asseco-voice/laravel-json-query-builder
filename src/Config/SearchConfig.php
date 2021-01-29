@@ -28,11 +28,14 @@ abstract class SearchConfig
      */
     protected function register(): void
     {
-        $key = static::CONFIG_KEY;
+        $key = $this->configKey();
+
         if (!array_key_exists($key, $this->config)) {
             throw new JsonQueryBuilderException("Config file is missing '$key'");
         }
 
         $this->registered = $this->config[$key];
     }
+
+    abstract protected function configKey(): string;
 }

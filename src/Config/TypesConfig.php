@@ -9,7 +9,10 @@ use Asseco\JsonQueryBuilder\Types\AbstractType;
 
 class TypesConfig extends SearchConfig
 {
-    const CONFIG_KEY = 'types';
+    protected function configKey(): string
+    {
+        return 'types';
+    }
 
     /**
      * @param string $typeName

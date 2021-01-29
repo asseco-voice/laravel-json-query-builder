@@ -96,7 +96,7 @@ class JsonQuery
      * @param $requestParameter
      * @return AbstractParameter
      */
-    protected function instantiateRequestParameter($requestParameter): AbstractParameter
+    protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
     {
         /**
          * @var AbstractParameter $requestParameter
