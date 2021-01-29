@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\JsonQueryBuilder;
 
 use Asseco\JsonQueryBuilder\Config\ModelConfig;
@@ -96,7 +98,7 @@ class JsonQuery
      * @param $requestParameter
      * @return AbstractParameter
      */
-    protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
+    protected function instantiateRequestParameter(string $requestParameter)
     {
         /**
          * @var AbstractParameter $requestParameter
