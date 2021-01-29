@@ -183,7 +183,7 @@ class JsonQueryTest extends TestCase
             'order_by' => [
                 'att1' => 'asc',
                 'att2' => 'desc',
-                'att3'
+                'att3',
             ],
         ];
 
@@ -261,7 +261,6 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-
     /** @test */
     public function uses_top_level_logical_operator_for_complex_recursive_queries()
     {
@@ -306,7 +305,7 @@ class JsonQueryTest extends TestCase
                             ],
                         ],
                         [
-                            'we' => '=cool'
+                            'we' => '=cool',
                         ],
                     ],
                     'love'      => '<3',
