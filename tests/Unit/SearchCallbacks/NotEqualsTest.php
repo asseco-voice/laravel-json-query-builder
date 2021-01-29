@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\Tests\Unit\SearchCallbacks;
 
-use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
 use Asseco\JsonQueryBuilder\SearchCallbacks\NotEquals;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\Tests\TestCase;
