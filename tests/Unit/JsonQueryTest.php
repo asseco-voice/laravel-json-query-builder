@@ -12,6 +12,4 @@ class JsonQueryTest extends TestCase
     {
         parent::setUp();
     }
-
-
 }
