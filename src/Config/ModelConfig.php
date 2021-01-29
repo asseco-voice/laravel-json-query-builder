@@ -124,9 +124,8 @@ class ModelConfig
         $columns = Schema::getColumnListing($table);
         $modelColumns = [];
 
-        // having 'enum' in table definition will throw Doctrine error because it is not defined in their types.
-        // Registering it manually.
-        DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
+        $this->registerEnumTypeForDoctrine();
+
         try {
             foreach ($columns as $column) {
                 $modelColumns[$column] = DB::getSchemaBuilder()->getColumnType($table, $column);
@@ -138,5 +137,23 @@ class ModelConfig
         Cache::put(self::CACHE_PREFIX . $table, $modelColumns, self::CACHE_TTL);
 
         return $modelColumns;
+    }
+
+    /**
+     * Having 'enum' in table definition will throw Doctrine error because it is not defined in their types.
+     * Registering it manually.
+     */
+    protected function registerEnumTypeForDoctrine(): void
+    {
+        $connection = DB::connection();
+
+        if (!class_exists('Doctrine\DBAL\Driver\AbstractSQLiteDriver')) {
+            return;
+        }
+
+        $connection
+            ->getDoctrineSchemaManager()
+            ->getDatabasePlatform()
+            ->registerDoctrineTypeMapping('enum', 'string');
     }
 }
