@@ -88,6 +88,9 @@ class JsonQuery
      */
     protected function parameterExists(string $requestParameter): bool
     {
+        /**
+         * @var AbstractParameter $requestParameter
+         */
         return Arr::has($this->input, $requestParameter::getParameterName());
     }
 
