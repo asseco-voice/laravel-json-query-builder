@@ -97,9 +97,14 @@ class JsonQuery
     /**
      * @param $requestParameter
      * @return AbstractParameter
+     * @throws JsonQueryBuilderException
      */
     protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
     {
+        if (!is_subclass_of($requestParameter, AbstractParameter::class)) {
+            throw new JsonQueryBuilderException("$requestParameter must extend " . AbstractParameter::class);
+        }
+
         $input = $this->wrapInput($requestParameter::getParameterName());
 
         return new $requestParameter($input, $this->builder, $this->modelConfig);
