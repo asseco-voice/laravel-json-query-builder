@@ -89,9 +89,6 @@ class JsonQuery
      */
     protected function parameterExists(string $requestParameter): bool
     {
-        /**
-         * @var Parameter $requestParameter
-         */
         return Arr::has($this->input, $requestParameter::getParameterName());
     }
 
@@ -101,9 +98,6 @@ class JsonQuery
      */
     protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
     {
-        /**
-         * @var Parameter $requestParameter
-         */
         $input = $this->wrapInput($requestParameter::getParameterName());
 
         return new $requestParameter($input, $this->builder, $this->modelConfig);
