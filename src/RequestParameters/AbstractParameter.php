@@ -19,7 +19,6 @@ abstract class AbstractParameter
      * @param array $arguments
      * @param Builder $builder
      * @param ModelConfig $modelConfig
-     * @throws JsonQueryBuilderException
      */
     public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
     {

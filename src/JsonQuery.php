@@ -98,11 +98,8 @@ class JsonQuery
      * @param $requestParameter
      * @return AbstractParameter
      */
-    protected function instantiateRequestParameter(string $requestParameter)
+    protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
     {
-        /**
-         * @var AbstractParameter $requestParameter
-         */
         $input = $this->wrapInput($requestParameter::getParameterName());
 
         return new $requestParameter($input, $this->builder, $this->modelConfig);
