@@ -8,7 +8,7 @@ use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Illuminate\Database\Eloquent\Builder;
 
-abstract class AbstractParameter
+abstract class AbstractParameter implements Parameter
 {
     public Builder     $builder;
     public ModelConfig $modelConfig;
@@ -27,10 +27,6 @@ abstract class AbstractParameter
         $this->modelConfig = $modelConfig;
     }
 
-    /**
-     * JSON key by which the parameter will be recognized.
-     * @return string
-     */
     abstract public static function getParameterName(): string;
 
     /**
@@ -42,7 +38,7 @@ abstract class AbstractParameter
     /**
      * @throws JsonQueryBuilderException
      */
-    public function run()
+    public function run(): void
     {
         $this->areArgumentsValid();
         $this->appendQuery();
