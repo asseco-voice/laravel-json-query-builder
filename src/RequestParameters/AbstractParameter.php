@@ -19,7 +19,6 @@ abstract class AbstractParameter
      * @param array $arguments
      * @param Builder $builder
      * @param ModelConfig $modelConfig
-     * @throws JsonQueryBuilderException
      */
     public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
     {
@@ -38,12 +37,12 @@ abstract class AbstractParameter
      * Append the query to Eloquent builder.
      * @throws JsonQueryBuilderException
      */
-    abstract public function appendQuery(): void;
+    abstract protected function appendQuery(): void;
 
     /**
      * @throws JsonQueryBuilderException
      */
-    public function run()
+    public function run(): void
     {
         $this->areArgumentsValid();
         $this->appendQuery();

@@ -171,8 +171,8 @@ Using ``order_by`` key does an 'order by' based on the given key(s). Order of th
 matters!
 
 Arguments are presumed to be in a ``"column": "direction"`` fashion, where `direction`
-MUST be ``asc`` (ascending) or `desc` (descending); everything else will throw an
-exception.
+MUST be ``asc`` (ascending) or `desc` (descending). In case that only column is provided,
+direction will be assumed to be an ascending order. 
 
 Example:
 ```
@@ -519,6 +519,6 @@ You can extend this functionality by adding your own custom parameter. It
 needs to extend ``Asseco\JsonQueryBuilder\RequestParameters\AbstractParameter``
 in order to work.  
 - operators are registered under ``operators`` config key. Those can be 
-extended by adding a class which extends ``Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback``
+extended by adding a class which extends ``Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback``.
 - types are registered under ``types`` config key. Those can be extended
-by adding a class which extends ``Asseco\JsonQueryBuilder\Types\AbstractType``
+by adding a class which extends ``Asseco\JsonQueryBuilder\Types\AbstractType``.

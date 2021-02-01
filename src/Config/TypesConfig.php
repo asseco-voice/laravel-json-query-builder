@@ -6,35 +6,12 @@ namespace Asseco\JsonQueryBuilder\Config;
 
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\Types\AbstractType;
-use Asseco\JsonQueryBuilder\Types\GenericType;
 
 class TypesConfig extends SearchConfig
 {
-    const CONFIG_KEY = 'types';
-
-    public function instantiateType(string $type): AbstractType
+    protected function configKey(): string
     {
-        if (!array_key_exists($type, $this->registered)) {
-            return new GenericType();
-        }
-
-        return new $this->registered[$type];
-    }
-
-    public function nameClassMapping()
-    {
-        $names = $this->getTypeNames();
-        $callbacks = $this->registered;
-
-        return array_combine($names, $callbacks);
-    }
-
-    public function getTypeNames()
-    {
-        /**
-         * @var AbstractType $type
-         */
-        return array_map(fn ($type) => $type::getTypeName(), $this->registered);
+        return 'types';
     }
 
     /**
@@ -42,7 +19,7 @@ class TypesConfig extends SearchConfig
      * @return mixed
      * @throws JsonQueryBuilderException
      */
-    public function getCallbackByTypeName(string $typeName): AbstractType
+    public function getTypeClassFromTypeName(string $typeName): AbstractType
     {
         $mapping = $this->nameClassMapping();
 
@@ -55,5 +32,21 @@ class TypesConfig extends SearchConfig
         }
 
         return new $mapping[$typeName];
+    }
+
+    protected function nameClassMapping(): array
+    {
+        $names = $this->getTypeNames();
+        $callbacks = $this->registered;
+
+        return array_combine($names, $callbacks);
+    }
+
+    protected function getTypeNames(): array
+    {
+        /**
+         * @var AbstractType $type
+         */
+        return array_map(fn ($type) => $type::name(), $this->registered);
     }
 }

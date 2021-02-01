@@ -9,7 +9,10 @@ use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 
 class OperatorsConfig extends SearchConfig
 {
-    const CONFIG_KEY = 'operators';
+    protected function configKey(): string
+    {
+        return 'operators';
+    }
 
     protected function operatorCallbackMapping(): array
     {
@@ -19,12 +22,16 @@ class OperatorsConfig extends SearchConfig
         return array_combine($operators, $callbacks);
     }
 
-    public function getOperators()
+    /**
+     * Extract operators from registered 'operator' classes.
+     * @return array
+     */
+    public function getOperators(): array
     {
         /**
          * @var AbstractCallback $callback
          */
-        return array_map(fn ($callback) => $callback::getCallbackOperator(), $this->registered);
+        return array_map(fn ($callback) => $callback::operator(), $this->registered);
     }
 
     /**

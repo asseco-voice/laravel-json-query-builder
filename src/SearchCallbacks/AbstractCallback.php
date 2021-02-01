@@ -5,54 +5,48 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
 use Asseco\JsonQueryBuilder\CategorizedValues;
-use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\RequestParameters\Models\Search;
+use Asseco\JsonQueryBuilder\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
 
 abstract class AbstractCallback
 {
     protected Builder           $builder;
-    protected Search            $searchModel;
+    protected SearchParser      $searchParser;
     protected CategorizedValues $categorizedValues;
-    protected OperatorsConfig   $operatorsConfig;
 
     /**
      * AbstractCallback constructor.
      * @param Builder $builder
-     * @param Search $searchModel
-     * @param OperatorsConfig $operatorsConfig
+     * @param SearchParser $searchParser
      * @throws JsonQueryBuilderException
      */
-    public function __construct(Builder $builder, Search $searchModel, OperatorsConfig $operatorsConfig)
+    public function __construct(Builder $builder, SearchParser $searchParser)
     {
         $this->builder = $builder;
-        $this->searchModel = $searchModel;
-        $this->operatorsConfig = $operatorsConfig;
+        $this->searchParser = $searchParser;
 
-        $this->categorizedValues = new CategorizedValues($operatorsConfig, $this->searchModel);
+        $this->categorizedValues = new CategorizedValues($this->searchParser);
 
         $this->builder->when(
-            str_contains($this->searchModel->column, '.'),
+            str_contains($this->searchParser->column, '.'),
             function (Builder $builder) {
-                $this->appendRelations($builder, $this->searchModel->column, $this->categorizedValues);
+                $this->appendRelations($builder, $this->searchParser->column, $this->categorizedValues);
             },
             function (Builder $builder) {
-                $this->execute($builder, $this->searchModel->column, $this->categorizedValues);
+                $this->execute($builder, $this->searchParser->column, $this->categorizedValues);
             }
         );
     }
 
     /**
-     * Child class MUST extend a NAME constant.
-     * This is a Laravel friendly name for columns based on Laravel migration column types.
+     * Shorthand operator sign.
+     *
+     * I.e. '=', '<', '>'...
      *
      * @return string
      */
-    public static function getCallbackOperator(): string
-    {
-        return static::OPERATOR;
-    }
+    abstract public static function operator(): string;
 
     /**
      * Execute a callback on a given column, providing the array of values.
@@ -63,7 +57,7 @@ abstract class AbstractCallback
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
 
-    public function appendRelations(Builder $builder, string $column, CategorizedValues $values): void
+    protected function appendRelations(Builder $builder, string $column, CategorizedValues $values): void
     {
         [$relationName, $relatedColumn] = explode('.', $column);
 

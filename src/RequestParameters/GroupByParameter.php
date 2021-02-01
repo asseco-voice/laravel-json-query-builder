@@ -11,7 +11,7 @@ class GroupByParameter extends AbstractParameter
         return 'group_by';
     }
 
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         $this->builder->groupBy($this->arguments);
     }

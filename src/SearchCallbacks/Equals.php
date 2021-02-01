@@ -9,7 +9,10 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Equals extends AbstractCallback
 {
-    const OPERATOR = '=';
+    public static function operator(): string
+    {
+        return '=';
+    }
 
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
@@ -32,6 +35,7 @@ class Equals extends AbstractCallback
         if ($values->and) {
             $builder->whereIn($column, $values->and);
         }
+
         if ($values->not) {
             $builder->whereNotIn($column, $values->not);
         }

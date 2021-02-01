@@ -6,5 +6,8 @@ namespace Asseco\JsonQueryBuilder\Types;
 
 class GenericType extends AbstractType
 {
-    const NAME = 'generic';
+    public static function name(): string
+    {
+        return 'generic';
+    }
 }

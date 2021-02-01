@@ -68,6 +68,7 @@ return [
     ],
 
     /**
+     * TODO: these options are currently disabled and will not work
      * Refined options for a single model.
      * Use if you want to enforce rules on a specific model without affecting globally all models.
      */

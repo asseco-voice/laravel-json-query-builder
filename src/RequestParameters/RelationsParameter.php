@@ -15,7 +15,7 @@ class RelationsParameter extends AbstractParameter
         return 'relations';
     }
 
-    public function appendQuery(): void
+    protected function appendQuery(): void
     {
         foreach ($this->arguments as $argument) {
             if (is_string($argument)) {
