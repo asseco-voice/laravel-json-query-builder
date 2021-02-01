@@ -8,7 +8,6 @@ use Asseco\JsonQueryBuilder\Config\ModelConfig;
 use Asseco\JsonQueryBuilder\Config\RequestParametersConfig;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\RequestParameters\AbstractParameter;
-use Asseco\JsonQueryBuilder\RequestParameters\Parameter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
 
