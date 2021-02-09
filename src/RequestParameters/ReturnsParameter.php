@@ -13,6 +13,6 @@ class ReturnsParameter extends AbstractParameter
 
     protected function appendQuery(): void
     {
-        $this->builder->select($this->arguments);
+        $this->builder->addSelect($this->arguments);
     }
 }
