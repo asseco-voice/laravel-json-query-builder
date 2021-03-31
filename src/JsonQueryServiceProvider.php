@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\JsonQueryBuilder;
 
 use Illuminate\Support\ServiceProvider;

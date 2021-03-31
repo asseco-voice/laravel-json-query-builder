@@ -61,15 +61,15 @@ class SearchParameter extends AbstractParameter
 
             $functionName = $this->getQueryFunctionName($boolOperator);
 
-            if (!$this->shouldSplitQueries($value)) {
-                $this->makeSingleQuery($functionName, $builder, $key, $value);
+            if ($this->shouldSplitQueries($value)) {
+                $builder->{$functionName}(function ($queryBuilder) use ($value) {
+                    // Recursion for inner keys which are &&/||
+                    $this->makeQuery($queryBuilder, $value);
+                });
                 continue;
             }
 
-            $builder->{$functionName}(function ($queryBuilder) use ($value) {
-                // Recursion for inner keys which are &&/||
-                $this->makeQuery($queryBuilder, $value);
-            });
+            $this->makeSingleQuery($functionName, $builder, $key, $value);
         }
     }
 
