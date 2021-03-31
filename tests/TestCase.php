@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\JsonQueryBuilder\Tests;
 
 use Asseco\JsonQueryBuilder\JsonQueryServiceProvider;

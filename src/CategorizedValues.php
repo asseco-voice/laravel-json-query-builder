@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asseco\JsonQueryBuilder;
 
 use Asseco\JsonQueryBuilder\Config\TypesConfig;
