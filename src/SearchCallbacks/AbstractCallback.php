@@ -8,6 +8,7 @@ use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Str;
 
 abstract class AbstractCallback
 {
@@ -25,7 +26,6 @@ abstract class AbstractCallback
     {
         $this->builder = $builder;
         $this->searchParser = $searchParser;
-
         $this->categorizedValues = new CategorizedValues($this->searchParser);
 
         $this->builder->when(
@@ -57,12 +57,20 @@ abstract class AbstractCallback
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
 
-    protected function appendRelations(Builder $builder, string $column, CategorizedValues $values): void
+    protected function appendRelations(Builder $builder, string $column, CategorizedValues $values, string $method = 'orWhereHas'): void
     {
-        [$relationName, $relatedColumn] = explode('.', $column);
+        [$relationName, $relatedColumns] = explode('.', $column, 2);
 
-        $builder->orWhereHas($relationName, function (Builder $builder) use ($relatedColumn, $values) {
-            $this->execute($builder, $relatedColumn, $values);
+        $builder->{$method}(Str::camel($relationName), function (Builder $builder) use ($relatedColumns, $values) {
+
+            // Support for inner relation calls like model.relation.relation2.relation2_attribute
+            if (str_contains($relatedColumns, '.')) {
+                $this->appendRelations($builder, $relatedColumns, $values, 'whereHas');
+
+                return;
+            }
+
+            $this->execute($builder, $relatedColumns, $values);
         });
     }
 
