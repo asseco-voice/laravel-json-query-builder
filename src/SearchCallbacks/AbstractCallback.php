@@ -61,12 +61,12 @@ abstract class AbstractCallback
     {
         [$relationName, $relatedColumns] = explode('.', $column, 2);
 
-
         $builder->{$method}(Str::camel($relationName), function (Builder $builder) use ($relatedColumns, $values) {
 
             // Support for inner relation calls like model.relation.relation2.relation2_attribute
             if (str_contains($relatedColumns, '.')) {
                 $this->appendRelations($builder, $relatedColumns, $values, 'whereHas');
+
                 return;
             }
 
