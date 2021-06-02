@@ -8,6 +8,7 @@ use Asseco\JsonQueryBuilder\RequestParameters\OrderByParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\RelationsParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\ReturnsParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\SearchParameter;
+use Asseco\JsonQueryBuilder\RequestParameters\SoftDeletedParameter;
 use Asseco\JsonQueryBuilder\SearchCallbacks\Between;
 use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
 use Asseco\JsonQueryBuilder\SearchCallbacks\GreaterThan;
@@ -32,6 +33,7 @@ return [
         OffsetParameter::class,
         CountParameter::class,
         GroupByParameter::class,
+        SoftDeletedParameter::class,
     ],
 
     /**
