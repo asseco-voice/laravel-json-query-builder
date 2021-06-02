@@ -57,6 +57,7 @@ JSON parameters (keys):
 - `offset` - will return a subset of results starting from a point given. This parameter **MUST**
 be used together with ``limit`` parameter. 
 - `count` - will return record count.
+- `soft_deleted` - will include soft deleted models in search results
 
 ### Search
 
@@ -328,6 +329,17 @@ You can fetch count of records instead of concrete records by adding the count k
 ```
 
 This will do a ``SELECT count(*) FROM table``.
+
+### Soft deleted
+
+By default, soft deleted records are excluded from the search. This can be overridden
+with ``soft_deleted``:
+
+```
+{
+    "soft_deleted": true
+}
+```
 
 ## Top level logical operators
 
