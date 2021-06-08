@@ -103,14 +103,14 @@ class SearchParameter extends AbstractParameter
         throw new JsonQueryBuilderException('Invalid bool operator provided');
     }
 
-    protected function queryInitiatedByTopLevelBool($key, $value)
+    protected function queryInitiatedByTopLevelBool($key, $value): bool
     {
         // Since this will be triggered by recursion, key will be numeric
         // and not the actual key.
         return !is_string($key) && is_array($value);
     }
 
-    protected function hasSubSearch($key, $value)
+    protected function hasSubSearch($key, $value): bool
     {
         return is_string($key) && is_array($value);
     }
