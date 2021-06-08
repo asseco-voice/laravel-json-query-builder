@@ -53,7 +53,6 @@ class SearchParameter extends AbstractParameter
     protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
     {
         foreach ($arguments as $key => $value) {
-
             if ($this->isTopLevelBoolOperator($key)) {
                 $this->makeQuery($builder, $value, $key);
                 continue;
