@@ -143,6 +143,22 @@ Will perform ``SELECT * FROM some_table WHERE first_name IN
 Note that logical operators are using standard bool logic precedence,
 therefore ``x AND y OR z AND q`` is the same as `(x AND y) OR (z AND q)`.
 
+#### Nested relation searches
+
+You can nest another search object if the key used is a relation name which
+will execute a ``whereHas()`` query builder method.
+
+I.e.
+```
+{
+    "search": {
+        "some_relation": {
+            "search": { ... }
+        },
+    }
+}
+```
+
 ### Returns
 
 Using a ``returns`` key will effectively only return the fields given within it.
