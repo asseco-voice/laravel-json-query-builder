@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder;
 
 use Asseco\JsonQueryBuilder\Config\TypesConfig;
+use Asseco\JsonQueryBuilder\Types\AbstractType;
 
 class CategorizedValues
 {
@@ -25,6 +26,8 @@ class CategorizedValues
     public bool  $null = false;
     public bool  $notNull = false;
 
+    protected AbstractType $type;
+
     /**
      * CategorizedValues constructor.
      * @param SearchParser $searchParser
@@ -34,17 +37,10 @@ class CategorizedValues
     {
         $this->searchParser = $searchParser;
 
-        $this->prepare();
-        $this->categorize();
-    }
+        $this->type = (new TypesConfig())->getTypeClassFromTypeName($this->searchParser->type);
 
-    /**
-     * @throws Exceptions\JsonQueryBuilderException
-     */
-    public function prepare()
-    {
-        $type = (new TypesConfig())->getTypeClassFromTypeName($this->searchParser->type);
-        $this->searchParser->values = $type->prepare($this->searchParser->values);
+        $this->categorize();
+        $this->format();
     }
 
     public function categorize()
@@ -83,7 +79,19 @@ class CategorizedValues
         }
     }
 
-    protected function isNegated(string $splitValue): bool
+    /**
+     * Format categorized values. It must be done after categorizing
+     * because of micro operators.
+     */
+    public function format()
+    {
+        $this->and = $this->type->prepare($this->and);
+        $this->andLike = $this->type->prepare($this->andLike);
+        $this->not = $this->type->prepare($this->not);
+        $this->notLike = $this->type->prepare($this->notLike);
+    }
+
+    protected function isNegated($splitValue): bool
     {
         return substr($splitValue, 0, 1) === self::NOT;
     }
