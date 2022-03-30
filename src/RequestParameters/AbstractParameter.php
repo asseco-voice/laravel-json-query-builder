@@ -16,9 +16,10 @@ abstract class AbstractParameter
 
     /**
      * AbstractParameter constructor.
-     * @param array $arguments
-     * @param Builder $builder
-     * @param ModelConfig $modelConfig
+     *
+     * @param  array  $arguments
+     * @param  Builder  $builder
+     * @param  ModelConfig  $modelConfig
      */
     public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
     {
@@ -29,12 +30,14 @@ abstract class AbstractParameter
 
     /**
      * JSON key by which the parameter will be recognized.
+     *
      * @return string
      */
     abstract public static function getParameterName(): string;
 
     /**
      * Append the query to Eloquent builder.
+     *
      * @throws JsonQueryBuilderException
      */
     abstract protected function appendQuery(): void;
@@ -50,6 +53,7 @@ abstract class AbstractParameter
 
     /**
      * Check validity of fetched arguments and throw exception if it fails.
+     *
      * @throws JsonQueryBuilderException
      */
     protected function areArgumentsValid(): void

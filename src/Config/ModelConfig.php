@@ -69,7 +69,7 @@ class ModelConfig
     /**
      * Union of Eloquent exclusion (guarded/fillable) and forbidden columns.
      *
-     * @param array $forbiddenKeys
+     * @param  array  $forbiddenKeys
      * @return array
      */
     public function getForbidden(array $forbiddenKeys)

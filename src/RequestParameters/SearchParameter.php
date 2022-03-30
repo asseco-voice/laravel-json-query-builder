@@ -45,12 +45,13 @@ class SearchParameter extends AbstractParameter
     /**
      * Making query from input parameters with recursive calls if needed for top level logical operators (check readme).
      *
-     * @param Builder $builder
-     * @param array $arguments
-     * @param string $boolOperator
+     * @param  Builder  $builder
+     * @param  array  $arguments
+     * @param  string  $boolOperator
+     *
      * @throws JsonQueryBuilderException
      */
-    protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self:: AND): void
+    protected function makeQuery(Builder $builder, array $arguments, string $boolOperator = self::AND): void
     {
         foreach ($arguments as $key => $value) {
             if ($this->isTopLevelBoolOperator($key)) {
@@ -83,19 +84,20 @@ class SearchParameter extends AbstractParameter
 
     protected function isTopLevelBoolOperator($key): bool
     {
-        return in_array($key, [self:: OR, self:: AND], true);
+        return in_array($key, [self::OR, self::AND], true);
     }
 
     /**
-     * @param string $boolOperator
+     * @param  string  $boolOperator
      * @return string
+     *
      * @throws JsonQueryBuilderException
      */
     protected function getQueryFunctionName(string $boolOperator): string
     {
-        if ($boolOperator === self:: AND) {
+        if ($boolOperator === self::AND) {
             return self::LARAVEL_WHERE;
-        } elseif ($boolOperator === self:: OR) {
+        } elseif ($boolOperator === self::OR) {
             return self::LARAVEL_OR_WHERE;
         }
 
@@ -115,10 +117,11 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param string $functionName
-     * @param Builder $builder
+     * @param  string  $functionName
+     * @param  Builder  $builder
      * @param $key
      * @param $value
+     *
      * @throws JsonQueryBuilderException
      */
     protected function makeSingleQuery(string $functionName, Builder $builder, $key, $value): void
@@ -129,10 +132,11 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param Builder $builder
-     * @param OperatorsConfig $operatorsConfig
-     * @param string $column
-     * @param string $argument
+     * @param  Builder  $builder
+     * @param  OperatorsConfig  $operatorsConfig
+     * @param  string  $column
+     * @param  string  $argument
+     *
      * @throws JsonQueryBuilderException
      */
     protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument): void
@@ -153,11 +157,12 @@ class SearchParameter extends AbstractParameter
     /**
      * @param $argument
      * @return array
+     *
      * @throws JsonQueryBuilderException
      */
     protected function splitByBoolOperators($argument): array
     {
-        $splitByOr = explode(self:: OR, $argument);
+        $splitByOr = explode(self::OR, $argument);
 
         if (empty($splitByOr)) {
             throw new JsonQueryBuilderException('Something went wrong. Did you forget to add arguments?');
@@ -166,7 +171,7 @@ class SearchParameter extends AbstractParameter
         $splitByAnd = [];
 
         foreach ($splitByOr as $item) {
-            $splitByAnd[] = explode(self:: AND, $item);
+            $splitByAnd[] = explode(self::AND, $item);
         }
 
         return $splitByAnd;
@@ -175,9 +180,10 @@ class SearchParameter extends AbstractParameter
     /**
      * Append the query based on the given argument.
      *
-     * @param Builder $builder
-     * @param OperatorsConfig $operatorsConfig
-     * @param SearchParser $searchParser
+     * @param  Builder  $builder
+     * @param  OperatorsConfig  $operatorsConfig
+     * @param  SearchParser  $searchParser
+     *
      * @throws JsonQueryBuilderException
      */
     protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, SearchParser $searchParser): void

@@ -16,7 +16,7 @@ trait CleansValues
      *
      * null is absolutely valid input for query
      *
-     * @param array $input
+     * @param  array  $input
      * @return array
      */
     protected function cleanValues(array $input): array

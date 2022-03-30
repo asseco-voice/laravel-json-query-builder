@@ -16,7 +16,7 @@ abstract class AbstractType
     /**
      * Prepare/transform values for query if needed.
      *
-     * @param array $values
+     * @param  array  $values
      * @return array
      */
     public function prepare(array $values): array

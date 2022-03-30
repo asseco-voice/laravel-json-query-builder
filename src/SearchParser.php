@@ -29,10 +29,12 @@ class SearchParser
 
     /**
      * Search constructor.
-     * @param ModelConfig $modelConfig
-     * @param OperatorsConfig $operatorsConfig
-     * @param string $column
-     * @param string $argument
+     *
+     * @param  ModelConfig  $modelConfig
+     * @param  OperatorsConfig  $operatorsConfig
+     * @param  string  $column
+     * @param  string  $argument
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, string $column, string $argument)
@@ -51,8 +53,9 @@ class SearchParser
 
     /**
      * @param $operators
-     * @param string $argument
+     * @param  string  $argument
      * @return string
+     *
      * @throws JsonQueryBuilderException
      */
     protected function parseOperator($operators, string $argument): string
@@ -80,6 +83,7 @@ class SearchParser
      *
      * @param $values
      * @return array
+     *
      * @throws JsonQueryBuilderException
      */
     protected function splitValues(string $values): array
@@ -96,6 +100,7 @@ class SearchParser
 
     /**
      * @return string
+     *
      * @throws JsonQueryBuilderException
      */
     protected function getColumnType(): string

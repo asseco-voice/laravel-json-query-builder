@@ -15,8 +15,9 @@ class TypesConfig extends SearchConfig
     }
 
     /**
-     * @param string $typeName
+     * @param  string  $typeName
      * @return mixed
+     *
      * @throws JsonQueryBuilderException
      */
     public function getTypeClassFromTypeName(string $typeName): AbstractType

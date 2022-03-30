@@ -14,8 +14,9 @@ class BooleanType extends AbstractType
     }
 
     /**
-     * @param array $values
+     * @param  array  $values
      * @return array
+     *
      * @throws JsonQueryBuilderException
      */
     public function prepare(array $values): array

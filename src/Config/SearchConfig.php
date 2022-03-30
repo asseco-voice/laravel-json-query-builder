@@ -13,6 +13,7 @@ abstract class SearchConfig
 
     /**
      * SearchConfig constructor.
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct()
