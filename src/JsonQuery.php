@@ -20,8 +20,10 @@ class JsonQuery
 
     /**
      * JsonQuery constructor.
-     * @param Builder $builder
-     * @param array $input
+     *
+     * @param  Builder  $builder
+     * @param  array  $input
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(Builder $builder, array $input)
@@ -83,7 +85,7 @@ class JsonQuery
     }
 
     /**
-     * @param string $requestParameter
+     * @param  string  $requestParameter
      * @return bool
      */
     protected function parameterExists(string $requestParameter): bool
@@ -97,6 +99,7 @@ class JsonQuery
     /**
      * @param $requestParameter
      * @return AbstractParameter
+     *
      * @throws JsonQueryBuilderException
      */
     protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
@@ -113,7 +116,7 @@ class JsonQuery
     /**
      * Get input for given parameter name and wrap it as an array if it's not already an array.
      *
-     * @param string $parameterName
+     * @param  string  $parameterName
      * @return array
      */
     protected function wrapInput(string $parameterName): array

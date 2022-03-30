@@ -18,8 +18,10 @@ abstract class AbstractCallback
 
     /**
      * AbstractCallback constructor.
-     * @param Builder $builder
-     * @param SearchParser $searchParser
+     *
+     * @param  Builder  $builder
+     * @param  SearchParser  $searchParser
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(Builder $builder, SearchParser $searchParser)
@@ -50,9 +52,11 @@ abstract class AbstractCallback
 
     /**
      * Execute a callback on a given column, providing the array of values.
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
+     *
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     *
      * @throws JsonQueryBuilderException
      */
     abstract public function execute(Builder $builder, string $column, CategorizedValues $values): void;
@@ -75,10 +79,11 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function lessOrMoreCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
@@ -97,10 +102,11 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function betweenCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
@@ -123,8 +129,9 @@ abstract class AbstractCallback
     /**
      * Should throw exception if anything except '$values->and' is filled out.
      *
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
      * @throws JsonQueryBuilderException
      */
     protected function checkAllowedValues(CategorizedValues $values, string $operator): void

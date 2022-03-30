@@ -24,8 +24,8 @@ class OrderByParameter extends AbstractParameter
      * If argument is provided as a simple string without direction, we will
      * assume that direction is 'asc'.
      *
-     * @param string|int $column
-     * @param string $direction
+     * @param  string|int  $column
+     * @param  string  $direction
      * @return array
      */
     protected function fallBackToDefaultDirection($column, string $direction): array

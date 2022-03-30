@@ -24,6 +24,7 @@ class OperatorsConfig extends SearchConfig
 
     /**
      * Extract operators from registered 'operator' classes.
+     *
      * @return array
      */
     public function getOperators(): array
@@ -35,8 +36,9 @@ class OperatorsConfig extends SearchConfig
     }
 
     /**
-     * @param string $operator
+     * @param  string  $operator
      * @return string
+     *
      * @throws JsonQueryBuilderException
      */
     public function getCallbackClassFromOperator(string $operator): string

@@ -30,7 +30,9 @@ class CategorizedValues
 
     /**
      * CategorizedValues constructor.
-     * @param SearchParser $searchParser
+     *
+     * @param  SearchParser  $searchParser
+     *
      * @throws Exceptions\JsonQueryBuilderException
      */
     public function __construct(SearchParser $searchParser)
