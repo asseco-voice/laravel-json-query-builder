@@ -57,7 +57,8 @@ JSON parameters (keys):
 - `offset` - will return a subset of results starting from a point given. This parameter **MUST**
 be used together with ``limit`` parameter. 
 - `count` - will return record count.
-- `soft_deleted` - will include soft deleted models in search results
+- `soft_deleted` - will include soft deleted models in search results.
+- `doesnt_have_relations` - will only return entries that don't have any of the specified relations.
 
 ### Search
 
@@ -354,6 +355,24 @@ with ``soft_deleted``:
 ```
 {
     "soft_deleted": true
+}
+```
+
+### Doesn't have relations
+
+In case you want to only find entries without a specified relation, you can do so with ``doesnt_have_relations`` key:
+
+```
+{
+    "doesnt_have_relations": "containers"
+}
+```
+
+If you want to specify multiple relations, you can do so in the following way:
+
+```
+{
+    "doesnt_have_relations": ["containers", "addresses"]
 }
 ```
 
