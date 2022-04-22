@@ -35,7 +35,7 @@ return [
         CountParameter::class,
         GroupByParameter::class,
         SoftDeletedParameter::class,
-        DoesntHaveRelationsParameter::class
+        DoesntHaveRelationsParameter::class,
     ],
 
     /**
