@@ -12,15 +12,15 @@ use Illuminate\Support\Str;
 
 abstract class AbstractCallback
 {
-    protected Builder           $builder;
-    protected SearchParser      $searchParser;
+    protected Builder $builder;
+    protected SearchParser $searchParser;
     protected CategorizedValues $categorizedValues;
 
     /**
      * AbstractCallback constructor.
      *
-     * @param  Builder  $builder
-     * @param  SearchParser  $searchParser
+     * @param Builder $builder
+     * @param SearchParser $searchParser
      *
      * @throws JsonQueryBuilderException
      */
@@ -33,6 +33,12 @@ abstract class AbstractCallback
         $this->builder->when(
             str_contains($this->searchParser->column, '.'),
             function (Builder $builder) {
+                // Hack for whereDoesntHave relation, doesn't work recursively.
+                if (str_contains($this->searchParser->column, '!') !== false) {
+                    $this->searchParser->column = str_replace('!', '', $this->searchParser->column);
+                    $this->appendRelations($builder, $this->searchParser->column, $this->categorizedValues, 'orWhereDoesntHave');
+                    return;
+                }
                 $this->appendRelations($builder, $this->searchParser->column, $this->categorizedValues);
             },
             function (Builder $builder) {
@@ -53,9 +59,9 @@ abstract class AbstractCallback
     /**
      * Execute a callback on a given column, providing the array of values.
      *
-     * @param  Builder  $builder
-     * @param  string  $column
-     * @param  CategorizedValues  $values
+     * @param Builder $builder
+     * @param string $column
+     * @param CategorizedValues $values
      *
      * @throws JsonQueryBuilderException
      */
@@ -79,10 +85,10 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param  Builder  $builder
-     * @param  string  $column
-     * @param  CategorizedValues  $values
-     * @param  string  $operator
+     * @param Builder $builder
+     * @param string $column
+     * @param CategorizedValues $values
+     * @param string $operator
      *
      * @throws JsonQueryBuilderException
      */
@@ -102,10 +108,10 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param  Builder  $builder
-     * @param  string  $column
-     * @param  CategorizedValues  $values
-     * @param  string  $operator
+     * @param Builder $builder
+     * @param string $column
+     * @param CategorizedValues $values
+     * @param string $operator
      *
      * @throws JsonQueryBuilderException
      */
@@ -129,8 +135,8 @@ abstract class AbstractCallback
     /**
      * Should throw exception if anything except '$values->and' is filled out.
      *
-     * @param  CategorizedValues  $values
-     * @param  string  $operator
+     * @param CategorizedValues $values
+     * @param string $operator
      *
      * @throws JsonQueryBuilderException
      */
