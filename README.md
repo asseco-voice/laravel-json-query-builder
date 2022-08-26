@@ -69,7 +69,7 @@ following:
 JSON key-value pair. 
 - It is possible to search by related models using ``.`` as a divider i.e. 
 `"relation.column": "operator value")`. **Note** this will execute a `WHERE EXISTS`, it will 
-not filter resulting relations if included within relations.
+not filter resulting relations if included within relations. To do a ``WHERE NOT EXISTS`` you can ue `!relation.column`.
 - ``operator`` is one of the available main operators for querying (listed [below](#main-operators))
 - ``values`` is a semicolon (`;`) separated list of values 
 (i.e. `"column": "=value;value2;value3"`) which
