@@ -16,10 +16,11 @@ class Equals extends AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
      * @return void
+     *
      * @throws Exception
      */
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
@@ -52,7 +53,7 @@ class Equals extends AbstractCallback
 
         if ($values->not) {
             if ($this->isDate($this->searchParser->type)) {
-                throw new Exception("Not operator is not supported for date(time) fields");
+                throw new Exception('Not operator is not supported for date(time) fields');
             }
 
             $builder->whereNotIn($column, $values->not);
