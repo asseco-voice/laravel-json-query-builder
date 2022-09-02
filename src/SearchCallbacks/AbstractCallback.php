@@ -16,6 +16,10 @@ abstract class AbstractCallback
     protected SearchParser $searchParser;
     protected CategorizedValues $categorizedValues;
 
+    protected const DATE_FIELDS = [
+        'date', 'datetime',
+    ];
+
     /**
      * AbstractCallback constructor.
      *
@@ -105,7 +109,8 @@ abstract class AbstractCallback
             throw new JsonQueryBuilderException("No valid arguments for '$operator' operator.");
         }
 
-        $builder->where($column, $operator, $values->and[0]);
+        $method = $this->isDate($this->searchParser->type) ? 'whereDate' : 'where';
+        $builder->{$method}($column, $operator, $values->and[0]);
     }
 
     /**
@@ -122,10 +127,6 @@ abstract class AbstractCallback
 
         if (count($values->and) != 2) {
             throw new JsonQueryBuilderException("Using $operator operator assumes exactly 2 parameters. Wrong number of parameters provided.");
-        }
-
-        if (!count($values->and)) {
-            throw new JsonQueryBuilderException("No valid arguments for '$operator' operator.");
         }
 
         $callback = $operator == '<>' ? 'whereBetween' : 'whereNotBetween';
@@ -146,5 +147,10 @@ abstract class AbstractCallback
         if ($values->null || $values->notNull || $values->not || $values->notLike || $values->andLike) {
             throw new JsonQueryBuilderException("Wrong parameter type(s) for '$operator' operator.");
         }
+    }
+
+    protected function isDate(string $type): bool
+    {
+        return in_array($type, self::DATE_FIELDS);
     }
 }

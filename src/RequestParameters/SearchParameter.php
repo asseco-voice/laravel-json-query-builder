@@ -190,9 +190,7 @@ class SearchParameter extends AbstractParameter
     {
         $callbackClassName = $operatorsConfig->getCallbackClassFromOperator($searchParser->operator);
 
-        /**
-         * @var AbstractCallback $callback
-         */
+        /** @var AbstractCallback $callback */
         new $callbackClassName($builder, $searchParser);
     }
 }
