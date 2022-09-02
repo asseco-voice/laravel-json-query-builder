@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
 use Asseco\JsonQueryBuilder\CategorizedValues;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 
 class Equals extends AbstractCallback
@@ -14,6 +15,13 @@ class Equals extends AbstractCallback
         return '=';
     }
 
+    /**
+     * @param Builder $builder
+     * @param string $column
+     * @param CategorizedValues $values
+     * @return void
+     * @throws Exception
+     */
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
         foreach ($values->andLike as $andLike) {
@@ -33,10 +41,20 @@ class Equals extends AbstractCallback
         }
 
         if ($values->and) {
-            $builder->whereIn($column, $values->and);
+            if ($this->isDate($this->searchParser->type)) {
+                foreach ($values->and as $andValue) {
+                    $builder->orWhereDate($column, $andValue);
+                }
+            } else {
+                $builder->whereIn($column, $values->and);
+            }
         }
 
         if ($values->not) {
+            if ($this->isDate($this->searchParser->type)) {
+                throw new Exception("Not operator is not supported for date(time) fields");
+            }
+
             $builder->whereNotIn($column, $values->not);
         }
     }
