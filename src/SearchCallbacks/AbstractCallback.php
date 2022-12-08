@@ -25,8 +25,8 @@ abstract class AbstractCallback
     /**
      * AbstractCallback constructor.
      *
-     * @param Builder $builder
-     * @param SearchParser $searchParser
+     * @param  Builder  $builder
+     * @param  SearchParser  $searchParser
      *
      * @throws JsonQueryBuilderException
      */
@@ -66,9 +66,9 @@ abstract class AbstractCallback
     /**
      * Execute a callback on a given column, providing the array of values.
      *
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
      *
      * @throws JsonQueryBuilderException
      */
@@ -92,10 +92,10 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
      *
      * @throws JsonQueryBuilderException
      */
@@ -116,10 +116,10 @@ abstract class AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
      *
      * @throws JsonQueryBuilderException
      */
@@ -139,8 +139,8 @@ abstract class AbstractCallback
     /**
      * Should throw exception if anything except '$values->and' is filled out.
      *
-     * @param CategorizedValues $values
-     * @param string $operator
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
      *
      * @throws JsonQueryBuilderException
      */

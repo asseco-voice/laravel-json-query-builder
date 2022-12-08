@@ -121,6 +121,6 @@ class CategorizedValues
     // Not happy with this solution, might need to refactor this later
     protected function isSingleStringValue(): bool
     {
-        return (count($this->searchParser->values) == 1 && $this->searchParser->type == "string");
+        return count($this->searchParser->values) == 1 && $this->searchParser->type == 'string';
     }
 }

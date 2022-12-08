@@ -16,9 +16,9 @@ class NotEquals extends AbstractCallback
     }
 
     /**
-     * @param Builder $builder
-     * @param string $column
-     * @param CategorizedValues $values
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
      * @return void
      *
      * @throws Exception
@@ -39,7 +39,6 @@ class NotEquals extends AbstractCallback
 
         if (array_merge($values->and, $values->not)) {
             $builder->whereNotIn($column, array_merge($values->and, $values->not));
-
         }
     }
 }
