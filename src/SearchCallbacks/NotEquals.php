@@ -16,9 +16,9 @@ class NotEquals extends AbstractCallback
     }
 
     /**
-     * @param  Builder  $builder
-     * @param  string  $column
-     * @param  CategorizedValues  $values
+     * @param Builder $builder
+     * @param string $column
+     * @param CategorizedValues $values
      * @return void
      *
      * @throws Exception
@@ -30,7 +30,7 @@ class NotEquals extends AbstractCallback
                 throw new Exception('Not operator is not supported for date(time) fields');
             }
 
-            $builder->where($column, 'NOT LIKE', $like);
+            $builder->where($column, 'NOT ' . $this->getLikeOperator(), $like);
         }
 
         if ($values->null || $values->notNull) {
@@ -39,6 +39,7 @@ class NotEquals extends AbstractCallback
 
         if (array_merge($values->and, $values->not)) {
             $builder->whereNotIn($column, array_merge($values->and, $values->not));
+
         }
     }
 }
