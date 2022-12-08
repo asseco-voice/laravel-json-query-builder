@@ -46,17 +46,17 @@ class Equals extends AbstractCallback
                 foreach ($values->and as $andValue) {
                     $builder->orWhereDate($column, $andValue);
                 }
+            } else {
+                $builder->whereIn($column, $values->and);
             }
-
-            $builder->whereIn($column, $values->and);
         }
 
         if ($values->not) {
             if ($this->isDate($this->searchParser->type)) {
                 throw new Exception('Not operator is not supported for date(time) fields');
-            } else {
-                $builder->whereNotIn($column, $values->not);
             }
+
+            $builder->whereNotIn($column, $values->not);
         }
     }
 }
