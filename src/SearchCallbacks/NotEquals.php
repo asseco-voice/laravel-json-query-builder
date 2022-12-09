@@ -30,7 +30,7 @@ class NotEquals extends AbstractCallback
                 throw new Exception('Not operator is not supported for date(time) fields');
             }
 
-            $builder->where($column, 'NOT LIKE', $like);
+            $builder->where($column, 'NOT ' . $this->getLikeOperator(), $like);
         }
 
         if ($values->null || $values->notNull) {

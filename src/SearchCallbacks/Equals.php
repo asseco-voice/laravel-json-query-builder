@@ -26,11 +26,11 @@ class Equals extends AbstractCallback
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
         foreach ($values->andLike as $andLike) {
-            $builder->where($column, 'LIKE', $andLike);
+            $builder->where($column, $this->getLikeOperator(), $andLike);
         }
 
         foreach ($values->notLike as $notLike) {
-            $builder->where($column, 'NOT LIKE', $notLike);
+            $builder->where($column, 'NOT ' . $this->getLikeOperator(), $notLike);
         }
 
         if ($values->null) {

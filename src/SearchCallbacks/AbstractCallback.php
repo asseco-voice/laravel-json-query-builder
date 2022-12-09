@@ -8,7 +8,9 @@ use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\SearchParser;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use PDO;
 
 abstract class AbstractCallback
 {
@@ -152,5 +154,15 @@ abstract class AbstractCallback
     protected function isDate(string $type): bool
     {
         return in_array($type, self::DATE_FIELDS);
+    }
+
+    //Hack to enable case-insensitive search when using PostgreSQL database
+    protected function getLikeOperator(): string
+    {
+        if (DB::connection()->getPDO()->getAttribute(PDO::ATTR_DRIVER_NAME) == 'pgsql') {
+            return 'ILIKE';
+        }
+
+        return 'LIKE';
     }
 }

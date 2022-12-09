@@ -81,7 +81,7 @@ class SearchParser
      * Output: val1
      *         val2
      *
-     * @param $values
+     * @param  string  $values
      * @return array
      *
      * @throws JsonQueryBuilderException

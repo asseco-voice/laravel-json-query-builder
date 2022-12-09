@@ -61,7 +61,7 @@ class CategorizedValues
             if ($this->isNegated($value)) {
                 $value = $this->replaceNegation($value);
 
-                if ($this->hasWildCard($value)) {
+                if ($this->hasWildCard($value) || $this->isSingleStringValue()) {
                     $value = $this->replaceWildCard($value);
                     $this->notLike[] = $value;
                     continue;
@@ -71,7 +71,7 @@ class CategorizedValues
                 continue;
             }
 
-            if ($this->hasWildCard($value)) {
+            if ($this->hasWildCard($value) || $this->isSingleStringValue()) {
                 $value = $this->replaceWildCard($value);
                 $this->andLike[] = $value;
                 continue;
@@ -115,5 +115,12 @@ class CategorizedValues
     protected function replaceNegation($value)
     {
         return preg_replace('~' . self::NOT . '~', '', $value, 1);
+    }
+
+    // Hack so that LIKE operator is used when a single value of string type is passed.
+    // Not happy with this solution, might need to refactor this later
+    protected function isSingleStringValue(): bool
+    {
+        return count($this->searchParser->values) == 1 && $this->searchParser->type == 'string';
     }
 }
