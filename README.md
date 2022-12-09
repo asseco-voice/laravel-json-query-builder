@@ -91,14 +91,30 @@ Example:
 ```
 {
     "search": {
+        "first_name": "=foo1;foo2",
+        "last_name": "!=bar1;bar2" 
+    }
+}
+```
+
+Will perform a ``SELECT * FROM some_table WHERE first_name IN 
+('foo1', 'foo2') AND last_name NOT IN ('bar1', 'bar2')``.
+
+In case you pass a single value for a column on string type, LIKE operator will be used
+instead of IN. For Postgres databases, ILIKE is used instead of LIKE to support
+case-insensitive search.
+
+```
+{
+    "search": {
         "first_name": "=foo",
         "last_name": "!=bar" 
     }
 }
 ```
 
-Will perform a ``SELECT * FROM some_table WHERE first_name IN 
-('foo') AND last_name NOT IN ('bar')``.
+Will perform a ``SELECT * FROM some_table WHERE first_name LIKE 'foo' AND
+last_name NOT LIKE 'bar'``.
 
 #### Micro operators
 
@@ -120,8 +136,8 @@ single column (order matters!):
 }
 ```
 
-Will perform a ``SELECT * FROM some_table WHERE first_name NOT IN 
-('foo') AND last_name LIKE 'bar%'``.
+Will perform a ``SELECT * FROM some_table WHERE first_name NOT LIKE 
+'foo' AND last_name LIKE 'bar%'``.
 
 Notice that here ``!value`` behaved the same as ``!=`` main operator. The difference
 is that ``!=`` main operator negates the complete list of values, whereas the 
