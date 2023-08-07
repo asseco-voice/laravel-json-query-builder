@@ -97,7 +97,7 @@ class JsonQuery
     }
 
     /**
-     * @param $requestParameter
+     * @param  $requestParameter
      * @return AbstractParameter
      *
      * @throws JsonQueryBuilderException

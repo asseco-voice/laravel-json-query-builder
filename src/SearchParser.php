@@ -52,7 +52,7 @@ class SearchParser
     }
 
     /**
-     * @param $operators
+     * @param  $operators
      * @param  string  $argument
      * @return string
      *

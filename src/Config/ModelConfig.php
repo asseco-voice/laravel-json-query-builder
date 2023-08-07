@@ -80,7 +80,7 @@ class ModelConfig
 
     protected function getEloquentExclusion($forbiddenKeys): array
     {
-        if (!array_key_exists('eloquent_exclusion', $this->config) || !($this->config['eloquent_exclusion'])) {
+        if (!array_key_exists('eloquent_exclusion', $this->config) || !$this->config['eloquent_exclusion']) {
             return $forbiddenKeys;
         }
 
@@ -98,7 +98,7 @@ class ModelConfig
 
     protected function getForbiddenColumns(array $forbiddenKeys): array
     {
-        if (!array_key_exists('forbidden_columns', $this->config) || !($this->config['forbidden_columns'])) {
+        if (!array_key_exists('forbidden_columns', $this->config) || !$this->config['forbidden_columns']) {
             return $forbiddenKeys;
         }
 
