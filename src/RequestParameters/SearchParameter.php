@@ -119,8 +119,8 @@ class SearchParameter extends AbstractParameter
     /**
      * @param  string  $functionName
      * @param  Builder  $builder
-     * @param $key
-     * @param $value
+     * @param  $key
+     * @param  $value
      *
      * @throws JsonQueryBuilderException
      */
@@ -155,7 +155,7 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param $argument
+     * @param  $argument
      * @return array
      *
      * @throws JsonQueryBuilderException
