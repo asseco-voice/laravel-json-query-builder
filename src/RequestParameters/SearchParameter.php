@@ -63,14 +63,13 @@ class SearchParameter extends AbstractParameter
 
             if ($this->queryInitiatedByTopLevelBool($key, $value)) {
                 if (is_array($value)) {
-                     // this must be treated together (with AND operator)
-                     // [0] => [
-                     //   [customFieldValues.date] => <>2024-01-01T00:00:00.000Z;2024-01-31T00:00:00.000Z
-                     //   [customFieldValues.custom_field_id] => =96e09c60-6e4f-4ab8-88f1-b21281008ad1
-                     // ]
+                    // this must be treated together (with AND operator)
+                    // [0] => [
+                    //   [customFieldValues.date] => <>2024-01-01T00:00:00.000Z;2024-01-31T00:00:00.000Z
+                    //   [customFieldValues.custom_field_id] => =96e09c60-6e4f-4ab8-88f1-b21281008ad1
+                    // ]
                     $this->makeSingleQueryArr($functionName, $builder, $value);
-                }
-                else {
+                } else {
                     $builder->{$functionName}(function ($queryBuilder) use ($value) {
                         // Recursion for inner keys which are &&/||
                         $this->makeQuery($queryBuilder, $value);
@@ -143,20 +142,20 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
-     * @param string $functionName
-     * @param Builder $builder
-     * @param $values
+     * @param  string  $functionName
+     * @param  Builder  $builder
+     * @param  $values
      * @return void
+     *
      * @throws JsonQueryBuilderException
      */
     protected function makeSingleQueryArr(string $functionName, Builder $builder, $values): void
     {
         $builder->{$functionName}(function ($queryBuilder) use ($values, $functionName) {
-            foreach($values as $key => $value) {
+            foreach ($values as $key => $value) {
                 if (is_array($value)) {
                     $this->makeSingleQueryArr($functionName, $queryBuilder, $value);
-                }
-                else {
+                } else {
                     $this->applyArguments($queryBuilder, $this->operatorsConfig, $key, $value, 'AND');
                 }
             }

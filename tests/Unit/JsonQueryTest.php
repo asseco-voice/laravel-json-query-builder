@@ -214,7 +214,7 @@ class JsonQueryTest extends TestCase
     public function limits_and_offsets_results()
     {
         $input = [
-            'limit'  => 5,
+            'limit' => 5,
             'offset' => 10,
         ];
 
@@ -267,7 +267,7 @@ class JsonQueryTest extends TestCase
         $input = [
             'search' => [
                 '&&' => [
-                    '||'   => [
+                    '||' => [
                         'att1' => '=1',
                         'att2' => '=1',
                     ],
@@ -291,15 +291,15 @@ class JsonQueryTest extends TestCase
         $input = [
             'search' => [
                 '||' => [
-                    '&&'        => [
+                    '&&' => [
                         [
                             '||' => [
                                 [
-                                    'id'   => '=2||=3',
+                                    'id' => '=2||=3',
                                     'name' => '=foo',
                                 ],
                                 [
-                                    'id'   => '=1',
+                                    'id' => '=1',
                                     'name' => '=foo%&&=%bar',
                                 ],
                             ],
@@ -308,7 +308,7 @@ class JsonQueryTest extends TestCase
                             'we' => '=cool',
                         ],
                     ],
-                    'love'      => '<3',
+                    'love' => '<3',
                     'recursion' => '=rrr',
                 ],
             ],
