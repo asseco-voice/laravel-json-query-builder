@@ -62,10 +62,21 @@ class SearchParameter extends AbstractParameter
             $functionName = $this->getQueryFunctionName($boolOperator);
 
             if ($this->queryInitiatedByTopLevelBool($key, $value)) {
-                $builder->{$functionName}(function ($queryBuilder) use ($value) {
-                    // Recursion for inner keys which are &&/||
-                    $this->makeQuery($queryBuilder, $value);
-                });
+                if (is_array($value)) {
+                     // this must be treated together (with AND operator)
+                     // [0] => [
+                     //   [customFieldValues.date] => <>2024-01-01T00:00:00.000Z;2024-01-31T00:00:00.000Z
+                     //   [customFieldValues.custom_field_id] => =96e09c60-6e4f-4ab8-88f1-b21281008ad1
+                     // ]
+                    $this->makeSingleQueryArr($functionName, $builder, $value);
+                }
+                else {
+                    $builder->{$functionName}(function ($queryBuilder) use ($value) {
+                        // Recursion for inner keys which are &&/||
+                        $this->makeQuery($queryBuilder, $value);
+                    });
+                }
+
                 continue;
             }
 
@@ -132,19 +143,42 @@ class SearchParameter extends AbstractParameter
     }
 
     /**
+     * @param string $functionName
+     * @param Builder $builder
+     * @param $values
+     * @return void
+     * @throws JsonQueryBuilderException
+     */
+    protected function makeSingleQueryArr(string $functionName, Builder $builder, $values): void
+    {
+        $builder->{$functionName}(function ($queryBuilder) use ($values, $functionName) {
+            foreach($values as $key => $value) {
+                if (is_array($value)) {
+                    $this->makeSingleQueryArr($functionName, $queryBuilder, $value);
+                }
+                else {
+                    $this->applyArguments($queryBuilder, $this->operatorsConfig, $key, $value, 'AND');
+                }
+            }
+        });
+    }
+
+    /**
      * @param  Builder  $builder
      * @param  OperatorsConfig  $operatorsConfig
      * @param  string  $column
      * @param  string  $argument
+     * @param  string  $orAnd
      *
      * @throws JsonQueryBuilderException
      */
-    protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument): void
+    protected function applyArguments(Builder $builder, OperatorsConfig $operatorsConfig, string $column, string $argument, ?string $orAnd = 'OR'): void
     {
+        $fn = strtoupper($orAnd) == 'AND' ? 'where' : 'orWhere';
         $splitArguments = $this->splitByBoolOperators($argument);
 
         foreach ($splitArguments as $splitArgument) {
-            $builder->orWhere(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
+            $builder->{$fn}(function ($builder) use ($splitArgument, $operatorsConfig, $column) {
                 foreach ($splitArgument as $argument) {
                     $searchModel = new SearchParser($this->modelConfig, $operatorsConfig, $column, $argument);
 
