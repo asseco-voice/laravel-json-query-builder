@@ -31,20 +31,20 @@ class CustomFieldSearchParser implements SearchParserInterface
     private ModelConfig $modelConfig;
 
     /**
-     * @param ModelConfig $modelConfig
-     * @param OperatorsConfig $operatorsConfig
-     * @param array $arguments
+     * @param  ModelConfig  $modelConfig
+     * @param  OperatorsConfig  $operatorsConfig
+     * @param  array  $arguments
+     *
      * @throws JsonQueryBuilderException
      */
     public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, array $arguments)
     {
         $this->modelConfig = $modelConfig;
 
-        foreach($arguments as $col => $val) {
+        foreach ($arguments as $col => $val) {
             if (str_contains($col, $this->cf_field_identificator)) {
                 $this->cf_field_value = $val;
-            }
-            else {
+            } else {
                 $this->column = $col;
                 $this->argument = $val;
             }

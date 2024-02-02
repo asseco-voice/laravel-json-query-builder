@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
+use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\JsonQuery;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 use Asseco\JsonQueryBuilder\SearchParser;
-use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\SearchParserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
@@ -65,15 +65,14 @@ class SearchParameter extends AbstractParameter
 
             $functionName = $this->getQueryFunctionName($boolOperator);
 
-            if ($this->isTopLevelInclusiveCFOperator( $key)) {
+            if ($this->isTopLevelInclusiveCFOperator($key)) {
                 // Custom fields custom search logic ..... both columns has to be in the same where clause (custom_field_id & search column)
-                $builder->{$functionName}(function ($queryBuilder) use ($key, $value) {
+                $builder->{$functionName}(function ($queryBuilder) use ($value) {
                     $searchModel = new CustomFieldSearchParser($this->modelConfig, $this->operatorsConfig, $value);
                     $this->appendSingle($queryBuilder, $this->operatorsConfig, $searchModel);
                 });
                 continue;
-            }
-            else if ($this->queryInitiatedByTopLevelBool($key, $value)) {
+            } elseif ($this->queryInitiatedByTopLevelBool($key, $value)) {
                 $builder->{$functionName}(function ($queryBuilder) use ($value) {
                     // Recursion for inner keys which are &&/||
                     $this->makeQuery($queryBuilder, $value);

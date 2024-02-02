@@ -7,7 +7,6 @@ namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\SearchParser;
 use Asseco\JsonQueryBuilder\SearchParserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
@@ -49,11 +48,10 @@ abstract class AbstractCallback
                     return;
                 }
                 $this->appendRelations($builder, $this->searchParser->column, $this->categorizedValues);
-
             },
             function (Builder $builder) {
                 $this->execute($builder, $this->searchParser->column, $this->categorizedValues);
-                $this->checkExecuteForCustomfieldsParameter( $builder );
+                $this->checkExecuteForCustomfieldsParameter($builder);
             }
         );
     }
@@ -91,7 +89,7 @@ abstract class AbstractCallback
             }
 
             $this->execute($builder, $relatedColumns, $values);
-            $this->checkExecuteForCustomfieldsParameter( $builder );
+            $this->checkExecuteForCustomfieldsParameter($builder);
         });
     }
 
@@ -170,7 +168,8 @@ abstract class AbstractCallback
         return 'LIKE';
     }
 
-    protected function checkExecuteForCustomfieldsParameter( $builder ) {
+    protected function checkExecuteForCustomfieldsParameter($builder)
+    {
         if ($this->searchParser instanceof CustomFieldSearchParser) {
             $builder->where($this->searchParser->cf_field_identificator, '=', $this->searchParser->cf_field_value);
         }
