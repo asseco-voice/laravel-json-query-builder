@@ -17,7 +17,7 @@ class CategorizedValues
     const IS_NULL = 'null';
     const IS_NOT_NULL = '!null';
 
-    protected SearchParser $searchParser;
+    protected SearchParserInterface $searchParser;
 
     public array $and = [];
     public array $andLike = [];
@@ -31,11 +31,11 @@ class CategorizedValues
     /**
      * CategorizedValues constructor.
      *
-     * @param  SearchParser  $searchParser
+     * @param  SearchParserInterface  $searchParser
      *
      * @throws Exceptions\JsonQueryBuilderException
      */
-    public function __construct(SearchParser $searchParser)
+    public function __construct(SearchParserInterface $searchParser)
     {
         $this->searchParser = $searchParser;
 

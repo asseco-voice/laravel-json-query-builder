@@ -10,7 +10,7 @@ use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\Traits\CleansValues;
 use Illuminate\Support\Facades\Config;
 
-class SearchParser implements SearchParserInterface
+class CustomFieldSearchParser implements SearchParserInterface
 {
     use CleansValues;
 
@@ -20,32 +20,39 @@ class SearchParser implements SearchParserInterface
     const VALUE_SEPARATOR = ';';
 
     public string $column;
+    private string $argument;
     public array  $values;
     public string $type;
     public string $operator;
 
-    private string      $argument;
+    public string $cf_field_identificator = 'custom_field_id';
+    public string $cf_field_value = '';
+
     private ModelConfig $modelConfig;
 
     /**
-     * Search constructor.
-     *
      * @param  ModelConfig  $modelConfig
      * @param  OperatorsConfig  $operatorsConfig
-     * @param  string  $column
-     * @param  string  $argument
+     * @param  array  $arguments
      *
      * @throws JsonQueryBuilderException
      */
-    public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, string $column, string $argument)
+    public function __construct(ModelConfig $modelConfig, OperatorsConfig $operatorsConfig, array $arguments)
     {
         $this->modelConfig = $modelConfig;
-        $this->column = $column;
-        $this->argument = $argument;
+
+        foreach ($arguments as $col => $val) {
+            if (str_contains($col, $this->cf_field_identificator)) {
+                $this->cf_field_value = $val;
+            } else {
+                $this->column = $col;
+                $this->argument = $val;
+            }
+        }
 
         $this->checkForForbiddenColumns();
 
-        $this->operator = $this->parseOperator($operatorsConfig->getOperators(), $argument);
+        $this->operator = $this->parseOperator($operatorsConfig->getOperators(), $this->argument);
         $arguments = str_replace($this->operator, '', $this->argument);
         $this->values = $this->splitValues($arguments);
         $this->type = $this->getColumnType();

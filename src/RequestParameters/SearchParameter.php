@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
+use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
 use Asseco\JsonQueryBuilder\JsonQuery;
 use Asseco\JsonQueryBuilder\SearchCallbacks\AbstractCallback;
 use Asseco\JsonQueryBuilder\SearchParser;
+use Asseco\JsonQueryBuilder\SearchParserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -16,6 +18,8 @@ class SearchParameter extends AbstractParameter
 {
     const OR = '||';
     const AND = '&&';
+
+    const AND_INCLUSIVE_CF = '&&_INC_CF';
 
     const LARAVEL_WHERE = 'where';
     const LARAVEL_OR_WHERE = 'orWhere';
@@ -61,7 +65,14 @@ class SearchParameter extends AbstractParameter
 
             $functionName = $this->getQueryFunctionName($boolOperator);
 
-            if ($this->queryInitiatedByTopLevelBool($key, $value)) {
+            if ($this->isTopLevelInclusiveCFOperator($key)) {
+                // Custom fields custom search logic ..... both columns has to be in the same where clause (custom_field_id & search column)
+                $builder->{$functionName}(function ($queryBuilder) use ($value) {
+                    $searchModel = new CustomFieldSearchParser($this->modelConfig, $this->operatorsConfig, $value);
+                    $this->appendSingle($queryBuilder, $this->operatorsConfig, $searchModel);
+                });
+                continue;
+            } elseif ($this->queryInitiatedByTopLevelBool($key, $value)) {
                 $builder->{$functionName}(function ($queryBuilder) use ($value) {
                     // Recursion for inner keys which are &&/||
                     $this->makeQuery($queryBuilder, $value);
@@ -87,6 +98,11 @@ class SearchParameter extends AbstractParameter
         return in_array($key, [self::OR, self::AND], true);
     }
 
+    protected function isTopLevelInclusiveCFOperator($key): bool
+    {
+        return in_array($key, [self::AND_INCLUSIVE_CF], true);
+    }
+
     /**
      * @param  string  $boolOperator
      * @return string
@@ -95,7 +111,7 @@ class SearchParameter extends AbstractParameter
      */
     protected function getQueryFunctionName(string $boolOperator): string
     {
-        if ($boolOperator === self::AND) {
+        if ($boolOperator === self::AND || $boolOperator === self::AND_INCLUSIVE_CF) {
             return self::LARAVEL_WHERE;
         } elseif ($boolOperator === self::OR) {
             return self::LARAVEL_OR_WHERE;
@@ -186,7 +202,7 @@ class SearchParameter extends AbstractParameter
      *
      * @throws JsonQueryBuilderException
      */
-    protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, SearchParser $searchParser): void
+    protected function appendSingle(Builder $builder, OperatorsConfig $operatorsConfig, SearchParserInterface $searchParser): void
     {
         $callbackClassName = $operatorsConfig->getCallbackClassFromOperator($searchParser->operator);
 

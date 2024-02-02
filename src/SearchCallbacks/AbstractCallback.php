@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Asseco\JsonQueryBuilder\SearchCallbacks;
 
 use Asseco\JsonQueryBuilder\CategorizedValues;
+use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
-use Asseco\JsonQueryBuilder\SearchParser;
+use Asseco\JsonQueryBuilder\SearchParserInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,7 +16,7 @@ use PDO;
 abstract class AbstractCallback
 {
     protected Builder $builder;
-    protected SearchParser $searchParser;
+    protected SearchParserInterface $searchParser;
     protected CategorizedValues $categorizedValues;
 
     protected const DATE_FIELDS = [
@@ -26,11 +27,11 @@ abstract class AbstractCallback
      * AbstractCallback constructor.
      *
      * @param  Builder  $builder
-     * @param  SearchParser  $searchParser
+     * @param  SearchParserInterface  $searchParser
      *
      * @throws JsonQueryBuilderException
      */
-    public function __construct(Builder $builder, SearchParser $searchParser)
+    public function __construct(Builder $builder, SearchParserInterface $searchParser)
     {
         $this->builder = $builder;
         $this->searchParser = $searchParser;
@@ -50,6 +51,7 @@ abstract class AbstractCallback
             },
             function (Builder $builder) {
                 $this->execute($builder, $this->searchParser->column, $this->categorizedValues);
+                $this->checkExecuteForCustomfieldsParameter($builder);
             }
         );
     }
@@ -87,6 +89,7 @@ abstract class AbstractCallback
             }
 
             $this->execute($builder, $relatedColumns, $values);
+            $this->checkExecuteForCustomfieldsParameter($builder);
         });
     }
 
@@ -163,5 +166,12 @@ abstract class AbstractCallback
         }
 
         return 'LIKE';
+    }
+
+    protected function checkExecuteForCustomfieldsParameter($builder)
+    {
+        if ($this->searchParser instanceof CustomFieldSearchParser) {
+            $builder->where($this->searchParser->cf_field_identificator, '=', $this->searchParser->cf_field_value);
+        }
     }
 }
