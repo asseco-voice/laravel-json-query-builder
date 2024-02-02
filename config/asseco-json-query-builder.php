@@ -25,7 +25,7 @@ return [
     /**
      * Registered request parameters.
      */
-    'request_parameters'      => [
+    'request_parameters' => [
         SearchParameter::class,
         ReturnsParameter::class,
         OrderByParameter::class,
@@ -42,7 +42,7 @@ return [
      * Registered operators/callbacks. Operator order matters!
      * Callbacks having more const OPERATOR characters must come before those with less.
      */
-    'operators'              => [
+    'operators' => [
         NotBetween::class,
         LessThanOrEqual::class,
         GreaterThanOrEqual::class,
@@ -57,7 +57,7 @@ return [
      * Registered types. Generic type is the default one and should be used if
      * no special care for type value is needed.
      */
-    'types'                  => [
+    'types' => [
         GenericType::class,
         BooleanType::class,
     ],
@@ -76,7 +76,7 @@ return [
      * Refined options for a single model.
      * Use if you want to enforce rules on a specific model without affecting globally all models.
      */
-    'model_options'           => [
+    'model_options' => [
 
         /**
          * For real usage, use real models without quotes. This is only meant to show the available options.
@@ -95,13 +95,13 @@ return [
             /**
              * Disable search on specific columns. Searching on forbidden columns will throw an exception.
              */
-            'forbidden_columns'  => ['column', 'column2'],
+            'forbidden_columns' => ['column', 'column2'],
             /**
              * Array of columns to order by in 'column => direction' format.
              * 'order-by' from query string takes precedence before these values.
              */
-            'order_by'           => [
-                'id'         => 'asc',
+            'order_by' => [
+                'id' => 'asc',
                 'created_at' => 'desc',
             ],
             /**
@@ -109,11 +109,11 @@ return [
              * override these values. This acts as a 'SELECT /return only columns/' from.
              * By default, 'SELECT *' will be ran.
              */
-            'returns'           => ['column', 'column2'],
+            'returns' => ['column', 'column2'],
             /**
              * List of relations to load by default. These will be overridden if provided within query string.
              */
-            'relations'         => ['rel1', 'rel2'],
+            'relations' => ['rel1', 'rel2'],
 
             /**
              * TBD
@@ -121,7 +121,7 @@ return [
              * It is possible to map such columns so that the true ORM
              * property stays hidden.
              */
-            'column_mapping'     => [
+            'column_mapping' => [
                 'frontend_column' => 'backend_column',
             ],
         ],
