@@ -15,9 +15,8 @@ class GroupByParameter extends AbstractParameter
     {
         if (!$this->rawArguments) {
             $this->builder->groupBy($this->arguments);
-        }
-        else {
-            foreach($this->arguments as $arg) {
+        } else {
+            foreach ($this->arguments as $arg) {
                 $this->builder->groupByRaw($arg);
             }
         }

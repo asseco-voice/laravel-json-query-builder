@@ -16,11 +16,12 @@ abstract class AbstractParameter
     protected bool     $rawArguments;
 
     /**
-     * AbstractParameter constructor
-     * @param array $arguments
-     * @param Builder $builder
-     * @param ModelConfig $modelConfig
-     * @param bool|null $rawArguents
+     * AbstractParameter constructor.
+     *
+     * @param  array  $arguments
+     * @param  Builder  $builder
+     * @param  ModelConfig  $modelConfig
+     * @param  bool|null  $rawArguents
      */
     public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig, ?bool $rawArguments = false)
     {

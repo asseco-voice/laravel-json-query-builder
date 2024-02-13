@@ -15,10 +15,9 @@ class ReturnsParameter extends AbstractParameter
     {
         if (!$this->rawArguments) {
             $this->builder->addSelect($this->arguments);
-        }
-        else {
-            foreach($this->arguments as $arg) {
-                $this->builder->selectRaw( $arg );
+        } else {
+            foreach ($this->arguments as $arg) {
+                $this->builder->selectRaw($arg);
             }
         }
     }

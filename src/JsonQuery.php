@@ -102,9 +102,10 @@ class JsonQuery
     }
 
     /**
-     * @param string $requestParameter
-     * @param bool|null $rawArguments
+     * @param  string  $requestParameter
+     * @param  bool|null  $rawArguments
      * @return AbstractParameter
+     *
      * @throws JsonQueryBuilderException
      */
     protected function instantiateRequestParameter(string $requestParameter, ?bool $rawArguments = false): AbstractParameter
