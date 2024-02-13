@@ -65,13 +65,18 @@ class JsonQuery
      */
     protected function appendParameterQueries(): void
     {
+        // enable raw arguments
+        // will use raw method rather then basic ones, in group_by and returns
+        // $builder->selectRaw, $builder->groupByRaw
+        $rawArguments = boolval($this->input['use_raw_arguments'] ?? false) ?? false;
+
         foreach ($this->registeredParameters as $requestParameter) {
             if (!$this->parameterExists($requestParameter)) {
                 // TODO: append config query?
                 continue;
             }
 
-            $this->instantiateRequestParameter($requestParameter)
+            $this->instantiateRequestParameter($requestParameter, $rawArguments)
                 ->run();
         }
     }
@@ -97,12 +102,12 @@ class JsonQuery
     }
 
     /**
-     * @param  $requestParameter
+     * @param string $requestParameter
+     * @param bool|null $rawArguments
      * @return AbstractParameter
-     *
      * @throws JsonQueryBuilderException
      */
-    protected function instantiateRequestParameter(string $requestParameter): AbstractParameter
+    protected function instantiateRequestParameter(string $requestParameter, ?bool $rawArguments = false): AbstractParameter
     {
         if (!is_subclass_of($requestParameter, AbstractParameter::class)) {
             throw new JsonQueryBuilderException("$requestParameter must extend " . AbstractParameter::class);
@@ -110,7 +115,7 @@ class JsonQuery
 
         $input = $this->wrapInput($requestParameter::getParameterName());
 
-        return new $requestParameter($input, $this->builder, $this->modelConfig);
+        return new $requestParameter($input, $this->builder, $this->modelConfig, $rawArguments);
     }
 
     /**
