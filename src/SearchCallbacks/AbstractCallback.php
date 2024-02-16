@@ -20,7 +20,7 @@ abstract class AbstractCallback
     protected CategorizedValues $categorizedValues;
 
     protected const DATE_FIELDS = [
-        'date', 'datetime',
+        'date',
     ];
 
     /**
