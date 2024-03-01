@@ -148,10 +148,10 @@ abstract class AbstractCallback
      */
     protected function containsCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
     {
-        if($values->andLike) {
+        if ($values->andLike) {
             $builder->where($column, $this->getLikeOperator(), '%' . $values->andLike[0] . '%');
         }
-        if($values->and) {
+        if ($values->and) {
             foreach ($values->and as $andValue) {
                 $builder->orWhere($column, $this->getLikeOperator(), '%' . $andValue . '%');
             }
@@ -168,10 +168,10 @@ abstract class AbstractCallback
      */
     protected function endsWithCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
     {
-        if($values->andLike) {
+        if ($values->andLike) {
             $builder->where($column, $this->getLikeOperator(), '%' . $values->andLike[0]);
         }
-        if($values->and) {
+        if ($values->and) {
             foreach ($values->and as $andValue) {
                 $builder->orWhere($column, $this->getLikeOperator(), '%' . $andValue);
             }
@@ -188,10 +188,10 @@ abstract class AbstractCallback
      */
     protected function startsWithCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
     {
-        if($values->andLike) {
+        if ($values->andLike) {
             $builder->where($column, $this->getLikeOperator(), $values->andLike[0] . '%');
         }
-        if($values->and) {
+        if ($values->and) {
             foreach ($values->and as $andValue) {
                 $builder->orWhere($column, $this->getLikeOperator(), $andValue . '%');
             }
