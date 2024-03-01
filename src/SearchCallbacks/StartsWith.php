@@ -26,6 +26,5 @@ class StartsWith extends AbstractCallback
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
         $this->startsWithCallback($builder, $column, $values, 'starts_with');
-
     }
 }

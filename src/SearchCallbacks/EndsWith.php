@@ -26,6 +26,5 @@ class EndsWith extends AbstractCallback
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
         $this->endsWithCallback($builder, $column, $values, 'ends_with');
-
     }
 }

@@ -138,7 +138,6 @@ abstract class AbstractCallback
         $builder->{$callback}($column, [$values->and[0], $values->and[1]]);
     }
 
-
     /**
      * @param  Builder  $builder
      * @param  string  $column
@@ -189,7 +188,6 @@ abstract class AbstractCallback
             $builder->orWhere($column, $this->getLikeOperator(), $andValue . '%');
         }
     }
-
 
     /**
      * Should throw exception if anything except '$values->and' is filled out.
