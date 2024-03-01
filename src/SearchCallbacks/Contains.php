@@ -26,6 +26,5 @@ class Contains extends AbstractCallback
     public function execute(Builder $builder, string $column, CategorizedValues $values): void
     {
         $this->containsCallback($builder, $column, $values, 'contains');
-
     }
 }
