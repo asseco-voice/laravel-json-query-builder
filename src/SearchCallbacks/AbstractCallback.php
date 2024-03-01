@@ -138,6 +138,59 @@ abstract class AbstractCallback
         $builder->{$callback}($column, [$values->and[0], $values->and[1]]);
     }
 
+
+    /**
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
+     * @throws JsonQueryBuilderException
+     */
+    protected function containsCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
+    {
+        $this->checkAllowedValues($values, $operator);
+
+        foreach ($values->and as $andValue) {
+            $builder->orWhere($column, $this->getLikeOperator(), '%' . $andValue . '%');
+        }
+    }
+
+    /**
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
+     * @throws JsonQueryBuilderException
+     */
+    protected function endsWithCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
+    {
+        $this->checkAllowedValues($values, $operator);
+
+        foreach ($values->and as $andValue) {
+            $builder->orWhere($column, $this->getLikeOperator(), '%' . $andValue);
+        }
+    }
+
+    /**
+     * @param  Builder  $builder
+     * @param  string  $column
+     * @param  CategorizedValues  $values
+     * @param  string  $operator
+     *
+     * @throws JsonQueryBuilderException
+     */
+    protected function startsWithCallback(Builder $builder, string $column, CategorizedValues $values, string $operator)
+    {
+        $this->checkAllowedValues($values, $operator);
+
+        foreach ($values->and as $andValue) {
+            $builder->orWhere($column, $this->getLikeOperator(), $andValue . '%');
+        }
+    }
+
+
     /**
      * Should throw exception if anything except '$values->and' is filled out.
      *
