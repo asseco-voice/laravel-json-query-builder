@@ -11,6 +11,8 @@ use Asseco\JsonQueryBuilder\RequestParameters\ReturnsParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\SearchParameter;
 use Asseco\JsonQueryBuilder\RequestParameters\SoftDeletedParameter;
 use Asseco\JsonQueryBuilder\SearchCallbacks\Between;
+use Asseco\JsonQueryBuilder\SearchCallbacks\Contains;
+use Asseco\JsonQueryBuilder\SearchCallbacks\EndsWith;
 use Asseco\JsonQueryBuilder\SearchCallbacks\Equals;
 use Asseco\JsonQueryBuilder\SearchCallbacks\GreaterThan;
 use Asseco\JsonQueryBuilder\SearchCallbacks\GreaterThanOrEqual;
@@ -18,6 +20,7 @@ use Asseco\JsonQueryBuilder\SearchCallbacks\LessThan;
 use Asseco\JsonQueryBuilder\SearchCallbacks\LessThanOrEqual;
 use Asseco\JsonQueryBuilder\SearchCallbacks\NotBetween;
 use Asseco\JsonQueryBuilder\SearchCallbacks\NotEquals;
+use Asseco\JsonQueryBuilder\SearchCallbacks\StartsWith;
 use Asseco\JsonQueryBuilder\Types\BooleanType;
 use Asseco\JsonQueryBuilder\Types\GenericType;
 
@@ -51,6 +54,9 @@ return [
         Equals::class,
         LessThan::class,
         GreaterThan::class,
+        Contains::class,
+        StartsWith::class,
+        EndsWith::class,
     ],
 
     /**
