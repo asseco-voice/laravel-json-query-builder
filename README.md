@@ -59,6 +59,7 @@ be used together with ``limit`` parameter.
 - `count` - will return record count.
 - `soft_deleted` - will include soft deleted models in search results.
 - `doesnt_have_relations` - will only return entries that don't have any of the specified relations.
+- `use_raw_arguments` - will use raw SQL for group_by (groupByRaw) & returns (selectRaw)
 
 ### Search
 
@@ -115,6 +116,23 @@ case-insensitive search.
 
 Will perform a ``SELECT * FROM some_table WHERE first_name LIKE 'foo' AND
 last_name NOT LIKE 'bar'``.
+
+Example with raw query
+{
+    "search": {
+        ...
+    },
+    "group_by": ["year", "month"],
+    "order_by": ["year", "month"],
+    "returns": ["DATE_PART('Year', created_at) AS year", "DATE_PART('Month', created_at) AS month", "COUNT(*) AS total"],
+    "use_raw_arguments": 1
+}
+
+Will perform:  
+``select DATE_PART(\'Year\', created_at) AS year, DATE_PART(\'Month\', created_at) AS month, COUNT(*) AS total   
+from ....   
+group by year, month order by "year" asc, "month" asc``
+
 
 #### Micro operators
 
