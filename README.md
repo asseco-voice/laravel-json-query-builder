@@ -204,6 +204,34 @@ Return multiple values:
 
 Will perform a `SELECT first_name, last_name FROM ...`
 
+#### Aggregation and Sql Functions Support
+
+Now you can use aggregations and some SQL functions like `sum`, `avg`, `month` or `year` in this way
+`ave:year:column_name`, you can also count on the group by query `count:distinct:name`
+
+Return aggregations:
+
+```json
+{
+  "returns": ["year:date", "month:date", "sum:value"],
+  "group_by": ["year_date", "month_date"]
+}
+```
+
+Will perform `SELECT year(date) as year_date, month(date) as month_date, sum(value) FROM ... GROUP BY year_date, month_date`
+
+You can also nest functions as your convenience like:
+
+```json
+{
+  "returns": ["min:year:date"]
+}
+```
+
+Will perform `SELECT min(year(date)) as min_year_date FROM ...`
+
+You can read more on [SQLFunctions](./src/SQLProviders/SQLFunctions.php) and [DatabaseFunctions](./src/Traits/DatabaseFunctions.php)
+
 ### Order by
 
 Using `order_by` key does an 'order by' based on the given key(s). Order of the keys

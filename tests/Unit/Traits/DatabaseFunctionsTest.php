@@ -69,4 +69,5 @@ class DatabaseFunctionsTest extends TestCase
         $this->assertNull($parameter->run());
         $this->assertEquals("select avg(EXTRACT(DAY FROM column)) as avg_day_column", $this->builder->toSql());
     }
+
 }
