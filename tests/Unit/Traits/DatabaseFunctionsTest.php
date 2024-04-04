@@ -39,7 +39,13 @@ class DatabaseFunctionsTest extends TestCase
 
     public function test_it_not_throw_with_regular_parameters()
     {
-        $parameter = new TestParameterClass(["column_a", "column_b", "column_c", "column_d"], $this->builder, $this->modelConfig);
+        $parameter = new TestParameterClass([
+            "column_a",
+            "column_b",
+            "column_c",
+            "column_d",
+        ], $this->builder, $this->modelConfig);
+
         $this->assertNull($parameter->run());
         $this->assertEquals('select "column_a", "column_b", "column_c", "column_d"', $parameter->builder->toSql());
     }
@@ -50,7 +56,7 @@ class DatabaseFunctionsTest extends TestCase
             $builder   = $this->builder->clone();
             $parameter = new TestParameterClass(["$fn:column"], $builder, $this->modelConfig);
             $this->assertNull($parameter->run());
-            $this->assertEquals("select $fn(column) as {$fn}_column", $builder->toSql());
+            $this->assertEquals("select $fn(\"column\") as {$fn}_column", $builder->toSql());
         }
 
     }
@@ -59,7 +65,7 @@ class DatabaseFunctionsTest extends TestCase
     {
         $parameter = new TestParameterClass(["avg:day:column"], $this->builder, $this->modelConfig);
         $this->assertNull($parameter->run());
-        $this->assertEquals("select avg(day(column)) as avg_day_column", $this->builder->toSql());
+        $this->assertEquals('select avg(day("column")) as avg_day_column', $this->builder->toSql());
     }
 
     public function test_it_uses_pgsql_syntax()
@@ -67,7 +73,14 @@ class DatabaseFunctionsTest extends TestCase
         app("config")->set("database.default", "pgsql");
         $parameter = new TestParameterClass(["avg:day:column"], $this->builder, $this->modelConfig);
         $this->assertNull($parameter->run());
-        $this->assertEquals("select avg(EXTRACT(DAY FROM column)) as avg_day_column", $this->builder->toSql());
+        $this->assertEquals('select avg(EXTRACT(DAY FROM "column")) as avg_day_column', $this->builder->toSql());
+    }
+
+    public function test_it_parses_right_count_all_query()
+    {
+        $parameter = new TestParameterClass(["count:*"], $this->builder, $this->modelConfig);
+        $this->assertNull($parameter->run());
+        $this->assertEquals('select count(*) as count', $this->builder->toSql());
     }
 
 }

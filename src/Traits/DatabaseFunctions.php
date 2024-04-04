@@ -33,7 +33,7 @@ trait DatabaseFunctions
             $column,
             $functions
         ) {
-            $stat = $query ?? $column;
+            $stat = $query ?? ("*" !== $column ? "\"$column\"" : $column);
             return $functions::$param($stat);
         });
     }
@@ -46,7 +46,7 @@ trait DatabaseFunctions
             }
             $split = explode(":", $argument);
             $apply = $this->applyAggregation($split);
-            $alias = join("_", $split);
+            $alias = join("_", array_filter($split, fn($s) => "*" !== $s));
 
             return DB::raw("{$apply} as {$alias}");
         }, $this->arguments);

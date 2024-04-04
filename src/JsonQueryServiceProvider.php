@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types = 1);
 
 namespace Asseco\JsonQueryBuilder;
 
@@ -21,6 +21,8 @@ class JsonQueryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes([__DIR__ . '/../config/asseco-json-query-builder.php' => config_path('asseco-json-query-builder.php')]);
+        $this->publishes([
+            __DIR__ . '/../config/asseco-json-query-builder.php' => app()->configPath('asseco-json-query-builder.php'),
+        ]);
     }
 }
