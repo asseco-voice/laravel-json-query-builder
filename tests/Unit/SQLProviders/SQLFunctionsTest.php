@@ -1,14 +1,14 @@
 <?php
 
-declare (strict_types = 1);
+declare(strict_types=1);
+
 namespace Asseco\JsonQueryBuilder\Tests\Unit\SQLProviders;
 
 use Asseco\JsonQueryBuilder\SQLProviders\SQLFunctions;
-use \Asseco\JsonQueryBuilder\Tests\TestCase;
+use Asseco\JsonQueryBuilder\Tests\TestCase;
 
 class SQLFunctionsTest extends TestCase
 {
-
     public SQLFunctions $functions;
 
     public function setUp(): void
@@ -17,6 +17,7 @@ class SQLFunctionsTest extends TestCase
 
         $this->functions = new SQLFunctions();
     }
+
     public function test_it_returns_the_right_functions_query()
     {
         foreach (SQLFunctions::DB_FUNCTIONS as $fn) {
@@ -65,6 +66,7 @@ class SQLFunctionsTest extends TestCase
         $this->expectException(\Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException::class);
         $this->functions::validateArgument('sum');
     }
+
     public function test_it_throws_an_exception_if_no_column_when_nested_is_given()
     {
         $this->expectException(\Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException::class);

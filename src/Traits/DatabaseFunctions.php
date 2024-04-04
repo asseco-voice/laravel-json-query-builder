@@ -12,7 +12,7 @@ trait DatabaseFunctions
     public Builder $builder;
 
     protected array $providers = [
-        "pgsql" => PgSQLFunctions::class,
+        'pgsql' => PgSQLFunctions::class,
     ];
 
     protected function areArgumentsValid(): void
@@ -25,15 +25,16 @@ trait DatabaseFunctions
 
     private function applyAggregation(array $params): string
     {
-        $column    = array_pop($params);
-        $provider  = $this->builder->getModel()->connection ?? config("database.default");
+        $column = array_pop($params);
+        $provider = $this->builder->getModel()->connection ?? config('database.default');
         $functions = $this->providers[$provider] ?? SQLFunctions::class;
 
         return array_reduce(array_reverse($params), function ($query, $param) use (
             $column,
             $functions
         ) {
-            $stat = $query ?? ("*" !== $column ? "\"$column\"" : $column);
+            $stat = $query ?? ('*' !== $column ? "\"$column\"" : $column);
+
             return $functions::$param($stat);
         });
     }
@@ -41,12 +42,12 @@ trait DatabaseFunctions
     protected function prepareArguments(): void
     {
         $this->arguments = array_map(function ($argument) {
-            if (strpos($argument, ":") === false) {
+            if (strpos($argument, ':') === false) {
                 return $argument;
             }
-            $split = explode(":", $argument);
+            $split = explode(':', $argument);
             $apply = $this->applyAggregation($split);
-            $alias = join("_", array_filter($split, fn($s) => "*" !== $s));
+            $alias = join('_', array_filter($split, fn ($s) => '*' !== $s));
 
             return DB::raw("{$apply} as {$alias}");
         }, $this->arguments);

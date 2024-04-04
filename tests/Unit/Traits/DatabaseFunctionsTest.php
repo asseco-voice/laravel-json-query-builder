@@ -17,6 +17,7 @@ class TestParameterClass extends AbstractParameter
     {
         return 'test';
     }
+
     protected function appendQuery(): void
     {
         $this->prepareArguments();
@@ -32,18 +33,17 @@ class DatabaseFunctionsTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->builder     = app(Builder::class);
+        $this->builder = app(Builder::class);
         $this->modelConfig = \Mockery::mock(ModelConfig::class);
-
     }
 
     public function test_it_not_throw_with_regular_parameters()
     {
         $parameter = new TestParameterClass([
-            "column_a",
-            "column_b",
-            "column_c",
-            "column_d",
+            'column_a',
+            'column_b',
+            'column_c',
+            'column_d',
         ], $this->builder, $this->modelConfig);
 
         $this->assertNull($parameter->run());
@@ -53,34 +53,32 @@ class DatabaseFunctionsTest extends TestCase
     public function test_it_apply_aggregation_functions()
     {
         foreach (SQLFunctions::DB_FUNCTIONS as $fn) {
-            $builder   = $this->builder->clone();
+            $builder = $this->builder->clone();
             $parameter = new TestParameterClass(["$fn:column"], $builder, $this->modelConfig);
             $this->assertNull($parameter->run());
             $this->assertEquals("select $fn(\"column\") as {$fn}_column", $builder->toSql());
         }
-
     }
 
     public function test_it_apply_nested_aggregation_functions()
     {
-        $parameter = new TestParameterClass(["avg:day:column"], $this->builder, $this->modelConfig);
+        $parameter = new TestParameterClass(['avg:day:column'], $this->builder, $this->modelConfig);
         $this->assertNull($parameter->run());
         $this->assertEquals('select avg(day("column")) as avg_day_column', $this->builder->toSql());
     }
 
     public function test_it_uses_pgsql_syntax()
     {
-        app("config")->set("database.default", "pgsql");
-        $parameter = new TestParameterClass(["avg:day:column"], $this->builder, $this->modelConfig);
+        app('config')->set('database.default', 'pgsql');
+        $parameter = new TestParameterClass(['avg:day:column'], $this->builder, $this->modelConfig);
         $this->assertNull($parameter->run());
         $this->assertEquals('select avg(EXTRACT(DAY FROM "column")) as avg_day_column', $this->builder->toSql());
     }
 
     public function test_it_parses_right_count_all_query()
     {
-        $parameter = new TestParameterClass(["count:*"], $this->builder, $this->modelConfig);
+        $parameter = new TestParameterClass(['count:*'], $this->builder, $this->modelConfig);
         $this->assertNull($parameter->run());
         $this->assertEquals('select count(*) as count', $this->builder->toSql());
     }
-
 }
