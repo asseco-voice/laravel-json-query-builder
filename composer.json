@@ -1,7 +1,6 @@
 {
   "name": "nealarec/laravel-json-query-builder",
   "description": "Laravel JSON query builder",
-  "version": "v1.1.0",
   "keywords": [
     "php",
     "laravel"
