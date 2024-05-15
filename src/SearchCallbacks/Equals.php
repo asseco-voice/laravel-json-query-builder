@@ -42,7 +42,7 @@ class Equals extends AbstractCallback
         }
 
         if ($values->and) {
-            if ($this->isDate($this->searchParser->type)) {
+            if ($this->isDate($this->searchParser->type) || $this->isDateTime($this->searchParser->type)) {
                 foreach ($values->and as $andValue) {
                     $builder->orWhereDate($column, $andValue);
                 }
