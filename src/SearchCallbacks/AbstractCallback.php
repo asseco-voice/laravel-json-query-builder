@@ -23,6 +23,10 @@ abstract class AbstractCallback
         'date',
     ];
 
+    protected const DATETIME_FIELDS = [
+        'datetime',
+    ];
+
     /**
      * AbstractCallback constructor.
      *
@@ -216,6 +220,11 @@ abstract class AbstractCallback
     protected function isDate(string $type): bool
     {
         return in_array($type, self::DATE_FIELDS);
+    }
+
+    protected function isDateTime(string $type): bool
+    {
+        return in_array($type, self::DATETIME_FIELDS);
     }
 
     //Hack to enable case-insensitive search when using PostgreSQL database
