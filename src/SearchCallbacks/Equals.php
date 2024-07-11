@@ -51,16 +51,14 @@ class Equals extends AbstractCallback
                     $dateTimeValue = new \DateTime($andValue);
                     $formattedDateTime = $dateTimeValue->format('Y-m-d H:i:s');
     
-                    if ($dateTimeValue->format('s') === '00') {
+                    if (preg_match('/^0+$/', $dateTimeValue->format('s'))) {
                         $builder->orWhere(function ($query) use ($column, $formattedDateTime) {
                             $query->whereDate($column, '=', date('Y-m-d', strtotime($formattedDateTime)))
                                   ->whereTime($column, '>=', date('H:i', strtotime($formattedDateTime)))
                                   ->whereTime($column, '<', date('H:i', strtotime($formattedDateTime . ' +1 minute')));
                         });
                     } else {
-                        $builder->orWhere(function ($query) use ($column, $formattedDateTime) {
-                            $query->where($column, '=', $formattedDateTime);
-                        });
+                        $builder->orWhere($column, $formattedDateTime);
                     }
                 }
             } else {
