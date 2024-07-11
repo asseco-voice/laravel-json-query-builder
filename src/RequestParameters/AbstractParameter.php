@@ -13,6 +13,7 @@ abstract class AbstractParameter
     public Builder     $builder;
     public ModelConfig $modelConfig;
     protected array    $arguments;
+    protected bool     $rawArguments;
 
     /**
      * AbstractParameter constructor.
@@ -20,12 +21,14 @@ abstract class AbstractParameter
      * @param  array  $arguments
      * @param  Builder  $builder
      * @param  ModelConfig  $modelConfig
+     * @param  bool|null  $rawArguents
      */
-    public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig)
+    public function __construct(array $arguments, Builder $builder, ModelConfig $modelConfig, ?bool $rawArguments = false)
     {
         $this->arguments = $arguments;
         $this->builder = $builder;
         $this->modelConfig = $modelConfig;
+        $this->rawArguments = $rawArguments;
     }
 
     /**
