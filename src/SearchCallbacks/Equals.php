@@ -42,9 +42,26 @@ class Equals extends AbstractCallback
         }
 
         if ($values->and) {
-            if ($this->isDate($this->searchParser->type) || $this->isDateTime($this->searchParser->type)) {
+            if ($this->isDate($this->searchParser->type)) {
                 foreach ($values->and as $andValue) {
                     $builder->orWhereDate($column, $andValue);
+                }
+            } elseif ($this->isDateTime($this->searchParser->type)) {
+                foreach ($values->and as $andValue) {
+                    $dateTimeValue = new \DateTime($andValue);
+                    $formattedDateTime = $dateTimeValue->format('Y-m-d H:i:s');
+
+                    if ($dateTimeValue->format('s') === '00') {
+                        $builder->orWhere(function ($query) use ($column, $formattedDateTime) {
+                            $query->whereDate($column, '=', date('Y-m-d', strtotime($formattedDateTime)))
+                                  ->whereTime($column, '>=', date('H:i', strtotime($formattedDateTime)))
+                                  ->whereTime($column, '<', date('H:i', strtotime($formattedDateTime . ' +1 minute')));
+                        });
+                    } else {
+                        $builder->orWhere(function ($query) use ($column, $formattedDateTime) {
+                            $query->where($column, '=', $formattedDateTime);
+                        });
+                    }
                 }
             } else {
                 $builder->whereIn($column, $values->and);
