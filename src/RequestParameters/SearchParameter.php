@@ -93,7 +93,7 @@ class SearchParameter extends AbstractParameter
 
             if ($this->isRelationSearch($key)) {
                 // relation search
-                list($rel, $attr) = explode(self::RELATION_SEPARATOR, $key, 2);
+                [$rel, $attr] = explode(self::RELATION_SEPARATOR, $key, 2);
 
                 $builder->whereHas(Str::camel($rel), function ($query) use ($attr, $value, $functionName) {
                     $this->makeSingleQuery($functionName, $query, $attr, $value);
