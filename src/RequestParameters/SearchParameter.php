@@ -24,6 +24,8 @@ class SearchParameter extends AbstractParameter
     const LARAVEL_WHERE = 'where';
     const LARAVEL_OR_WHERE = 'orWhere';
 
+    const RELATION_SEPARATOR = '.';
+
     protected OperatorsConfig $operatorsConfig;
 
     public static function getParameterName(): string
@@ -89,6 +91,17 @@ class SearchParameter extends AbstractParameter
                 continue;
             }
 
+            if ($this->isRelationSearch($key)) {
+                // relation search
+                [$rel, $attr] = explode(self::RELATION_SEPARATOR, $key, 2);
+
+                $builder->whereHas(Str::camel($rel), function ($query) use ($attr, $value, $functionName) {
+                    $this->makeSingleQuery($functionName, $query, $attr, $value);
+                });
+
+                continue;
+            }
+
             $this->makeSingleQuery($functionName, $builder, $key, $value);
         }
     }
@@ -130,6 +143,11 @@ class SearchParameter extends AbstractParameter
     protected function hasSubSearch($key, $value): bool
     {
         return is_string($key) && is_array($value);
+    }
+
+    protected function isRelationSearch($key): bool
+    {
+        return str_contains($key, self::RELATION_SEPARATOR);
     }
 
     /**
