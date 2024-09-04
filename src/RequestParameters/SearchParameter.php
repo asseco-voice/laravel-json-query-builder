@@ -91,7 +91,7 @@ class SearchParameter extends AbstractParameter
                 continue;
             }
 
-            if ($this->isRelationSearch($key)) {
+            if ($this->isRelationSearch($key) && !str_contains($key, '!')) {
                 // relation search
                 [$rel, $attr] = explode(self::RELATION_SEPARATOR, $key, 2);
 
