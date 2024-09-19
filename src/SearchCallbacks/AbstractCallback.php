@@ -92,7 +92,11 @@ abstract class AbstractCallback
                 return;
             }
 
-            $this->execute($builder, $relatedColumns, $values);
+            // $this->execute($builder, $relatedColumns, $values);
+            // need to group those wheres statements....otherwise, there will be OR statement added, and relation would be "broken"
+            $builder->where(function($builder) use ($relatedColumns, $values) {
+                $this->execute($builder, $relatedColumns, $values);
+            });
             $this->checkExecuteForCustomfieldsParameter($builder);
         });
     }
