@@ -215,4 +215,58 @@ class SearchParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
+
+    /** @test */
+    public function produces_correct_relations_query_one()
+    {
+        $arguments = [
+            'relationsOne.attribute1' => '=ABC',
+        ];
+
+        $searchParameter = $this->createSearchParameter($arguments);
+        $searchParameter->run();
+
+        $producedSql = $this->builder->toSql();
+
+        $query = 'select * from "test" where (((exists (select * from "test_relation_one" where "test"."id" = "test_relation_one"."test_model_id" and ("attribute1" in (?))))))';
+
+        $this->assertEquals($query, $producedSql);
+    }
+
+    /** @test */
+    public function produces_correct_relations_query_for_begins_with()
+    {
+        $arguments = [
+            'relationsOne.attribute1' => 'starts_withABC',
+        ];
+
+        $searchParameter = $this->createSearchParameter($arguments);
+        $searchParameter->run();
+
+        $producedSql = $this->builder->toSql();
+
+        $query = 'select * from "test" where (((exists (select * from "test_relation_one" where "test"."id" = "test_relation_one"."test_model_id" and ("attribute1" LIKE ?)))))';
+
+        $this->assertEquals($query, $producedSql);
+    }
+
+    /** @test */
+    public function produces_correct_relations_query_for_top_level_or()
+    {
+        $arguments = [
+            '||' => [
+                'attribute1' => '=AAA',
+                'relationsOne.attribute1' => 'starts_withBBB',
+            ],
+        ];
+
+        $searchParameter = $this->createSearchParameter($arguments);
+        $searchParameter->run();
+
+        $producedSql = $this->builder->toSql();
+
+        $query = 'select * from "test" where ((("attribute1" in (?))) or ((exists (select * from "test_relation_one" where "test"."id" = "test_relation_one"."test_model_id" and ("attribute1" LIKE ?)))))';
+
+        $this->assertEquals($query, $producedSql);
+    }
 }
