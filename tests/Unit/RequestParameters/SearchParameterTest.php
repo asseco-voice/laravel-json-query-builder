@@ -233,7 +233,6 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $producedSql);
     }
 
-
     /** @test */
     public function produces_correct_relations_query_for_begins_with()
     {
@@ -251,7 +250,6 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $producedSql);
     }
 
-
     /** @test */
     public function produces_correct_relations_query_for_top_level_or()
     {
@@ -259,7 +257,7 @@ class SearchParameterTest extends TestCase
             '||' => [
                 'attribute1' => '=AAA',
                 'relationsOne.attribute1' => 'starts_withBBB',
-            ]
+            ],
         ];
 
         $searchParameter = $this->createSearchParameter($arguments);
@@ -271,5 +269,4 @@ class SearchParameterTest extends TestCase
 
         $this->assertEquals($query, $producedSql);
     }
-
 }
