@@ -25,6 +25,7 @@ abstract class AbstractCallback
 
     protected const DATETIME_FIELDS = [
         'datetime',
+        'timestamp',
     ];
 
     /**
@@ -241,10 +242,17 @@ abstract class AbstractCallback
         return 'LIKE';
     }
 
-    protected function checkExecuteForCustomfieldsParameter($builder)
+    protected function checkExecuteForCustomfieldsParameter($builder): void
     {
         if ($this->searchParser instanceof CustomFieldSearchParser) {
             $builder->where($this->searchParser->cf_field_identificator, '=', $this->searchParser->cf_field_value);
         }
+    }
+
+    protected function doesDatetimeValueHasTimePart( string $datetimeValue ): bool {
+        return (bool) preg_match(
+            '/^\d{4}-\d{2}-\d{2}[T\s]\d{2}:\d{2}(:\d{2})?(\.\d+)?(Z|[+-]\d{2}(:?\d{2})?)?$/',
+            $datetimeValue
+        );
     }
 }
