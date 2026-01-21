@@ -63,4 +63,16 @@ class ReturnsParameterTest extends TestCase
 
         $this->assertEquals($query, $this->builder->toSql());
     }
+
+    /** @test */
+    public function produces_aggregation_query()
+    {
+        $returnsParameter = new ReturnsParameter(
+            ['count:attribute1', 'count:attribute2'], $this->builder, $this->modelConfig);
+        $returnsParameter->run();
+
+        $query = 'select count("attribute1") as count_attribute1, count("attribute2") as count_attribute2';
+
+        $this->assertEquals($query, $this->builder->toSql());
+    }
 }
