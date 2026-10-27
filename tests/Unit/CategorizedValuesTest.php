@@ -22,7 +22,7 @@ class CategorizedValuesTest extends TestCase
         $this->searchParser->type = 'string';
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_null_value()
     {
         $this->searchParser->values = ['123', '456', 'null', '789'];
@@ -32,7 +32,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertTrue($categorizedValues->null);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_no_null_value()
     {
         $this->searchParser->values = ['123', '456', '789'];
@@ -42,7 +42,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertFalse($categorizedValues->null);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_not_null_value()
     {
         $this->searchParser->values = ['123', '456', '!null', '789'];
@@ -52,7 +52,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertTrue($categorizedValues->notNull);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_no_not_null_value()
     {
         $this->searchParser->values = ['123', '456', '789'];
@@ -62,7 +62,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertFalse($categorizedValues->notNull);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_not_values()
     {
         $this->searchParser->values = ['123', '!456', '!789'];
@@ -72,7 +72,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertEquals(['456', '789'], $categorizedValues->not);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_not_like_values()
     {
         $this->searchParser->values = ['123', '!%456', '!789%'];
@@ -82,7 +82,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertEquals(['%456', '789%'], $categorizedValues->notLike);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_and_values()
     {
         $this->searchParser->values = ['123', '456', '!789'];
@@ -92,7 +92,7 @@ class CategorizedValuesTest extends TestCase
         $this->assertEquals(['123', '456'], $categorizedValues->and);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_and_like_values()
     {
         $this->searchParser->values = ['123', '%456', '789%'];

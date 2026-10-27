@@ -30,7 +30,7 @@ class NotBetweenTest extends TestCase
         $this->searchParser->column = 'test';
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $this->searchParser->values = ['123', '456'];
@@ -42,7 +42,7 @@ class NotBetweenTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_on_one_parameter()
     {
         $this->expectException(Exception::class);
@@ -52,7 +52,7 @@ class NotBetweenTest extends TestCase
         new NotBetween($this->builder, $this->searchParser);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_on_more_than_two_parameters()
     {
         $this->expectException(Exception::class);

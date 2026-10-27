@@ -10,7 +10,7 @@ use Exception;
 
 class BooleanTypeTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function standardizes_output_to_boolean()
     {
         $type = new BooleanType();
@@ -21,7 +21,7 @@ class BooleanTypeTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_on_invalid_input()
     {
         $this->expectException(Exception::class);

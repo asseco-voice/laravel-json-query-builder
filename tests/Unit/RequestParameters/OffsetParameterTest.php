@@ -25,7 +25,7 @@ class OffsetParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $offsetParameter = new OffsetParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class OffsetParameterTest extends TestCase
         $this->assertEquals('offset', $offsetParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $offsetParameter = new OffsetParameter([15], $this->builder, $this->modelConfig);
@@ -42,7 +42,7 @@ class OffsetParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_non_numeric_argument()
     {
         $this->expectException(Exception::class);
@@ -51,7 +51,7 @@ class OffsetParameterTest extends TestCase
         $offsetParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_multiple_arguments()
     {
         $this->expectException(Exception::class);
@@ -60,7 +60,7 @@ class OffsetParameterTest extends TestCase
         $offsetParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $offsetParameter = new OffsetParameter([1], $this->builder, $this->modelConfig);

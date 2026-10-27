@@ -12,7 +12,7 @@ use Exception;
 
 class TypesConfigTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function passes_on_valid_config()
     {
         $typesConfig = new TypesConfig();
@@ -20,7 +20,7 @@ class TypesConfigTest extends TestCase
         $this->assertNotEmpty($typesConfig->registered);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_on_missing_config()
     {
         $this->expectException(Exception::class);
@@ -30,7 +30,7 @@ class TypesConfigTest extends TestCase
         new TypesConfig();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_type_class()
     {
         $typesConfig = new TypesConfig();
@@ -39,7 +39,7 @@ class TypesConfigTest extends TestCase
             $typesConfig->getTypeClassFromTypeName('boolean'));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_generic_type_if_non_existing_type_is_given()
     {
         $typesConfig = new TypesConfig();
@@ -48,7 +48,7 @@ class TypesConfigTest extends TestCase
             $typesConfig->getTypeClassFromTypeName('test'));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_throws_exception_if_neither_generic_type_nor_given_type_exist()
     {
         $this->expectException(Exception::class);

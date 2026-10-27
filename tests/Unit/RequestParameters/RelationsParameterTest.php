@@ -25,7 +25,7 @@ class RelationsParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $relationsParameter = new RelationsParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class RelationsParameterTest extends TestCase
         $this->assertEquals('relations', $relationsParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $relationsParameter = new RelationsParameter(
@@ -43,7 +43,7 @@ class RelationsParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_empty_argument()
     {
         $this->expectException(Exception::class);
@@ -52,7 +52,7 @@ class RelationsParameterTest extends TestCase
         $relationsParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function relations_do_not_produce_query_like_this_so_this_test_is_useless()
     {
         $relationsParameter = new RelationsParameter(

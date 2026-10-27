@@ -29,7 +29,7 @@ class LessThanTest extends TestCase
         $this->searchParser->column = 'test';
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $this->searchParser->values = ['123'];

@@ -25,7 +25,7 @@ class LimitParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $limitParameter = new LimitParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class LimitParameterTest extends TestCase
         $this->assertEquals('limit', $limitParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $limitParameter = new LimitParameter([15], $this->builder, $this->modelConfig);
@@ -42,7 +42,7 @@ class LimitParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_non_numeric_argument()
     {
         $this->expectException(Exception::class);
@@ -51,7 +51,7 @@ class LimitParameterTest extends TestCase
         $limitParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_multiple_arguments()
     {
         $this->expectException(Exception::class);
@@ -60,7 +60,7 @@ class LimitParameterTest extends TestCase
         $limitParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $limitParameter = new LimitParameter([1], $this->builder, $this->modelConfig);

@@ -11,7 +11,7 @@ use Exception;
 
 class OperatorsConfigTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function passes_on_valid_config()
     {
         $operators = new OperatorsConfig();
@@ -19,7 +19,7 @@ class OperatorsConfigTest extends TestCase
         $this->assertNotEmpty($operators->registered);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_on_missing_config()
     {
         $this->expectException(Exception::class);
@@ -29,7 +29,7 @@ class OperatorsConfigTest extends TestCase
         new OperatorsConfig();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_registered_operators()
     {
         $operatorsConfig = new OperatorsConfig();
@@ -39,7 +39,7 @@ class OperatorsConfigTest extends TestCase
         $this->assertEquals($expected, $operatorsConfig->getOperators());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function returns_class_from_given_operator()
     {
         $operatorsConfig = new OperatorsConfig();
@@ -47,7 +47,7 @@ class OperatorsConfigTest extends TestCase
         $this->assertEquals(Equals::class, $operatorsConfig->getCallbackClassFromOperator('='));
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_exception_on_non_existing_operator()
     {
         $this->expectException(Exception::class);
