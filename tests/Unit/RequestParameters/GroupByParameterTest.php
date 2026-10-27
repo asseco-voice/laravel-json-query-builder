@@ -25,7 +25,7 @@ class GroupByParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $groupByParameter = new GroupByParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class GroupByParameterTest extends TestCase
         $this->assertEquals('group_by', $groupByParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $groupByParameter = new GroupByParameter(
@@ -43,7 +43,7 @@ class GroupByParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_empty_argument()
     {
         $this->expectException(Exception::class);
@@ -52,7 +52,7 @@ class GroupByParameterTest extends TestCase
         $groupByParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $groupByParameter = new GroupByParameter([true], $this->builder, $this->modelConfig);

@@ -29,25 +29,25 @@ class SearchParserTest extends TestCase
             $modelConfig, new OperatorsConfig(), 'test', '=123;456');
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_extracts_column()
     {
         $this->assertEquals('test', $this->searchParser->column);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_extracts_values_from_argument_splitting_by_separator()
     {
         $this->assertEquals(['123', '456'], $this->searchParser->values);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_extracts_column_types()
     {
         $this->assertEquals('string', $this->searchParser->type);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function it_extracts_operator_from_argument()
     {
         $this->assertEquals('=', $this->searchParser->operator);

@@ -24,7 +24,7 @@ class JsonQueryTest extends TestCase
         $this->builder->setModel(new TestModel());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_on_existing_models()
     {
         $this->expectException(Exception::class);
@@ -34,7 +34,7 @@ class JsonQueryTest extends TestCase
         new JsonQuery($this->builder, []);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_single_attribute()
     {
         $input = [
@@ -51,7 +51,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_multiple_attributes()
     {
         $input = [
@@ -69,7 +69,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_negated_attributes()
     {
         $input = [
@@ -86,7 +86,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_wildcard_attributes()
     {
         $input = [
@@ -103,7 +103,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_with_all_operators()
     {
         $input = [
@@ -127,7 +127,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_with_or_micro_operator()
     {
         $input = [
@@ -144,7 +144,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function searches_with_and_micro_operator()
     {
         $input = [
@@ -161,7 +161,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function selects_only_given_attributes()
     {
         $input = [
@@ -176,7 +176,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function orders_by_attributes()
     {
         $input = [
@@ -195,7 +195,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function groups_by_attributes()
     {
         $input = [
@@ -210,7 +210,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function limits_and_offsets_results()
     {
         $input = [
@@ -226,7 +226,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function counts_results()
     {
         $input = [
@@ -241,7 +241,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function uses_top_level_logical_operator_for_complex_queries()
     {
         $input = [
@@ -261,7 +261,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function uses_top_level_logical_operator_for_complex_recursive_queries()
     {
         $input = [
@@ -285,7 +285,7 @@ class JsonQueryTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function can_recurse_absurdly_deep()
     {
         $input = [

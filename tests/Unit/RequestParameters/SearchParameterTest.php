@@ -34,7 +34,7 @@ class SearchParameterTest extends TestCase
         return new SearchParameter($arguments, $this->builder, $this->modelConfig);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $searchParameter = $this->createSearchParameter([]);
@@ -42,7 +42,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals('search', $searchParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $arguments = [
@@ -56,7 +56,7 @@ class SearchParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_empty_argument()
     {
         $this->expectException(Exception::class);
@@ -65,7 +65,7 @@ class SearchParameterTest extends TestCase
         $searchParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_where_in_query()
     {
         $arguments = [
@@ -81,7 +81,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_where_in_multiple_query()
     {
         $arguments = [
@@ -96,7 +96,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_where_not_in_query()
     {
         $arguments = [
@@ -111,7 +111,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_where_not_in_multiple_query()
     {
         $arguments = [
@@ -126,7 +126,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_less_than_query()
     {
         $arguments = [
@@ -141,7 +141,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_less_than_or_equals_query()
     {
         $arguments = [
@@ -156,7 +156,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_greater_than_query()
     {
         $arguments = [
@@ -171,7 +171,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_greater_than_or_equals_query()
     {
         $arguments = [
@@ -186,7 +186,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_between_query()
     {
         $arguments = [
@@ -201,7 +201,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_not_between_query()
     {
         $arguments = [
@@ -216,7 +216,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_correct_relations_query_one()
     {
         $arguments = [
@@ -233,7 +233,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $producedSql);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_correct_relations_query_for_begins_with()
     {
         $arguments = [
@@ -250,7 +250,7 @@ class SearchParameterTest extends TestCase
         $this->assertEquals($query, $producedSql);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_correct_relations_query_for_top_level_or()
     {
         $arguments = [

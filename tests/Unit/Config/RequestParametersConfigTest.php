@@ -10,7 +10,7 @@ use Exception;
 
 class RequestParametersConfigTest extends TestCase
 {
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function passes_on_valid_config()
     {
         $requestParameters = new RequestParametersConfig();
@@ -18,7 +18,7 @@ class RequestParametersConfigTest extends TestCase
         $this->assertNotEmpty($requestParameters->registered);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function throws_on_missing_config()
     {
         $this->expectException(Exception::class);

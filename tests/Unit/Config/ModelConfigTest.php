@@ -20,7 +20,7 @@ class ModelConfigTest extends TestCase
         $this->model = Mockery::mock(Model::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function model_has_config()
     {
         config(['asseco-json-query-builder.model_options' => [
@@ -32,7 +32,7 @@ class ModelConfigTest extends TestCase
         $this->assertTrue($modelConfig->hasConfig());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_returns_config_set()
     {
         config(['asseco-json-query-builder.model_options' => [
@@ -44,7 +44,7 @@ class ModelConfigTest extends TestCase
         $this->assertEquals(['123'], $modelConfig->getReturns());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_default_returns_config_set()
     {
         $modelConfig = new ModelConfig($this->model);
@@ -52,7 +52,7 @@ class ModelConfigTest extends TestCase
         $this->assertEquals(['*'], $modelConfig->getReturns());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_order_by_config_set()
     {
         config(['asseco-json-query-builder.model_options' => [
@@ -68,7 +68,7 @@ class ModelConfigTest extends TestCase
         $this->assertEquals(['attribute=asc'], $modelConfig->getOrderBy());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_default_order_by_config_set()
     {
         $modelConfig = new ModelConfig($this->model);

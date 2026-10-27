@@ -30,7 +30,7 @@ class BetweenTest extends TestCase
         $this->searchParser->column = 'test';
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $this->searchParser->values = ['123', '456'];
@@ -42,7 +42,7 @@ class BetweenTest extends TestCase
         $this->assertEquals($sql, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function fails_on_invalid_parameters()
     {
         $this->expectException(Exception::class);

@@ -25,7 +25,7 @@ class OrderByParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $orderByParameter = new OrderByParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class OrderByParameterTest extends TestCase
         $this->assertEquals('order_by', $orderByParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         $orderByParameter = new OrderByParameter(
@@ -43,7 +43,7 @@ class OrderByParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_empty_argument()
     {
         $this->expectException(Exception::class);
@@ -52,7 +52,7 @@ class OrderByParameterTest extends TestCase
         $orderByParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query()
     {
         $orderByParameter = new OrderByParameter(
@@ -64,7 +64,7 @@ class OrderByParameterTest extends TestCase
         $this->assertEquals($query, $this->builder->toSql());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function produces_query_2()
     {
         $orderByParameter = new OrderByParameter(

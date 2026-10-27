@@ -25,7 +25,7 @@ class SoftDeletedParameterTest extends TestCase
         $this->modelConfig = Mockery::mock(ModelConfig::class);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function has_a_name()
     {
         $countParameter = new SoftDeletedParameter([], $this->builder, $this->modelConfig);
@@ -33,7 +33,7 @@ class SoftDeletedParameterTest extends TestCase
         $this->assertEquals('soft_deleted', $countParameter::getParameterName());
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function accepts_valid_arguments()
     {
         foreach ([1, '1', true, 'true'] as $validArgument) {
@@ -44,7 +44,7 @@ class SoftDeletedParameterTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_non_bool_argument()
     {
         $this->expectException(Exception::class);
@@ -53,7 +53,7 @@ class SoftDeletedParameterTest extends TestCase
         $countParameter->run();
     }
 
-    /** @test */
+    #[\PHPUnit\Framework\Attributes\Test]
     public function rejects_multiple_arguments()
     {
         $this->expectException(Exception::class);
