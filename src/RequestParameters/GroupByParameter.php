@@ -13,6 +13,12 @@ class GroupByParameter extends AbstractParameter
 
     protected function appendQuery(): void
     {
-        $this->builder->groupBy($this->arguments);
+        if (!$this->rawArguments) {
+            $this->builder->groupBy($this->arguments);
+        } else {
+            foreach ($this->arguments as $arg) {
+                $this->builder->groupByRaw($arg);
+            }
+        }
     }
 }
