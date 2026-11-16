@@ -176,6 +176,23 @@ I.e.
 }
 ```
 
+Prefix the relation with `!` to execute ``whereDoesntHave()`` instead: entries that have **no** related
+row matching **all** inner conditions together, in one ``WHERE NOT EXISTS`` subquery.
+
+```
+{
+    "search": {
+        "channel_id": "=81",
+        "!user_variables": {
+            "search": { "key": "=489", "value": "=123" }
+        }
+    }
+}
+```
+
+This differs from `"!user_variables.key"` + `"!user_variables.value"`, which are two separate
+``NOT EXISTS`` subqueries, one condition each.
+
 ### Returns
 
 Using a ``returns`` key will effectively only return the fields given within it.

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asseco\JsonQueryBuilder\RequestParameters;
 
+use Asseco\JsonQueryBuilder\CategorizedValues;
 use Asseco\JsonQueryBuilder\Config\OperatorsConfig;
 use Asseco\JsonQueryBuilder\CustomFieldSearchParser;
 use Asseco\JsonQueryBuilder\Exceptions\JsonQueryBuilderException;
@@ -83,8 +84,12 @@ class SearchParameter extends AbstractParameter
             }
 
             if ($this->hasSubSearch($key, $value)) {
-                // If query has sub-search, it is a relation for sure.
-                $builder->whereHas(Str::camel($key), function ($query) use ($value) {
+                // If query has sub-search, it is a relation for sure. "!relation" negates it:
+                // WHERE NOT EXISTS with all inner conditions in the same subquery.
+                $negated = str_starts_with($key, CategorizedValues::NOT);
+                $relation = Str::camel($negated ? substr($key, strlen(CategorizedValues::NOT)) : $key);
+
+                $builder->{$negated ? 'whereDoesntHave' : 'whereHas'}($relation, function ($query) use ($value) {
                     $jsonQuery = new JsonQuery($query, $value);
                     $jsonQuery->search();
                 });
