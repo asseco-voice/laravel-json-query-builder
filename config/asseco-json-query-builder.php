@@ -120,6 +120,12 @@ return [
              * List of relations to load by default. These will be overridden if provided within query string.
              */
             'relations' => ['rel1', 'rel2'],
+            /**
+             * Allow aggregations in 'returns', e.g. "count:*", "sum:amount", "count:distinct:name",
+             * "year:created_at" or "min:year:created_at". Only real, non-forbidden columns of the
+             * model can be used. Off by default.
+             */
+            'aggregations' => false,
 
             /**
              * TBD

@@ -199,6 +199,30 @@ Return multiple values:
 ```
 Will perform a ``SELECT first_name, last_name FROM ...``
 
+#### Aggregations
+
+A model can allow aggregations in `returns` by setting `'aggregations' => true` in its
+`model_options`. They are off by default, and without the opt-in `returns` behaves exactly as before.
+
+Shape: `[aggregate[:distinct]][:date part]:column`
+
+- aggregate: `avg`, `count`, `max`, `min`, `sum`
+- `distinct`: only directly after `count`
+- date part: `year`, `month`, `day`
+- column: a real column of the model that is not forbidden, or `*` in `count:*` only
+
+```json
+{
+    "returns": ["year:created_at", "month:created_at", "count:*", "sum:amount"],
+    "group_by": ["year_created_at", "month_created_at"]
+}
+```
+
+Will perform (on PostgreSQL) ``SELECT EXTRACT(YEAR FROM "created_at") as "year_created_at",
+EXTRACT(MONTH FROM "created_at") as "month_created_at", COUNT(*) as "count", SUM("amount") as "sum_amount"
+FROM ... GROUP BY "year_created_at", "month_created_at"``. Each alias is the tokens joined with `_`
+(`count:distinct:name` → `count_distinct_name`). Anything else is rejected with an exception.
+
 ### Order by
 
 Using ``order_by`` key does an 'order by' based on the given key(s). Order of the keys
