@@ -11,8 +11,26 @@ use Illuminate\Support\Facades\Cache;
 
 class ModelConfig
 {
-    const CACHE_PREFIX = 'table_def_';
+    // The version segment invalidates column maps cached before the type names were normalized
+    const CACHE_PREFIX = 'table_def_v2_';
     const CACHE_TTL = 86400;
+
+    /**
+     * Laravel 11+ returns the database's own type name from getColumnType() (varchar, bool...),
+     * Laravel 10 returned the Doctrine DBAL name (string, boolean...). Search behaviour depends on
+     * the Doctrine names: a single value on a 'string' column is matched with (I)LIKE, and a
+     * 'boolean' column validates its values. Without this map both silently stop on Laravel 11+.
+     *
+     * Only names that Doctrine mapped to 'string' or 'boolean' are listed, per driver, so a type
+     * keeps exactly the behaviour it had on Laravel 10 (e.g. 'text' stays 'text', not 'string').
+     * Doctrine names never appear as keys here, so the map is a no-op on Laravel 10.
+     */
+    const NATIVE_TO_DOCTRINE_TYPES = [
+        'pgsql'   => ['varchar' => 'string', 'bpchar' => 'string', 'bool' => 'boolean'],
+        'mysql'   => ['varchar' => 'string', 'char' => 'string', 'tinyint' => 'boolean'],
+        'mariadb' => ['varchar' => 'string', 'char' => 'string', 'tinyint' => 'boolean'],
+        'sqlite'  => ['varchar' => 'string', 'char' => 'string', 'tinyint' => 'boolean'],
+    ];
 
     private Model $model;
     private array $config;
@@ -127,7 +145,10 @@ class ModelConfig
 
         try {
             foreach ($columns as $column) {
-                $modelColumns[$column] = $connection->getSchemaBuilder()->getColumnType($table, $column);
+                $modelColumns[$column] = self::normalizeColumnType(
+                    $connection->getDriverName(),
+                    $connection->getSchemaBuilder()->getColumnType($table, $column)
+                );
             }
         } catch (Exception) {
             // leave model columns as an empty array and cache it.
@@ -136,6 +157,11 @@ class ModelConfig
         Cache::put(self::CACHE_PREFIX . $table, $modelColumns, self::CACHE_TTL);
 
         return $modelColumns;
+    }
+
+    public static function normalizeColumnType(string $driver, string $type): string
+    {
+        return self::NATIVE_TO_DOCTRINE_TYPES[$driver][strtolower($type)] ?? $type;
     }
 
     /**
