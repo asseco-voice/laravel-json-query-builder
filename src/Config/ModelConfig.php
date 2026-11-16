@@ -42,6 +42,15 @@ class ModelConfig
         return ['*'];
     }
 
+    /**
+     * Whether 'returns' may hold aggregations such as "count:*" or "sum:amount". Off unless the
+     * model's options set 'aggregations' => true.
+     */
+    public function allowsAggregations(): bool
+    {
+        return ($this->config['aggregations'] ?? false) === true;
+    }
+
     public function getRelations(): array
     {
         if (array_key_exists('relations', $this->config) && $this->config['relations']) {
