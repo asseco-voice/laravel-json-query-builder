@@ -7,6 +7,8 @@ the special logic explained below.
 
 ## Installation
 
+Requires Laravel 10, 11, 12 or 13.
+
 Install the package through composer. It is automatically registered
 as a Laravel service provider.
 
@@ -69,7 +71,9 @@ following:
 JSON key-value pair. 
 - It is possible to search by related models using ``.`` as a divider i.e. 
 `"relation.column": "operator value")`. **Note** this will execute a `WHERE EXISTS`, it will 
-not filter resulting relations if included within relations. To do a ``WHERE NOT EXISTS`` you can ue `!relation.column`.
+not filter resulting relations if included within relations. To do a ``WHERE NOT EXISTS`` you can use `!relation.column`. Each such key is
+its own subquery with one condition; to require several conditions on the same related row, use a
+[nested relation search](#nested-relation-searches).
 - ``operator`` is one of the available main operators for querying (listed [below](#main-operators))
 - ``values`` is a semicolon (`;`) separated list of values 
 (i.e. `"column": "=value;value2;value3"`) which
@@ -103,6 +107,13 @@ Will perform a ``SELECT * FROM some_table WHERE first_name IN
 In case you pass a single value for a column on string type, LIKE operator will be used
 instead of IN. For Postgres databases, ILIKE is used instead of LIKE to support
 case-insensitive search.
+
+"String type" means a `varchar`/`char` column (Doctrine's `string`). A `text` column, two or
+more values, and every other column type are compared exactly (`=` / `IN`).
+
+Because the value is used as a LIKE pattern, `_` matches any single character, so `=foo_bar`
+also matches `fooXbar`. On PostgreSQL and MySQL `\` escapes the next character, so a literal
+backslash has to be sent as `\\` (in JSON `"=Foo\\\\Bar"` for the value `Foo\Bar`).
 
 ```
 {
@@ -269,7 +280,7 @@ matters!
 Arguments are presumed to be a single attribute or array of attributes.
 
 Since group by behaves like it would in a plain SQL query, be sure to select
-the right fields and aggregate functions. 
+the right fields and aggregate functions (see [Aggregations](#aggregations)).
 
 Example:
 ```
